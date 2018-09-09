@@ -1,2 +1,0 @@
-# ariellakirsch.github.io
-website
