@@ -66,7 +66,7 @@
   h1 {text-align: center;}
   body {margin: 12px; font-size: 12px;}
 
-#myInputTitles {
+.input {
     background-image: url('/css/searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
@@ -98,6 +98,8 @@
 <input type="text" id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search Titles">
 <input type="text" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors">
 <input type="text" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings">
+<input type="text" id="myInputGenres" onkeyup="myFunctionGenres()" placeholder="Search Genres">
+<input type="text" id="myInputYears" onkeyup="myFunctionYears()" placeholder="Search Years">
 <div id="data"/>
 
 
@@ -125,6 +127,31 @@ function myFunctionTitles() {
 </script>
 
 <script>
+function myFunctionGenres() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputGenres");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
+
+<script>
 function myFunctionAuthors() {
   // Declare variables
   var input, filter, table, tr, td, i;
@@ -135,7 +162,7 @@ function myFunctionAuthors() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[4];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
