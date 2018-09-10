@@ -19,7 +19,7 @@
     if (rowData.length == 0) return null;
     var tr = $("<tr/>");
     table.append(tr);
-    for(var c=0; c<rowData.length; c++) {
+    for(var c=0; c<5; c++) {
       drawCell(tr, rowData[c]);
     }
     return tr;
@@ -95,8 +95,9 @@
 </style>
 </head>
 <body>
-<input type="text" id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search">
-<input type="text" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search authors">
+<input type="text" id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search Titles">
+<input type="text" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors">
+<input type="text" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings">
 <div id="data"/>
 
 
@@ -111,26 +112,13 @@ function myFunctionTitles() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td0 = tr[i].getElementsByTagName("td")[0];
-    td1 = tr[i].getElementsByTagName("td")[1];
-    var found = 0;
-    if (td0) {
-      if (td0.innerHTML.toUpperCase().indexOf(filter) == -1){
-        if (td1.innerHTML.toUpperCase().indexOf(filter) == -1){
-          found = 1;
-        }
-      }
-      if (found == 0){
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
-      }
-      else{
+      } else {
         tr[i].style.display = "none";
       }
-      // if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
-      //  tr[i].style.display = "";
-      // } else {
-      //   tr[i].style.display = "none";
-      // }
     }
   }
 }
@@ -158,6 +146,57 @@ function myFunctionAuthors() {
   }
 }
 </script>
+
+<script>
+function myFunctionYears() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputYears");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
+
+
+<script>
+function myFunctionRatings() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputRatings");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+
 
 </body>
 </html>
