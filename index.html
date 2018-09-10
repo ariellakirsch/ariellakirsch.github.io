@@ -64,16 +64,16 @@ function myFunction() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    notFound = True;
+    notFound = 0;
     for (j = 0; j < td.length; j++) {
       td = tr[i].getElementsByTagName("td")[j];
       if (td) {
         if (td.innerHTML.indexOf(filter) > -1) {
-          notFound = False;
+          notFound = 1;
         }
       }
     }
-    if (notFound){
+    if (notFound == 0){
       tr[i].style.display = "none";
     }
   }
