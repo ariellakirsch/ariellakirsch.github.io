@@ -97,6 +97,12 @@
 <script>
 function myFunctionTitles() {
   // Declare variables
+
+  document.getElementById("myInputAuthors").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputYears").value = "";
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInputTitles");
   filter = input.value.toUpperCase();
