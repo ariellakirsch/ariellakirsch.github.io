@@ -2,6 +2,9 @@
 <html>
 <head>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <script type="text/javascript">
   var spData = null;
   function doData(json) {
@@ -67,7 +70,6 @@
   body {margin: 12px; font-size: 12px;}
 
 .myInput {
-    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
     width: 50%; /* Full-width */
@@ -126,6 +128,12 @@ function myFunctionTitles() {
 <script>
 function myFunctionGenres() {
   // Declare variables
+
+  document.getElementById("myInputAuthors").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputYears").value = "";
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInputGenres");
   filter = input.value.toUpperCase();
@@ -151,6 +159,12 @@ function myFunctionGenres() {
 <script>
 function myFunctionAuthors() {
   // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputYears").value = "";
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInputAuthors");
   filter = input.value.toUpperCase();
@@ -174,6 +188,12 @@ function myFunctionAuthors() {
 <script>
 function myFunctionYears() {
   // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputAuthors").value = "";
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInputYears");
   filter = input.value.toUpperCase();
@@ -200,6 +220,12 @@ function myFunctionYears() {
 <script>
 function myFunctionRatings() {
   // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputYears").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputAuthors").value = "";
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInputRatings");
   filter = input.value.toUpperCase();
