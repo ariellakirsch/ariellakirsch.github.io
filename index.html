@@ -113,12 +113,25 @@ function myFunctionTitles() {
   for (i = 0; i < tr.length; i++) {
     td0 = tr[i].getElementsByTagName("td")[0];
     td1 = tr[i].getElementsByTagName("td")[1];
+    var found = 0;
     if (td0) {
-      if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      if (td0.innerHTML.toUpperCase().indexOf(filter) == -1){
+        found = 1;
+      }
+      if (td1.innerHTML.toUpperCase().indexOf(filter) == -1){
+        found = 1;
+      }
+      if (found == 0){
         tr[i].style.display = "";
-      } else {
+      }
+      else{
         tr[i].style.display = "none";
       }
+      // if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      //  tr[i].style.display = "";
+      // } else {
+      //   tr[i].style.display = "none";
+      // }
     }
   }
 }
