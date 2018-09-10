@@ -45,12 +45,14 @@
           }
           rowData.push(val);
       }
+      print rowData;
       drawRow(table, rowData);
   }
   $(document).ready(function(){
       readData($("#data"));
   });
   </script>
+
 <script src="https://spreadsheets.google.com/feeds/cells/1VNBTeXNiPQBpn8-HBQI-K4cliIVcyVV5f-oJNiEKfig/1/public/values?alt=json-in-script&callback=doData"></script>
 <style type="text/css">
   table {border-collapse: collapse; width: 100%;}
