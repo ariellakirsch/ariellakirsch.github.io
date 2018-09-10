@@ -83,7 +83,7 @@
 </style>
 </head>
 <body>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names">
 <div id="data"/>
 
 
@@ -101,6 +101,7 @@ function myFunction() {
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
+      td.id = filter;
       if (td.innerHTML.indexOf(filter) > -1) {
         tr[i].style.display = "";
       } else {
