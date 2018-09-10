@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
   var spData = null;
   function doData(json) {
@@ -33,6 +34,7 @@
   function readData(parent) {
       var data = spData;
       var table = drawTable(parent);
+      table.id = "myTable";
       var rowData = [];
 
       for(var r=0; r<data.length; r++) {
@@ -57,7 +59,7 @@ function myFunction() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementsByTagName("table");
+  table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
