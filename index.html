@@ -9,7 +9,7 @@
   }
 
   function drawCell(tr, val) {
-      var td = $("<td id=\"mytd\"/>");
+      var td = $("<td/>");
       tr.append(td);
       td.append(val);
       return td;
@@ -17,7 +17,7 @@
   function drawRow(table, rowData) {
     if (rowData == null) return null;
     if (rowData.length == 0) return null;
-    var tr = $("<tr id=\"mytr\"/>");
+    var tr = $("<tr/>");
     table.append(tr);
     for(var c=0; c<rowData.length; c++) {
       drawCell(tr, rowData[c]);
@@ -26,7 +26,7 @@
   }
 
   function drawTable(parent) {
-    var table = $("<table id=\"myTable\" />");
+    var table = $("<table />");
     parent.append(table);
     return table;
   }
@@ -60,11 +60,11 @@ function myFunction() {
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
-  tr = table.getElementById("mytr");
+  tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsById("mytd")[0];
+    td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       if (td.innerHTML.indexOf(filter) > -1) {
         tr[i].style.display = "";
