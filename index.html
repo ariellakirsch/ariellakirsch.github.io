@@ -17,6 +17,18 @@
       td.append(val);
       return td;
   }
+
+  function drawHeaderRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var th = $("<th/>");
+    table.append(th);
+    for(var c=0; c<5; c++) {
+      drawCell(tr, rowData[c]);
+    }
+    return th;
+  }
+
   function drawRow(table, rowData) {
     if (rowData == null) return null;
     if (rowData.length == 0) return null;
@@ -39,14 +51,7 @@
       var table = drawTable(parent);
       table.id = "myTable";
 
-      var th = $("<th/>");
-      table.append(th);
-      drawCell(th, "Title");
-      drawCell(th, "Author");
-      drawCell(th, "Ranking");
-      drawCell(th, "Genre");
-      drawCell(th, "Year");
-
+      drawRow(table, ["Title","Author","Ranking","Genre","Year"]);
 
       var rowData = [];
 
