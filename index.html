@@ -6,6 +6,8 @@
 <link href="bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap-theme.min.css" rel="stylesheet">
 <script type="text/javascript">
+
+
   var spData = null;
   function doData(json) {
       spData = json.feed.entry;
@@ -52,6 +54,7 @@
     parent.append(table);
     return table;
   }
+
 
   function readData(parent) {
       var data = spData;
