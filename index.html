@@ -54,8 +54,10 @@
       var rowData = [];
 
       for(var r=0; r<data.length; r++) {
+          console.log(r);
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
+          console.log(val);
           if (cell.col == 1) {
               if (r==0){
                 drawHeaderRow(table, rowData);
