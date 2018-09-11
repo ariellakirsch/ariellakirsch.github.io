@@ -157,16 +157,25 @@ function myFunctionTitles() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
 
+  var rowCount = 0;
+
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
+        rowCount += 1;
       } else {
         tr[i].style.display = "none";
       }
     }
+  }
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
   }
 }
 </script>
@@ -186,16 +195,26 @@ function myFunctionGenres() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
 
+  var rowCount = 0;
+
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[3];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
+        rowCount += 1;
       } else {
         tr[i].style.display = "none";
       }
     }
+  }
+
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
   }
 }
 </script>
