@@ -79,7 +79,13 @@
       }
       drawRow(table, rowData);
       rowCount += 1;
-      document.getElementById("numberBooks").innerHTML = rowCount;
+
+      if (rowCount == 1){
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+      }
+      else{
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+      }
   }
   $(document).ready(function(){
       readData($("#data"));
@@ -118,15 +124,14 @@
 <div class="col-sm-6"> <input type="text" class="form-control col-md-6" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors"> </div>
 </div>
 
-<br>
-<center><div id="numberBooks"></div></center>
-
 <div class="form-group row">
 <div class ="col-sm-4"><input type="text" class="form-control" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings"></div>
 <div class ="col-sm-4"><input type="text" class="form-control" id="myInputGenres" onkeyup="myFunctionGenres()" placeholder="Search Genres"></div>
 <div class ="col-sm-4"><input type="text" class="form-control" id="myInputYears" onkeyup="myFunctionYears()" placeholder="Search Years"></div>
 </div>
 
+<br>
+<center><div id="numberBooks"></div></center>
 
 <div id="data" />
 
