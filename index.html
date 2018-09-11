@@ -18,15 +18,22 @@
       return td;
   }
 
+  function drawHeaderCell(tr, val) {
+      var th = $("<th/>");
+      tr.append(th);
+      th.append(val);
+      return th;
+  }
+
   function drawHeaderRow(table, rowData) {
     if (rowData == null) return null;
     if (rowData.length == 0) return null;
-    var th = $("<th/>");
-    table.append(th);
+    var tr = $("<tr/>");
+    table.append(tr);
     for(var c=0; c<5; c++) {
-      drawCell(th, rowData[c]);
+      drawCell(tr, rowData[c]);
     }
-    return th;
+    return tr;
   }
 
   function drawRow(table, rowData) {
