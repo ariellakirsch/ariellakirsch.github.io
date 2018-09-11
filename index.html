@@ -38,6 +38,16 @@
       var data = spData;
       var table = drawTable(parent);
       table.id = "myTable";
+
+      var th = $("<th/>");
+      table.append(th);
+      drawCell(th, "Title");
+      drawCell(th, "Author");
+      drawCell(th, "Ranking");
+      drawCell(th, "Genre");
+      drawCell(th, "Year");
+
+
       var rowData = [];
 
       for(var r=0; r<data.length; r++) {
