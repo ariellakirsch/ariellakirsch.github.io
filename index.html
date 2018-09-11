@@ -48,12 +48,8 @@
 
   function readData(parent) {
       var data = spData;
-      //var table = drawTable(parent);
-      //table.id = "myTable";
-
-      //drawHeaderRow(table, ["Title","Author","Ranking","Genre","Year"]);
-
-      var table = document.getElementById("myTable")
+      var table = drawTable(parent);
+      table.id = "myTable";
 
       var rowData = [];
 
@@ -61,7 +57,12 @@
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
           if (cell.col == 1) {
-              drawRow(table, rowData);
+              if (r==0){
+                drawHeaderRow(table, rowData);
+              }
+              else{
+                drawRow(table, rowData);
+              }
               rowData = [];
           }
           rowData.push(val);
