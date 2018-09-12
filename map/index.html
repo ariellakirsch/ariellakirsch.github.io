@@ -21,7 +21,13 @@
           ['RU', 700]
         ]);
 
-        var options = {};
+        var options = {
+          colorAxis: {colors: ['#3366ff','#3366ff']},
+          legend: 'none',
+          tooltip: {
+            isHtml: true
+          }
+        };
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
