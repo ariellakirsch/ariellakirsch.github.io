@@ -24,15 +24,17 @@
           if (val=="0"){
             val = " ";
           }
-          if (cell.col == 1) {
+          if (cell.col == 1 && r>0) {
               // drawRow(table, rowData);
-              console.log(rowData);
+              var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[0]+'</i>'];
+              console.log(tmp_row);
               rowCount += 1;
               rowData = [];
           }
           rowData.push(val);
       }
-      console.log(rowData);
+      var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[0]+'</i>'];
+      console.log(tmp_row);
       rowCount += 1;
   }
   $(document).ready(function(){
