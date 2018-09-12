@@ -5,117 +5,23 @@
 <script src="bootstrap.min.js"></script>
 <link href="bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap-theme.min.css" rel="stylesheet">
-<script type="text/javascript">
 
 
-  var spData = null;
-  function doData(json) {
-      spData = json.feed.entry;
-  }
-
-  function drawCell(tr, val) {
-      var td = $("<td/>");
-      tr.append(td);
-      td.append(val);
-      return td;
-  }
-
-  function drawHeaderCell(tr, val) {
-      var th = $("<th/>");
-      tr.append(th);
-      th.append(val);
-      return th;
-  }
-
-  function drawHeaderRow(table, rowData) {
-    if (rowData == null) return null;
-    if (rowData.length == 0) return null;
-    var tr = $("<tr/>");
-    table.append(tr);
-    for(var c=0; c<5; c++) {
-      drawHeaderCell(tr, rowData[c]);
-    }
-    return tr;
-  }
-
-  function drawRow(table, rowData) {
-    if (rowData == null) return null;
-    if (rowData.length == 0) return null;
-    var tr = $("<tr/>");
-    table.append(tr);
-    for(var c=0; c<5; c++) {
-      drawCell(tr, rowData[c]);
-    }
-    return tr;
-  }
-
-  function drawTable(parent) {
-    var table = $("<table class=\"table\" id=\"myTable\" />");
-    parent.append(table);
-    return table;
-  }
-
-
-  function readData(parent) {
-      var data = spData;
-      var table = drawTable(parent);
-      table.id = "myTable";
-
-      var rowData = [];
-
-      var rowCount = 0;
-
-      for(var r=0; r<data.length; r++) {
-          var cell = data[r]["gs$cell"];
-          var val = cell["$t"];
-          if (val=="0"){
-            val = " ";
-          }
-          if (cell.col == 1) {
-              if (r==6){
-                drawHeaderRow(table, rowData);
-              }
-              else{
-                drawRow(table, rowData);
-                rowCount += 1;
-              }
-              rowData = [];
-          }
-          rowData.push(val);
-      }
-      drawRow(table, rowData);
-      rowCount += 1;
-
-      if (rowCount == 1){
-        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-      }
-      else{
-        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-      }
-  }
-  $(document).ready(function(){
-      readData($("#data"));
-  });
-  </script>
-
-
-<script src="https://spreadsheets.google.com/feeds/cells/1VNBTeXNiPQBpn8-HBQI-K4cliIVcyVV5f-oJNiEKfig/1/public/values?alt=json-in-script&callback=doData"></script>
-<style type="text/css">
-
-
-.myInput {
-    background-position: 10px 12px; /* Position the search icon */
-    background-repeat: no-repeat; /* Do not repeat the icon image */
-    width: 50%; /* Full-width */
-    font-size: 16px; /* Increase font-size */
-    padding: 12px 20px 12px 40px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a grey border */
-    margin-bottom: 12px; /* Add some space below the input */
+<style>
+.thumbnail {
+    position: relative;
+    border: 0 none;
+    box-shadow: none;
 }
 
-
-
-
+.caption {
+    color: #eee;
+    text-shadow: 2px 2px #111;
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    width: 100%;
+}
 </style>
 <style type="text/css" media="print">
   form {display: none;}
