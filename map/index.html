@@ -27,14 +27,14 @@
           }
           if (cell.col == 1 && r>0) {
               // drawRow(table, rowData);
-              var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[0]+'</i>'];
+              var tmp_row = [rowData[2], parseInt(rowData[3]), '<center>'+rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i></center>'];
               worldBooks.push(tmp_row);
               rowCount += 1;
               rowData = [];
           }
           rowData.push(val);
       }
-      var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[0]+'</i>'];
+      var tmp_row = [rowData[2], parseInt(rowData[3]), '<center>'+rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i></center>'];
       worldBooks.push(tmp_row);
       rowCount += 1;
   }
@@ -74,6 +74,7 @@
 
   </head>
   <body>
+<center><h2>Book Map</h2></center>
     <div id="regions_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
