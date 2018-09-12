@@ -93,7 +93,13 @@
       }
       rowCount += 1;
 
-      console.log(yearData);
+      yearDataArray = new Array();
+
+      for (key, value) in yearData {
+        yearDataArray.append([key, value]);
+      }
+
+      console.log(yearDataArray);
 
       if (rowCount == 1){
         document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
