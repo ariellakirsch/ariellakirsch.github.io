@@ -6,6 +6,7 @@
 <script type="text/javascript">
 
   var worldBooks = new Array();
+  worldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
 
   var spData = null;
   function doData(json) {
@@ -53,16 +54,7 @@
 
       function drawRegionsMap() {
 
-        console.log(worldBooks[0]);
-
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Year', {role: 'tooltip', p:{html:true}}],
-          ['Germany', 2010, '2010<br><br>Title1<br><i>Author1</i>'],
-          ['United States', 2011, 'Title2<br><i>Author2</i>'],
-          ['Brazil', 2014, 'Title3<br><i>Author3</i>'],
-          ['Canada', 2000, 'Title4<br><i>Author4</i>'],
-          ['RU', 700, 'Title5<br><i>Author5</i>']
-        ]);
+        var data = google.visualization.arrayToDataTable(worldBooks);
 
         var options = {
           colorAxis: {colors: ['#3366ff','#3366ff']},
