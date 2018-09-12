@@ -123,228 +123,39 @@
 </head>
 <body style="width: 90%;margin: auto;">
 
-<center><h2>Books</h2></center>
-<br>
-<div class="form-group row">
-<div class="col-sm-6"> <input type="text" class="form-control col-md-6"  id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search Titles"> </div>
-<div class="col-sm-6"> <input type="text" class="form-control col-md-6" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors"> </div>
+<center>
+<div class="row" id="box-search" width="90%">
+    <a href="books">
+    <div class="thumbnail text-center">
+        <img src="images/books.jpg" alt="" class="img-responsive img-rounded" width="960" height="150">
+        <div class="caption">
+            <h1 style="color:#fff;">Books</h1>
+        </div>
+    </div>
+    </a>
 </div>
-
-<div class="form-group row">
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputGenres" onkeyup="myFunctionGenres()" placeholder="Search Genres"></div>
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputYears" onkeyup="myFunctionYears()" placeholder="Search Years"></div>
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings"></div>
+<div class="row" id="box-search" width="90%">
+    <a href="map">
+    <div class="thumbnail text-center">
+        <img src="images/globe.jpg" alt="" class="img-responsive img-rounded" width="960" height="150">
+        <div class="caption">
+            <h1 style="color:#fff;">Map</h1>
+        </div>
+    </div>
+    </a>
 </div>
+<!--<div class="row" id="box-search" width="90%">
+    <a href="tictactictactoe">
+    <div class="thumbnail text-center">
+        <img src="images/tictactoe.png" alt="" class="img-responsive img-rounded" width="960" height="150">
+        <div class="caption">
+            <h1 style="color:#fff;">TicTacTicTacToe</h1>
+        </div>
+    </div>
+    </a>
+</div>-->
 
-<br>
-<div class="row">
-<div class="col-sm-6" style="text-align:left;"><a href="http://www.gocomics.com/pearlsbeforeswine/2014/08/18" target="_blank">Relevant</a></div>
-<div class="col-sm-6" id="numberBooks" style="text-align:right;font-weight:bold;"></div>
-</div>
-<br>
-
-<div id="data" />
-
-<script>
-function myFunctionTitles() {
-  // Declare variables
-
-  document.getElementById("myInputAuthors").value = "";
-  document.getElementById("myInputRatings").value = "";
-  document.getElementById("myInputGenres").value = "";
-  document.getElementById("myInputYears").value = "";
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInputTitles");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  var rowCount = 0;
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        rowCount += 1;
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-  if (rowCount == 1){
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-  }
-  else{
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-  }
-}
-</script>
-
-<script>
-function myFunctionGenres() {
-  // Declare variables
-
-  document.getElementById("myInputAuthors").value = "";
-  document.getElementById("myInputRatings").value = "";
-  document.getElementById("myInputTitles").value = "";
-  document.getElementById("myInputYears").value = "";
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInputGenres");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  var rowCount = 0;
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        rowCount += 1;
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-
-  if (rowCount == 1){
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-  }
-  else{
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-  }
-}
-</script>
-
-
-
-<script>
-function myFunctionAuthors() {
-  // Declare variables
-
-  document.getElementById("myInputGenres").value = "";
-  document.getElementById("myInputRatings").value = "";
-  document.getElementById("myInputTitles").value = "";
-  document.getElementById("myInputYears").value = "";
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInputAuthors");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  var rowCount = 0;
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        rowCount += 1;
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-
-  if (rowCount == 1){
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-  }
-  else{
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-  }
-}
-</script>
-
-<script>
-function myFunctionYears() {
-  // Declare variables
-
-  document.getElementById("myInputGenres").value = "";
-  document.getElementById("myInputRatings").value = "";
-  document.getElementById("myInputTitles").value = "";
-  document.getElementById("myInputAuthors").value = "";
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInputYears");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  var rowCount = 0;
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        rowCount += 1;
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-
-  if (rowCount == 1){
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-  }
-  else{
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-  }
-}
-</script>
-
-
-
-
-<script>
-function myFunctionRatings() {
-  // Declare variables
-
-  document.getElementById("myInputGenres").value = "";
-  document.getElementById("myInputYears").value = "";
-  document.getElementById("myInputTitles").value = "";
-  document.getElementById("myInputAuthors").value = "";
-
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInputRatings");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  var rowCount = 0;
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[4];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        rowCount += 1;
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-
-  if (rowCount == 1){
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-  }
-  else{
-    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-  }
-}
-</script>
-
-
+</center>
 
 </body>
 </html>
