@@ -95,7 +95,8 @@
 
       yearDataArray = new Array();
 
-      for key, value in yearData {
+      for(var key in yearData) {
+        var value = yearData[key];
         yearDataArray.append([key, value]);
       }
 
