@@ -126,9 +126,8 @@
         var data = google.visualization.arrayToDataTable(yearDataArray);
 
         var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
+          title: 'Books By Year',
+          legend: none
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -187,17 +186,15 @@
 <br>
 <div class="row">
 <div class="col-sm-6" style="text-align:left;"><a href="http://www.gocomics.com/pearlsbeforeswine/2014/08/18" target="_blank">Relevant</a></div>
-<div class="col-sm-6" id="numberBooks" style="text-align:center;font-weight:bold;"></div>
+<div class="col-sm-6" id="numberBooks" style="text-align:right;font-weight:bold;"></div>
 </div>
 <br>
 
+<div id="curve_chart" ></div>
+
+<br>
+
 <div id="data" />
-
-
-
-        <div id="curve_chart" ></div>
-
-
 
 <script>
 function myFunctionTitles() {
