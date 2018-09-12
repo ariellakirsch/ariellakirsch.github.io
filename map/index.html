@@ -1,7 +1,42 @@
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+
+<script src="https://spreadsheets.google.com/feeds/cells/15UbTYH7VTJaJ_Z0YPkVpP23hIUD4QeC7rpcwLuMwRDQ/1/public/values?alt=json-in-script&callback=doData"></script>
+
+<script type="text/javascript">
+
+  var worldBooks = new Array();
+
+  function readData(parent) {
+      var data = spData;
+
+      var rowData = [];
+      var rowCount = 0;
+
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          if (val=="0"){
+            val = " ";
+          }
+          if (cell.col == 1) {
+              // drawRow(table, rowData);
+              console.log(rowData);
+              rowCount += 1;
+              rowData = [];
+          }
+          rowData.push(val);
+      }
+      console.log(rowData);
+      rowCount += 1;
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+  </script>
+
+  <script type="text/javascript">
       google.charts.load('current', {
         'packages':['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
