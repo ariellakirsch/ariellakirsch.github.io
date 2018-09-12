@@ -8,6 +8,11 @@
 
   var worldBooks = new Array();
 
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+
   function readData(parent) {
       var data = spData;
 
