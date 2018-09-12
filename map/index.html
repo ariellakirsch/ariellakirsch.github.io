@@ -27,14 +27,14 @@
           }
           if (cell.col == 1 && r>0) {
               // drawRow(table, rowData);
-              var tmp_row = [rowData[2], parseInt(rowData[3]), '<center>'+rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i></center>'];
+              var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i>'];
               worldBooks.push(tmp_row);
               rowCount += 1;
               rowData = [];
           }
           rowData.push(val);
       }
-      var tmp_row = [rowData[2], parseInt(rowData[3]), '<center>'+rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i></center>'];
+      var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i>'];
       worldBooks.push(tmp_row);
       rowCount += 1;
   }
@@ -73,8 +73,8 @@
 <script src="https://spreadsheets.google.com/feeds/cells/15UbTYH7VTJaJ_Z0YPkVpP23hIUD4QeC7rpcwLuMwRDQ/1/public/values?alt=json-in-script&callback=doData"></script>
 
   </head>
-  <body>
+  <body style="width: 90%;margin: auto;">
 <center><h2>Book Map</h2></center>
-    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+    <div id="regions_div" style="width: 100%;"></div>
   </body>
 </html>
