@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../bootstrap.min.js"></script>
+<link href="../bootstrap.min.css" rel="stylesheet">
+<link href="../bootstrap-theme.min.css" rel="stylesheet">
+<script src="../lity.min.js"></script>
+<link href="../lity.min.css" rel="stylesheet">
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W9CSBW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W9CSBW');</script>
+<!-- End Google Tag Manager -->
+
+<script type="text/javascript">
+
+
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+
+  function drawCell(tr, val) {
+      var td = $("<td/>");
+      tr.append(td);
+      td.append(val);
+      return td;
+  }
+
+  function drawHeaderCell(tr, val) {
+      var th = $("<th/>");
+      tr.append(th);
+      th.append(val);
+      return th;
+  }
+
+  function drawHeaderRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var tr = $("<tr/>");
+    table.append(tr);
+    for(var c=0; c<5; c++) {
+      drawHeaderCell(tr, rowData[c]);
+    }
+    return tr;
+  }
+
+  function drawRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var tr = $("<tr/>");
+    table.append(tr);
+    for(var c=0; c<5; c++) {
+      drawCell(tr, rowData[c]);
+    }
+    return tr;
+  }
+
+  function drawTable(parent) {
+    var table = $("<table class=\"table\" id=\"myTable\" />");
+    parent.append(table);
+    return table;
+  }
+
+
+  function readData(parent) {
+      var data = spData;
+      var table = drawTable(parent);
+      table.id = "myTable";
+
+      var rowData = [];
+
+      var rowCount = 0;
+
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          if (val=="0"){
+            val = " ";
+          }
+          if (cell.col == 1) {
+              if (r==6){
+                drawHeaderRow(table, rowData);
+              }
+              else{
+                drawRow(table, rowData);
+                rowCount += 1;
+              }
+              rowData = [];
+          }
+          rowData.push(val);
+      }
+      drawRow(table, rowData);
+      rowCount += 1;
+
+      if (rowCount == 1){
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+      }
+      else{
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+      }
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+  </script>
+
+
+<script src="https://spreadsheets.google.com/feeds/cells/15UbTYH7VTJaJ_Z0YPkVpP23hIUD4QeC7rpcwLuMwRDQ/1/public/values?alt=json-in-script&callback=doData"></script>
+
+<style type="text/css" media="print">
+  form {display: none;}
+</style>
+</head>
+<body style="width: 90%;margin: auto;">
+<script type="text/javascript">
+google.load('visualization', '1.1', {packages:["geochart"]});
+google.setOnLoadCallback(drawMap);
+
+function drawMap() {
+        var options = {
+          colorAxis: {colors: ['#3366ff','#3366ff']},
+      legend: 'none',
+      tooltip: {
+        isHtml: true
+      }
+        };
+
+    var worldBooks2 = new Array(worldBooks.length+1);
+    for (var i=0; i<worldBooks.length+1; i++){
+        worldBooks2[i] = new Array(2);
+    }
+
+    worldBooks2[0][0] = 'Place';
+    worldBooks2[0][1] = 'Year';
+    worldBooks2[0][2] = {role: 'tooltip', p:{html:true}};
+    for (var i = 0; i < worldBooks.length; i++) {
+        worldBooks2[i+1][0] = worldBooks[i][0];
+        worldBooks2[i+1][1] = parseInt(worldBooks[i][1]);
+        worldBooks2[i+1][2] = worldBooks[i][2];
+    }
+
+    var worldBooks2 = new Array(3);
+    for (var i=0; i<3; i++){
+        worldBooks2[i] = new Array(2);
+    }
+
+    worldBooks2[0][0] = 'Place';
+    worldBooks2[0][1] = 'Year';
+    worldBooks2[0][2] = {role: 'tooltip', p:{html:true}};
+    worldBooks2[1][0] = 'Russia';
+    worldBooks2[1][1] = 2010;
+    worldBooks2[1][2] = 'Hello, World 1';
+    worldBooks2[1][0] = 'France';
+    worldBooks2[1][1] = 2011;
+    worldBooks2[1][2] = 'Hello, World 2';
+
+    var bookData = google.visualization.arrayToDataTable(worldBooks2);
+
+    var container3 = document.getElementById('books_div');
+    var geomap3 = new google.visualization.GeoChart(container3);
+
+    geomap3.draw(bookData, options);
+};
+</script>
+
+<div id="books_div" style="width: 100%;"></div><br><br>
+
+
+</body>
+</html>
