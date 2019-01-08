@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+<head>
+<title>Books</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../bootstrap.min.js"></script>
+<link href="../bootstrap.min.css" rel="stylesheet">
+<link href="../bootstrap-theme.min.css" rel="stylesheet">
+<script type="text/javascript">
+
+  var yearData = {2009:0,2010:0,2011:0,2012:0,2013:0,2014:0,2015:0,2016:0,2017:0,2018:0};
+
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+
+  function drawCell(tr, val) {
+      var td = $("<td/>");
+      tr.append(td);
+      td.append(val);
+      return td;
+  }
+
+  function drawHeaderCell(tr, val) {
+      var th = $("<th/>");
+      tr.append(th);
+      th.append(val);
+      return th;
+  }
+
+  function drawHeaderRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var tr = $("<tr/>");
+    table.append(tr);
+    for(var c=1; c<6; c++) {
+      drawHeaderCell(tr, rowData[c]);
+    }
+    return tr;
+  }
+
+  function drawRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var tr = $("<tr/>");
+    table.append(tr);
+    for(var c=1; c<6; c++) {
+      drawCell(tr, rowData[c]);
+    }
+    return tr;
+  }
+
+  function drawTable(parent) {
+    var table = $("<table class=\"table\" id=\"myTable\" />");
+    parent.append(table);
+    return table;
+  }
+
+
+  function readData(parent) {
+      var data = spData;
+      var table = drawTable(parent);
+      table.id = "myTable";
+
+      var rowData = [];
+
+      var rowCount = 0;
+
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          if (val=="0"){
+            val = " ";
+          }
+          if (cell.col == 1) {
+              if (r==6){
+                drawHeaderRow(table, rowData);
+              }
+              else{
+                drawRow(table, rowData);
+                if (rowData[4] != " " && parseInt(rowData[4])>=2009){
+                  yearData[parseInt(rowData[4])] += 1;
+                }
+                rowCount += 1;
+              }
+              rowData = [];
+          }
+          rowData.push(val);
+      }
+      drawRow(table, rowData);
+      if (rowData[4] != " " && parseInt(rowData[4])>=2009){
+        yearData[parseInt(rowData[4])] += 1;
+      }
+      rowCount += 1;
+
+      yearDataArray = new Array();
+
+      yearDataArray.push(['Year', 'Books']);
+
+      for(var key in yearData) {
+        var value = yearData[key];
+        yearDataArray.push([key, value]);
+      }
+
+      if (rowCount == 1){
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+      }
+      else{
+        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+      }
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(yearDataArray);
+
+        var options = {
+          title: 'Books By Year',
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+<script src="https://spreadsheets.google.com/feeds/cells/1m0mIO9UUPIuGa9p9C-7jVsssBDw9oTppXTKGCCFAmuM/1/public/values?alt=json-in-script&callback=doData"></script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+<style type="text/css">
+
+
+.myInput {
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 50%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+
+
+
+</style>
+<style type="text/css" media="print">
+  form {display: none;}
+</style>
+</head>
+<body style="width: 90%;margin: auto;">
+
+  <br>
+<a href="../">
+  <span class="glyphicon glyphicon-home"></span>
+</a>
+
+
+<center><h3>Books</h3></center>
+<br>
+<div class="form-group row">
+<div class="col-sm-6"> <input type="text" class="form-control"  id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search Titles"> </div>
+<div class="col-sm-6"> <input type="text" class="form-control" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors"> </div>
+</div>
+
+<div class="form-group row">
+<div class ="col-sm-4"><input type="text" class="form-control" id="myInputGenres" onkeyup="myFunctionGenres()" placeholder="Search Genres"></div>
+<div class ="col-sm-4"><input type="text" class="form-control" id="myInputYears" onkeyup="myFunctionYears()" placeholder="Search Years"></div>
+<div class ="col-sm-4"><input type="text" class="form-control" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings"></div>
+</div>
+
+<br>
+<div class="row">
+<div class="col-sm-6" style="text-align:left;"><a href="http://www.gocomics.com/pearlsbeforeswine/2014/08/18" target="_blank">Relevant</a></div>
+<div class="col-sm-6" id="numberBooks" style="text-align:right;font-weight:bold;"></div>
+</div>
+<br>
+
+<div id="data" ></div>
+
+<br>
+
+<center>
+<div id="curve_chart" style="width: 100%; height: 300px;"></div>
+</center>
+
+<script>
+function myFunctionTitles() {
+  // Declare variables
+
+  document.getElementById("myInputAuthors").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputYears").value = "";
+
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputTitles");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  var rowCount = 0;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        rowCount += 1;
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+  }
+}
+</script>
+
+<script>
+function myFunctionGenres() {
+  // Declare variables
+
+  document.getElementById("myInputAuthors").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputYears").value = "";
+
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputGenres");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  var rowCount = 0;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        rowCount += 1;
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+  }
+}
+</script>
+
+
+
+<script>
+function myFunctionAuthors() {
+  // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputYears").value = "";
+
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputAuthors");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  var rowCount = 0;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        rowCount += 1;
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+  }
+}
+</script>
+
+<script>
+function myFunctionYears() {
+  // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputRatings").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputAuthors").value = "";
+
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputYears");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  var rowCount = 0;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        rowCount += 1;
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+  }
+}
+</script>
+
+
+
+
+<script>
+function myFunctionRatings() {
+  // Declare variables
+
+  document.getElementById("myInputGenres").value = "";
+  document.getElementById("myInputYears").value = "";
+  document.getElementById("myInputTitles").value = "";
+  document.getElementById("myInputAuthors").value = "";
+
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInputRatings");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  var rowCount = 0;
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        rowCount += 1;
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+  if (rowCount == 1){
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+  }
+  else{
+    document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+  }
+}
+</script>
+
+
+</body>
+</html>
