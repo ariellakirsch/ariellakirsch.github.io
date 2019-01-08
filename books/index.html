@@ -67,7 +67,7 @@
 
       var rowCount = 0;
 
-      for(var r=0; r<data.length; r++) {
+      for(var r=1; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
           if (val=="0"){
@@ -113,7 +113,7 @@
   $(document).ready(function(){
       readData($("#data"));
   });
-  </script>
+</script>
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -256,7 +256,7 @@ function myFunctionGenres() {
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
     if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > 0) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
         rowCount += 1;
       } else {
