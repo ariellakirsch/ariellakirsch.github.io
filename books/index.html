@@ -103,6 +103,8 @@
         yearDataArray.push([key, value]);
       }
 
+      rowCount -= 1;
+
       if (rowCount == 1){
         document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
       }
@@ -386,8 +388,6 @@ function myFunctionRatings() {
       }
     }
   }
-
-  rowCount -= 1;
 
   if (rowCount == 1){
     document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
