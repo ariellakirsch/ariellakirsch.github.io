@@ -103,6 +103,9 @@
         yearDataArray.push([key, value]);
       }
 
+      document.getElementById("numberBooks2").innerHTML = rowCount.toString()+" books 2";
+
+
       if (rowCount == 1){
         document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
       }
@@ -387,8 +390,6 @@ function myFunctionRatings() {
     }
   }
 
-  document.getElementById("numberBooks2").innerHTML = rowCount.toString()+" books 2";
-
   if (rowCount == 1){
     document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
   }
@@ -398,7 +399,7 @@ function myFunctionRatings() {
 }
 </script>
 
-<div class="col-sm-6" id="numberBooks2" style="text-align:right;font-weight:bold;"></div>
+<div id="numberBooks2" style="text-align:right;font-weight:bold;"></div>
 
 </body>
 </html>
