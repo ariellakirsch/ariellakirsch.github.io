@@ -21,6 +21,11 @@ function shuffle()
   console.log("shuffle seed is "+seed);
   console.log("first value is " + Math.random());
 
+  for (var i = 0; i < deck.length; i++)
+  {
+    deck[i] = i;
+  }
+
   // for 1000 turns
   // switch the values of two random cards
   for (var i = 0; i < 10; i++)
