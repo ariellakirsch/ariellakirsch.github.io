@@ -37,27 +37,6 @@
   font-family: sans-serif;
 }
 
-.card .suit
-{
-  background-image: url('card.png');
-  height: 100px;
-  width: 90px;
-}
 
-.card .diamonds
-{
-  background-position-y: 100px;
-}
-
-.card .hearts
-{
-  background-position-x: 90px;
-}
-
-.card .clubs
-{
-  background-position-x:90px;
-  background-position-y:100px;
-}
 
 
