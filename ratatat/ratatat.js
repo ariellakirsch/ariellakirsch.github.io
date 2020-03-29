@@ -16,15 +16,12 @@ function getDeck()
 
 function shuffle()
 {
+  deck = getDeck();
+
   var seed = document.getElementById('gameID').value;
   Math.seedrandom(seed);
   console.log("shuffle seed is "+seed);
   console.log("first value is " + Math.random());
-
-  for (var i = 0; i < deck.length; i++)
-  {
-    deck[i] = i;
-  }
 
   // for 1000 turns
   // switch the values of two random cards
@@ -62,7 +59,6 @@ function renderDeck()
 
 function load()
 {
-  deck = getDeck();
   shuffle();
   renderDeck();
 }
