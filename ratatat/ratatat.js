@@ -24,6 +24,7 @@ function shuffle()
   var seed = document.getElementById('gameID').value;
   Math.seedrandom(seed);
   console.log("shuffle seed is "+seed);
+  console.log("first value is " + Math.random());
 
   // for 1000 turns
   // switch the values of two random cards
