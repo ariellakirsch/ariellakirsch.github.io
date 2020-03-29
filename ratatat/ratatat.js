@@ -21,7 +21,8 @@ function getDeck()
 
 function shuffle()
 {
-  var seed = parseInt(document.getElementById('gameID').value);
+  var seed = document.getElementById('gameID').value;
+  Math.seedrandom(seed);
   console.log("shuffle seed is "+seed);
 
   // for 1000 turns
