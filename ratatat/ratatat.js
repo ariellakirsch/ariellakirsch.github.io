@@ -1,13 +1,9 @@
 var cards = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "9", "9", "9", "9", "9", "D", "D", "D", "P", "P", "P", "S", "S", "S"];
 var deck = new Array();
 
-var seed = document.getElementById('gameID').value;
-
-console.log(seed);
-
-var seed = 0;
-
-console.log(seed);
+Math.seedrandom('hello.');
+console.log(Math.random());          // Always 0.9282578795792454
+console.log(Math.random());          // Always 0.3752569768646784
 
 function random() {
     var x = Math.sin(seed++) * 10000;
