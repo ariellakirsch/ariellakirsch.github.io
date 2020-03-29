@@ -32,8 +32,8 @@ function shuffle()
   // switch the values of two random cards
   for (var i = 0; i < 1000; i++)
   {
-    var location1 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
-    var location2 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
+    var location1 = Math.floor(Math.random() * deck.length);
+    var location2 = Math.floor(Math.random() * deck.length);
     console.log(location1+" "+location2);
     var tmp = deck[location1];
 
