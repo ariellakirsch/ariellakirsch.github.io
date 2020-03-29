@@ -38,6 +38,7 @@ function shuffle()
   {
     var location1 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
     var location2 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
+    console.log(location1+" "+location2");
     var tmp = deck[location1];
 
     deck[location1] = deck[location2];
