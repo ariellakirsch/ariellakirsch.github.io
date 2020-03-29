@@ -29,12 +29,15 @@ function getDeck()
 
 function shuffle()
 {
+  var seed = parseInt(document.getElementById('gameID').value);
+  console.log("shuffle seed is "+seed);
+
   // for 1000 turns
   // switch the values of two random cards
   for (var i = 0; i < 1000; i++)
   {
-    var location1 = Math.floor((random() * deck.length));
-    var location2 = Math.floor((random() * deck.length));
+    var location1 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
+    var location2 = Math.floor((Math.floor(Math.sin(seed++) * 10000) * deck.length));
     var tmp = deck[location1];
 
     deck[location1] = deck[location2];
