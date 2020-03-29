@@ -1,7 +1,9 @@
 var cards = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "9", "9", "9", "9", "9", "D", "D", "D", "P", "P", "P", "S", "S", "S"];
 var deck = new Array();
 
-var seed = $_GET('game');
+var seed = parseInt(document.getElementById('gameID').value);
+
+console.log(seed);
 
 function random() {
     var x = Math.sin(seed++) * 10000;
