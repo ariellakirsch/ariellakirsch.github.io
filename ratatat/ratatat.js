@@ -1,6 +1,13 @@
 var cards = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "9", "9", "9", "9", "9", "D", "D", "D", "P", "P", "P", "S", "S", "S"];
 var deck = new Array();
 
+var seed = 1;
+
+function random() {
+    var x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+
 function getDeck()
 {
   var deck = new Array();
@@ -20,8 +27,8 @@ function shuffle()
   // switch the values of two random cards
   for (var i = 0; i < 1000; i++)
   {
-    var location1 = Math.floor((Math.random() * deck.length));
-    var location2 = Math.floor((Math.random() * deck.length));
+    var location1 = Math.floor((random() * deck.length));
+    var location2 = Math.floor((random() * deck.length));
     var tmp = deck[location1];
 
     deck[location1] = deck[location2];
