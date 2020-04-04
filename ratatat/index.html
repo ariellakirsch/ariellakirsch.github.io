@@ -1,28 +1,607 @@
-<html>
-<head>
-    <link rel="stylesheet" href="ratatat.css">
+<!--
 
-<script src="seedrandom.js">
+- need to confirm that both players have the same game name when sending messages
+
+-->
+
+
+<html>
+  <head>
+  <script src="../jquery-slim.min.js"></script>
+  <script src="../bootstrap.min.js"></script>
+  <link href="../bootstrap.min.css" rel="stylesheet">
+  <link href="../bootstrap-theme.min.css" rel="stylesheet">
+
+<style>
+.buttonutil{
+  vertical-align:middle;
+  margin:10px;
+  border-radius:5px;
+  border-width:5px;
+  width:75px;
+}
+
+.buttoncard{
+    vertical-align:top;
+    height:120px;
+    width:75px;
+    margin:10px;
+    border-radius:5px;
+    font-size : 60px;
+    border-width:5px;
+    background-color: #2f3078;
+}
+
+.faceup{
+    background-color: #ededed;
+}
+
+.facedown{
+  color: #898ac4;
+  font-size: 16px;
+}
+
+.specialcard{
+  font-size: 20px;
+}
+</style>
+
+    <script>
+
+      var cardvalues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Draw 2", "Peek", "Swap"];
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      let gameid = urlParams.get('game');
+
+      let HOST = "wss://ariellakirsch.herokuapp.com";
+      console.log(HOST);
+      let ws = new WebSocket(HOST);
+
+      let turn="1";
+      let turns_taken=0;
+      let readytoplay = false;
+
+      let el;
+      let deck = new Array();
+      let p1cards;
+      let p2cards;
+      let faceup;
+
+      let move = "";
+
+      let gameover = false;
+
+      let swapcard = "";
+
+      let specialval = "";
+
+      let playerval = "0";
+      let myname = "";
+
+      let mycards = ["me1","me2","me3","me4"];
+      let theircards = ["them1","them2","them3","them4"];
+      let firstturn = true;
+
+      function set_card_class(el){
+        el.classList.remove("specialcard");
+        el.classList.remove("faceup");
+        el.classList.remove("facedown");
+        if (el.id=="upcards"){
+          el.classList.add("faceup");
+        }
+        else if (cardvalues.includes(el.innerHTML)){
+          console.log("adding faceup");
+          el.classList.add("faceup");
+        }
+        if (!cardvalues.includes(el.innerHTML)){
+          console.log("adding facedown");
+          el.classList.add("facedown");
+        }
+        if (el.innerHTML=="Peek" || el.innerHTML=="Swap" || el.innerHTML=="Draw 2"){
+          el.classList.add("specialcard");
+        }
+      }
+
+      function parse_data(data){
+        var jsondata = JSON.parse(data);
+        //console.log("parse data "+ jsondata.turn);
+        deck = jsondata.deck;
+        p1cards = jsondata.p1cards;
+        p2cards = jsondata.p2cards;
+        faceup = jsondata.faceup;
+        turn = jsondata.turn;
+        if (firstturn){
+          playerval=jsondata.player;
+        }
+        if (jsondata.ratatat){
+          ratatat();
+        }
+        else if (jsondata.move){
+          if (turn == document.getElementById("playername").value){
+            document.getElementById("movediv").innerHTML = jsondata.move;
+          }
+          else{
+            document.getElementById("movediv").innerHTML = "";
+          }
+        }
+        else{
+          document.getElementById("movediv").innerHTML = "";
+        }
+      }
+
+      ws.onmessage = (event) => {
+        //console.log(event.data);
+        parse_data(event.data);
+
+        move = "";
+
+        if (firstturn){
+          if (playerval=="1"){
+            document.getElementById(mycards[0]).innerHTML = p1cards[0];
+            document.getElementById(mycards[p1cards.length-1]).innerHTML = p1cards[p1cards.length-1];
+          }
+          else if (playerval=="2"){
+            document.getElementById(mycards[0]).innerHTML = p2cards[0];
+            document.getElementById(mycards[p2cards.length-1]).innerHTML = p2cards[p2cards.length-1];
+          }
+          set_card_class(document.getElementById(mycards[0]));
+          set_card_class(document.getElementById(mycards[p1cards.length-1]));
+          firstturn = false;
+        }
+        else if (!firstturn && !readytoplay){
+          alert("Ready to play? Your cards are "+document.getElementById(mycards[0]).innerHTML+" * * " + document.getElementById(mycards[p2cards.length-1]).innerHTML);
+          ready();
+        }
+
+
+//        if (playerval == "1"){
+//          for (var i=0; i<4; i++){
+//            document.getElementById(mycards[i]).innerHTML = p1cards[i];
+//            document.getElementById(theircards[i]).innerHTML = p2cards[i];
+//          }
+//        }
+//        else if (playerval == "2"){
+//          for (var i=0; i<4; i++){
+//            document.getElementById(mycards[i]).innerHTML = p2cards[i];
+//            document.getElementById(theircards[i]).innerHTML = p1cards[i];
+//          }
+//        }
+        document.getElementById('upcards').innerHTML = faceup;
+        set_card_class(document.getElementById('upcards'));
+
+        if (readytoplay){
+          if (document.getElementById("playername").value != turn){
+            for (var i=0; i<4; i++){
+              document.getElementById(mycards[i]).disabled = true;
+              document.getElementById(theircards[i]).disabled = true;
+            }
+            document.getElementById("upcards").disabled = true;
+            document.getElementById("thedeck").disabled = true;
+            document.getElementById("special").disabled = true;
+            document.getElementById("discard").disabled = true;
+            if (!gameover){
+              document.getElementById("turntext").innerHTML = "Their Turn";
+            }
+          }
+          else{
+            document.getElementById("upcards").disabled = false;
+            document.getElementById("thedeck").disabled = false;
+            if (!gameover){
+              document.getElementById("turntext").innerHTML = "Your Turn";
+            }
+          }
+        }
+
+        if (gameover){
+          document.getElementById("ratatat").disabled = true;
+          document.getElementById("upcards").disabled = true;
+          document.getElementById("thedeck").disabled = true;
+          document.getElementById("gamename").disabled = false;
+          document.getElementById("start").disabled = false;
+        }
+
+      };
+
+
+      const params = new URLSearchParams(window.location.search);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({gamename: params.get('gamename'),player: params.get('player')}))
+      }
+
+//      ws.onclose = () => {
+//        console.log('Web Socket Connection Closed');
+//      };
+
+    </script>
+  </head>
+  <body>
+
+<script>
+
+function startGame() {
+
+  //console.log(document.getElementById('playername').value);
+  if (document.getElementById('playername').value==""){
+    alert("Must enter your name before playing.");
+  }
+  else{
+    //console.log("startGame");
+    myname = document.getElementById('playername').value
+    firstturn = true;
+    ws.send(JSON.stringify({gamename: document.getElementById('gamename').value, playername: document.getElementById('playername').value, "start":1}));
+
+    document.getElementById('ready').disabled = false;
+    document.getElementById("start").disabled = true;
+    document.getElementById('gamename').disabled = true;
+    document.getElementById('playername').disabled = true;
+    for (var i=1; i<5; i++){
+      document.getElementById('me'+i).innerHTML = "#"+i;
+      document.getElementById('them'+i).innerHTML = "#"+i;
+      set_card_class(document.getElementById('me'+i));
+      set_card_class(document.getElementById('them'+i));
+    }
+    document.getElementById('upcards').innerHTML = "";
+    //console.log("deck length "+deck.length+"turns taken "+turns_taken);
+    turn="1";
+  }
+}
+
+
 </script>
 
-</head>
+<script>
+function sendinfo(deck, faceup, p1cards, p2cards,move) {
+  //console.log("sendinfo");
+  faceup = document.getElementById("upcards").innerHTML;
+//  for (var i=0; i<4; i++){
+//    if (playerval=="1"){
+//      p1cards[i] = document.getElementById(mycards[i]).innerHTML;
+//      p2cards[i] = document.getElementById(theircards[i]).innerHTML;
+//    }
+//    else if (playerval=="2"){
+//      p2cards[i] = document.getElementById(mycards[i]).innerHTML;
+//      p1cards[i] = document.getElementById(theircards[i]).innerHTML;
+//    }
+//  }
+  console.log(move);
+  var output = {"deck":deck, "gamename": document.getElementById('gamename').value, "p1cards":p1cards, "p2cards":p2cards, "faceup":faceup, "turn": document.getElementById('playername').value, "move":move};
+  turns_taken += 1;
+  ws.send(JSON.stringify(output));
+}
 
-<body>
-    <div class="deck">
-        <h1>A Deck of Cards</h1>
-        <input type="text" id="gameID" value="GameName"><br>
+function drawFaceupCard(){
+  //console.log("drawFaceupCard");
+  move += document.getElementById('playername').value+" picked up "+document.getElementById('upcards').innerHTML+" from the pile.";
+  document.getElementById('drawn').innerHTML = document.getElementById('upcards').innerHTML;
+  set_card_class(document.getElementById('drawn'));
+  document.getElementById('upcards').innerHTML = "";
+  set_card_class(document.getElementById('upcards'));
+  for (var i=0; i<4; i++){
+    document.getElementById(mycards[i]).disabled = false;
+  }
+  var drawnvalue = document.getElementById('drawn').innerHTML;
+  document.getElementById("discard").disabled = false;
+}
 
-        <input type="radio" id="player1" name="gender" value="player1">
-        <label for="player1">Player 1</label><br>
-        <input type="radio" id="player2" name="gender" value="player2">
-        <label for="player2">Player 2</label><br>
+function drawFacedownCard(){
+  move += " "+document.getElementById('playername').value+" drew a card from the deck.";
+  //console.log("drawFacedownCard");
+  document.getElementById('drawn').innerHTML = deck.pop();
+  set_card_class(document.getElementById('drawn'));
+  for (var i=0; i<4; i++){
+    document.getElementById(mycards[i]).disabled = false;
+  }
+  var drawnvalue = document.getElementById('drawn').innerHTML;
+  if (drawnvalue=="Draw 2" || drawnvalue=="Peek" || drawnvalue=="Swap"){
+    document.getElementById("special").disabled = false;
+  }
+  document.getElementById("discard").disabled = false;
+  document.getElementById("upcards").disabled = true;
+}
 
-        <a href="javascript:void(0)" class="btn" onclick="shuffle()">Shuffle</a>
-        <div id="deck"></div>
+function doCard(val){
+  //console.log("doCard");
+  if (specialval=="Peek"){
+    move += (" "+document.getElementById('playername').value+" peeked at card "+val+".");
+    if (playerval=="1"){
+      document.getElementById("me"+val).innerHTML = p1cards[val-1];
+    }
+    else if (playerval=="2"){
+      document.getElementById("me"+val).innerHTML = p2cards[val-1];
+    }
+    set_card_class(document.getElementById("me"+val));
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = true;
+    }
+  }
+  else if (specialval=="Swap"){
+    swapcard = val;
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = true;
+      document.getElementById(theircards[i]).disabled = false;
+    }
+  }
+  else{
+    move += (" "+document.getElementById('playername').value+" replaced their card "+val+".");
+    if (playerval=="1"){
+      document.getElementById("upcards").innerHTML = p1cards[val-1];
+      p1cards[val-1] = document.getElementById('drawn').innerHTML;
+    }
+    else if (playerval=="2"){
+      document.getElementById("upcards").innerHTML = p2cards[val-1];
+      p2cards[val-1] = document.getElementById('drawn').innerHTML;
+    }
+    set_card_class(document.getElementById("upcards"));
+    document.getElementById("drawn").innerHTML = "";
+    set_card_class(document.getElementById("drawn"));
+    sendinfo(deck, faceup, p1cards, p2cards, move);
+  }
+  if (deck.length==0){
+    ratatat();
+  }
+}
+
+function doSwap(val){
+  //console.log("doSwap");
+  move += (" "+document.getElementById('playername').value+" swapped their card "+swapcard+" with your card "+val+".");
+  if (playerval=="1"){
+    var tmp = p2cards[val-1];
+    p2cards[val-1] = p1cards[swapcard-1];
+    p1cards[swapcard-1] = tmp;
+  }
+  else if (playerval=="2"){
+    var tmp = p1cards[val-1];
+    p1cards[val-1] = p2cards[swapcard-1];
+    p2cards[swapcard-1] = tmp;
+  }
+  discard();
+}
+
+function instructions(){
+  text = "On your turn, either draw a card from the deck or from the face-up pile. Then either discard the card, replace one of your cards with it (click the card you wish to replace), or use a special ability.\r\n\r\nDraw 2 lets you draw up to two cards. If you use the first card (i.e. don't discard it), your turn is over. Otherwise you can draw a second card. Swap lets you swap one of your cards with one of your opponent's cards. Peek lets you look at one of your cards.\r\n\r\nThe cards are number 1-4, left to right.\r\n\r\nWhen you think you have the lowest score, click 'Rat-a-Tat'.";
+  alert(text);
+}
+
+function ready() {
+  //console.log("ready");
+  readytoplay = true;
+  document.getElementById(mycards[0]).innerHTML = "#1";
+  document.getElementById(mycards[mycards.length-1]).innerHTML = "#"+mycards.length;
+
+  set_card_class(document.getElementById(mycards[0]));
+  set_card_class(document.getElementById(mycards[mycards.length-1]));
+
+  if (myname==turn){
+    document.getElementById("upcards").disabled = false;
+    document.getElementById("thedeck").disabled = false;
+    document.getElementById("turntext").innerHTML = "Your Turn";
+  }
+  else{
+    document.getElementById("turntext").innerHTML = "Their Turn";
+  }
+  document.getElementById("ready").disabled = true;
+  document.getElementById("ratatat").disabled = false;
+  document.getElementById('start').disabled = true;
+  document.getElementById('gamename').disabled = true;
+}
+
+function ratatat() {
+  //console.log("ratatat");
+  for (var i=1; i<p1cards.length+1; i++){
+    while (deck.length>0 && (p1cards[i-1]=="Peek" || p1cards[i-1]=="Draw 2" || p1cards[i-1]=="Swap")){
+      if (playerval=="1"){
+        alert("Replacing your "+p1cards[i-1]+" card with new card");
+      }
+      else if (playerval=="2"){
+        alert("Replacing opponent's "+p1cards[i-1]+" card with new card");
+      }
+      p1cards[i-1] = deck.pop()
+    }
+    while (deck.length>0 && (p2cards[i-1]=="Peek" || p2cards[i-1]=="Draw 2" || p2cards[i-1]=="Swap")){
+      if (playerval=="2"){
+        alert("Replacing your "+p2cards[i-1]+" card with new card");
+      }
+      else if (playerval=="1"){
+        alert("Replacing opponent's "+p2cards[i-1]+" card with new card");
+      }
+      p2cards[i-1] = deck.pop()
+    }
+    if (playerval=="1"){
+      document.getElementById("me"+i).innerHTML = p1cards[i-1];
+      document.getElementById("them"+i).innerHTML = p2cards[i-1];
+    }
+    else if (playerval=="2"){
+      document.getElementById("me"+i).innerHTML = p2cards[i-1];
+      document.getElementById("them"+i).innerHTML = p1cards[i-1];
+    }
+    set_card_class(document.getElementById("me"+i));
+    set_card_class(document.getElementById("them"+i));
+  }
+  var output = {"deck":deck, "p1cards":p1cards, "p2cards":p2cards, "faceup":faceup, "turn":"", "ratatat":1};
+  if (!gameover){
+    ws.send(JSON.stringify(output));
+  }
+  document.getElementById("ratatat").disabled = true;
+  document.getElementById("upcards").disabled = true;
+  document.getElementById("thedeck").disabled = true;
+  document.getElementById("gamename").disabled = false;
+  document.getElementById("playername").disabled = false;
+  document.getElementById("start").disabled = false;
+
+
+  var p1score = parseInt(p1cards[0]) + parseInt(p1cards[1]) + parseInt(p1cards[2]) + parseInt(p1cards[3]);
+  var p2score = parseInt(p2cards[0]) + parseInt(p2cards[1]) + parseInt(p2cards[2]) + parseInt(p2cards[3]);
+  if (playerval=="1"){
+    if (p1score<p2score){
+      document.getElementById("turntext").innerHTML = "You win! ("+p1score+" to "+p2score+")";
+    }
+    else if (p1score==p2score){
+      document.getElementById("turntext").innerHTML = "You tie! ("+p1score+" to "+p2score+")";
+    }
+    else{
+      document.getElementById("turntext").innerHTML = "They win! ("+p2score+" to "+p1score+")";
+    }
+  }
+  else{
+    if (p1score<p2score){
+      document.getElementById("turntext").innerHTML = "They win! ("+p1score+" to "+p2score+")";
+    }
+    else if (p1score==p2score){
+      document.getElementById("turntext").innerHTML = "You tie! ("+p1score+" to "+p2score+")";
+    }
+    else{
+      document.getElementById("turntext").innerHTML = "You win! ("+p2score+" to "+p1score+")";
+    }
+  }
+
+  gameover=true;
+}
+
+function discard(){
+  //console.log("discard");
+  document.getElementById("upcards").innerHTML = document.getElementById("drawn").innerHTML;
+  set_card_class(document.getElementById("upcards"));
+  document.getElementById("drawn").innerHTML = "";
+  set_card_class(document.getElementById("drawn"));
+  if (specialval=="Draw 2"){
+    specialval="Draw 1";
+  }
+  else{
+    if (specialval=="Peek"){
+      for (var i=0; i<4; i++){
+        document.getElementById(mycards[i]).innerHTML = "#"+(i+1);
+        set_card_class(document.getElementById(mycards[i]));
+      }
+    }
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = false;
+    }
+    specialval = "";
+    sendinfo(deck, faceup, p1cards, p2cards, move);
+  }
+  if (deck.length==0){
+    ratatat();
+  }
+}
+
+function doSpecial(){
+  //console.log("doSpecial");
+  specialval = document.getElementById("drawn").innerHTML;
+
+  if (specialval == "Draw 2"){
+    move += (" "+document.getElementById('playername').value+" used a Draw 2.");
+  }
+
+  if (specialval == "Peek"){
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = false;
+    }
+  }
+  else if (specialval == "Swap"){
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = false;
+      document.getElementById(theircards[i]).disabled = true;
+    }
+  }
+  else if (specialval == "Draw 2" || specialval == "Draw 1"){
+    for (var i=0; i<4; i++){
+      document.getElementById(mycards[i]).disabled = true;
+      document.getElementById(theircards[i]).disabled = true;
+      document.getElementById("upcards").disabled = true;
+      document.getElementById("thedeck").disabled = false;
+    }
+  }
+  document.getElementById("special").disabled = true;
+}
+
+</script>
+
+
+<br>
+<div style="text-align:center">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-inline">
+      <label for="gamename">Game:</label>
+      <input class="form-control" type="text" id="gamename" name="gamename">
+      <label for="playername">Your Name:</label>
+      <input class="form-control" type="text" id="playername" name="playername">
+      <!--<input class="form-control" type="radio" name="player" id="player1"  value="1">Player 1
+      <input class="form-control" type="radio" name="player" id="player2" value="2">Player 2-->
+      <button class="buttonutil" id="start" onclick="startGame()">Start</button>
+      <button class="buttonutil" id="ready" disabled onclick="ready()">Ready</button>
+      <button class="buttonutil" id="instructions" onclick="instructions()">Rules</button>
+      </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="movediv">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="font-size:20px" id="turntext"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <button class="buttoncard facedown" disabled id="them1" onclick="doSwap('1')">#1</button>
+    <button class="buttoncard facedown" disabled id="them2" onclick="doSwap('2')">#2</button>
+    <button class="buttoncard facedown" disabled id="them3" onclick="doSwap('3')">#3</button>
+    <button class="buttoncard facedown" disabled id="them4" onclick="doSwap('4')">#4</button>
+    </div>
+  </div>
 
-    <script type="text/javascript" src="ratatat.js"></script>
+  <div class="row">
+    <div class="col-md-12">
+    <button class="buttoncard faceup" disabled id="upcards" onclick="drawFaceupCard()"></button>
+    <button class="buttoncard" disabled id="thedeck" onclick="drawFacedownCard()" style="font-size:20px;color:white;">Deck</button>
+    <button class="buttoncard" disabled id="drawn" style="background-color:white"></button>
+  </div>
+  <div class="row">
+    <button disabled id="discard" onclick="discard()" class="buttonutil" style="vertical-align:top;">Discard</button> <button disabled id="special" onclick="doSpecial()" class="buttonutil" style="vertical-align:bottom;width:125px">Use Special</button><button disabled id="ratatat" onclick="ratatat()" class="buttonutil" style="width:125px">Rat-a-Tat Cat!</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button class="buttoncard facedown" disabled id=me1 onclick="doCard('1')">#1</button>
+      <button class="buttoncard facedown" disabled id=me2 onclick="doCard('2')">#2</button>
+      <button class="buttoncard facedown" disabled id=me3 onclick="doCard('3')">#3</button>
+      <button class="buttoncard facedown" disabled id=me4 onclick="doCard('4')">#4</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<script>
+function makeid(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+if (gameid){
+  document.getElementById('gamename').value = gameid;
+}
+else{
+  document.getElementById('gamename').value = makeid(12);
+}
+</script>
 
 </body>
 </html>
-
