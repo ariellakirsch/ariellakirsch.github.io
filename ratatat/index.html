@@ -363,7 +363,7 @@ function instructions(){
 }
 
 function sendlink(){
-  text = "Your game is: "+window.location.href+"?game="+document.getElementById(gamename).value;
+  text = "Your game is: "+window.location.href+"?game="+document.getElementById('gamename').value;
   alert(text);
 }
 
@@ -538,7 +538,7 @@ function doSpecial(){
       <button class="buttonutil" id="start" onclick="startGame()">Start</button>
       <button class="buttonutil" id="ready" disabled onclick="ready()">Ready</button>
       <button class="buttonutil" id="instructions" onclick="instructions()">Rules</button>
-      <button class="buttonutil" id="sendlink" onclick="sendlink()">Send Link</button>
+      <button class="buttonutil" id="sendlink" onclick="sendlink()">Link</button>
       </div>
     </div>
   </div>
