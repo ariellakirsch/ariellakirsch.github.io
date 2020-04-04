@@ -55,7 +55,6 @@
       let gameid = urlParams.get('game');
 
       let HOST = "wss://ariellakirsch.herokuapp.com";
-      console.log(HOST);
       let ws = new WebSocket(HOST);
 
       let turn="1";
@@ -363,6 +362,11 @@ function instructions(){
   alert(text);
 }
 
+function sendlink(){
+  text = "Your game is: "+window.location.href+"?game="+document.getElementById(gamename).value;
+  alert(text);
+}
+
 function ready() {
   //console.log("ready");
   readytoplay = true;
@@ -534,6 +538,7 @@ function doSpecial(){
       <button class="buttonutil" id="start" onclick="startGame()">Start</button>
       <button class="buttonutil" id="ready" disabled onclick="ready()">Ready</button>
       <button class="buttonutil" id="instructions" onclick="instructions()">Rules</button>
+      <button class="buttonutil" id="sendlink" onclick="sendlink()">Send Link</button>
       </div>
     </div>
   </div>
