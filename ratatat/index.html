@@ -69,6 +69,8 @@
       let p2cards;
       let faceup;
 
+      let gamename = "";
+
       let move = "";
 
       let gameover = false;
@@ -92,11 +94,11 @@
           el.classList.add("faceup");
         }
         else if (cardvalues.includes(el.innerHTML)){
-          console.log("adding faceup");
+          //console.log("adding faceup");
           el.classList.add("faceup");
         }
         if (!cardvalues.includes(el.innerHTML)){
-          console.log("adding facedown");
+          //console.log("adding facedown");
           el.classList.add("facedown");
         }
         if (el.innerHTML=="Peek" || el.innerHTML=="Swap" || el.innerHTML=="Draw 2"){
@@ -107,33 +109,40 @@
       function parse_data(data){
         var jsondata = JSON.parse(data);
         //console.log("parse data "+ jsondata.turn);
-        deck = jsondata.deck;
-        p1cards = jsondata.p1cards;
-        p2cards = jsondata.p2cards;
-        faceup = jsondata.faceup;
-        turn = jsondata.turn;
-        if (firstturn){
-          playerval=jsondata.player;
-        }
-        if (jsondata.ratatat){
-          ratatat();
-        }
-        else if (jsondata.move){
-          if (turn == document.getElementById("playername").value){
-            document.getElementById("movediv").innerHTML = jsondata.move;
+        gamename = jsondata.gamename;
+        if (jsondata.gamename == document.getElementById('gamename').value){
+          deck = jsondata.deck;
+          p1cards = jsondata.p1cards;
+          p2cards = jsondata.p2cards;
+          faceup = jsondata.faceup;
+          turn = jsondata.turn;
+          if (firstturn){
+            playerval=jsondata.player;
+          }
+          if (jsondata.ratatat){
+            ratatat();
+          }
+          else if (jsondata.move){
+            if (turn == document.getElementById("playername").value){
+              document.getElementById("movediv").innerHTML = jsondata.move;
+            }
+            else{
+              document.getElementById("movediv").innerHTML = "";
+            }
           }
           else{
             document.getElementById("movediv").innerHTML = "";
           }
-        }
-        else{
-          document.getElementById("movediv").innerHTML = "";
         }
       }
 
       ws.onmessage = (event) => {
         //console.log(event.data);
         parse_data(event.data);
+
+        if (gamename != document.getElementById('gamename').value){
+          return;
+        }
 
         move = "";
 
