@@ -111,6 +111,9 @@
         // console.log("parse data "+ data);
         gamename = jsondata.gamename;
         if (jsondata.gamename == document.getElementById('gamename').value){
+          if (jsondata.start){
+            alert("received start from "+jsondata.playername);
+          }
           deck = jsondata.deck;
           p1cards = jsondata.p1cards;
           p2cards = jsondata.p2cards;
@@ -181,9 +184,6 @@
         set_card_class(document.getElementById('upcards'));
 
         if (readytoplay){
-          console.log("hello we're ready to play!");
-          console.log(document.getElementById("playername").value);
-          console.log(turn);
           if (document.getElementById("playername").value != turn){
             for (var i=0; i<4; i++){
               document.getElementById(mycards[i]).disabled = true;
