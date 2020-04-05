@@ -433,7 +433,7 @@ function ratatat() {
     set_card_class(document.getElementById("me"+i));
     set_card_class(document.getElementById("them"+i));
   }
-  var output = {"deck":deck, "p1cards":p1cards, "p2cards":p2cards, "faceup":faceup, "turn":"", "ratatat":1};
+  var output = {"deck":deck, "gamename":gamename, "p1cards":p1cards, "p2cards":p2cards, "faceup":faceup, "turn":"", "ratatat":1};
   if (!gameover){
     ws.send(JSON.stringify(output));
   }
