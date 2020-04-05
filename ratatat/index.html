@@ -56,6 +56,7 @@
       const urlParams = new URLSearchParams(queryString);
       let gameid = urlParams.get('game');
 
+      // let HOST = location.origin.replace(/^http/, 'ws')
       let HOST = "wss://ariellakirsch.herokuapp.com";
       let ws = new WebSocket(HOST);
 
@@ -111,30 +112,33 @@
         // console.log("parse data "+ data);
         gamename = jsondata.gamename;
         if (jsondata.gamename == document.getElementById('gamename').value){
-          if (jsondata.start){
-            alert("received start from "+jsondata.playername);
+          if (jsondata.start && jsondata.playername != document.getElementById('playername').value){
+            alert(jsondata.playername+" is ready to play!");
           }
-          deck = jsondata.deck;
-          p1cards = jsondata.p1cards;
-          p2cards = jsondata.p2cards;
-          faceup = jsondata.faceup;
-          turn = jsondata.turn;
-          if (firstturn){
-            playerval=jsondata.player;
-          }
-          if (jsondata.ratatat){
-            ratatat();
-          }
-          else if (jsondata.move){
-            if (turn == document.getElementById("playername").value){
-              document.getElementById("movediv").innerHTML = jsondata.move;
+          else{
+            deck = jsondata.deck;
+            p1cards = jsondata.p1cards;
+            p2cards = jsondata.p2cards;
+            faceup = jsondata.faceup;
+            turn = jsondata.turn;
+            if (firstturn && jsondata.player){
+              playerval=jsondata.player;
+              console.log("playerval is "+playerval);
+            }
+            if (jsondata.ratatat){
+              ratatat();
+            }
+            else if (jsondata.move){
+              if (turn == document.getElementById("playername").value){
+                document.getElementById("movediv").innerHTML = jsondata.move;
+              }
+              else{
+                document.getElementById("movediv").innerHTML = "";
+              }
             }
             else{
               document.getElementById("movediv").innerHTML = "";
             }
-          }
-          else{
-            document.getElementById("movediv").innerHTML = "";
           }
         }
       }
@@ -163,7 +167,7 @@
           firstturn = false;
         }
         else if (!firstturn && !readytoplay){
-          alert("Ready to play? Your cards are "+document.getElementById(mycards[0]).innerHTML+" * * " + document.getElementById(mycards[p2cards.length-1]).innerHTML);
+          alert("Ready to play! Your cards are "+document.getElementById(mycards[0]).innerHTML+" * * " + document.getElementById(mycards[p2cards.length-1]).innerHTML);
           ready();
         }
 
@@ -466,8 +470,6 @@ function ratatat() {
   document.getElementById("gamename").disabled = false;
   document.getElementById("playername").disabled = false;
   document.getElementById("start").disabled = false;
-
-  firstturn = true;
 
   var p1score = parseInt(p1cards[0]) + parseInt(p1cards[1]) + parseInt(p1cards[2]) + parseInt(p1cards[3]);
   var p2score = parseInt(p2cards[0]) + parseInt(p2cards[1]) + parseInt(p2cards[2]) + parseInt(p2cards[3]);
