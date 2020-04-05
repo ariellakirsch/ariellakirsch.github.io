@@ -108,7 +108,7 @@
 
       function parse_data(data){
         var jsondata = JSON.parse(data);
-        //console.log("parse data "+ jsondata.turn);
+        // console.log("parse data "+ data);
         gamename = jsondata.gamename;
         if (jsondata.gamename == document.getElementById('gamename').value){
           deck = jsondata.deck;
@@ -181,6 +181,9 @@
         set_card_class(document.getElementById('upcards'));
 
         if (readytoplay){
+          console.log("hello we're ready to play!");
+          console.log(document.getElementById("playername").value);
+          console.log(turn);
           if (document.getElementById("playername").value != turn){
             for (var i=0; i<4; i++){
               document.getElementById(mycards[i]).disabled = true;
@@ -254,6 +257,8 @@ function startGame() {
     document.getElementById('upcards').innerHTML = "";
     //console.log("deck length "+deck.length+"turns taken "+turns_taken);
     turn="1";
+    gameover=false;
+    readytoplay=false;
   }
 }
 
@@ -306,11 +311,29 @@ function drawFacedownCard(){
   if (drawnvalue=="Draw 2" || drawnvalue=="Peek" || drawnvalue=="Swap"){
     document.getElementById("special").disabled = false;
   }
+  if (drawnvalue=="Draw 2"){
+    specialval ="Draw 2";
+  }
   document.getElementById("discard").disabled = false;
   document.getElementById("upcards").disabled = true;
 }
 
 function doCard(val){
+  if (document.getElementById('drawn').innerHTML=="Peek" && specialval==""){
+    if (!confirm("You are about to replace your card with a Peek card. Choose OK to proceed, choose cancel to peek instead.")) {
+      specialval="Peek";
+    }
+  }
+  if (document.getElementById('drawn').innerHTML=="Swap" && specialval==""){
+    if (!confirm("You are about to replace your card with a Swap card. Choose OK to proceed, choose cancel to initiate swap. Choose your opponent's card next.")) {
+      specialval="Swap";
+    }
+  }
+  if (document.getElementById('drawn').innerHTML=="Draw 2" && specialval=="Draw 2"){
+    if (!confirm("You are about to replace your card with a Draw 2 card. Choose OK to proceed.")) {
+      return;
+    }
+  }
   //console.log("doCard");
   if (specialval=="Peek"){
     move += (" "+document.getElementById('playername').value+" peeked at card "+val+".");
@@ -369,7 +392,7 @@ function doSwap(val){
 }
 
 function instructions(){
-  text = "On your turn, either draw a card from the deck or from the face-up pile. Then either discard the card, replace one of your cards with it (click the card you wish to replace), or use a special ability.\r\n\r\nDraw 2 lets you draw up to two cards. If you use the first card (i.e. don't discard it), your turn is over. Otherwise you can draw a second card. Swap lets you swap one of your cards with one of your opponent's cards. Peek lets you look at one of your cards.\r\n\r\nThe cards are number 1-4, left to right.\r\n\r\nWhen you think you have the lowest score, click 'Rat-a-Tat'.";
+  text = "On your turn, either draw a card from the deck or from the face-up pile. Then either discard the card, replace one of your cards with it (click the card you wish to replace), or use a special ability.\r\n\r\nDraw 2 lets you draw up to two cards. If you use the first card (i.e. don't discard it), your turn is over. Otherwise you can draw a second card. Swap lets you swap one of your cards with one of your opponent's cards (click your card first, followed by your opponent's). Peek lets you look at one of your cards.\r\n\r\nThe cards are number 1-4, left to right.\r\n\r\nWhen you think you have the lowest score, click 'Rat-a-Tat'.";
   alert(text);
 }
 
@@ -444,6 +467,7 @@ function ratatat() {
   document.getElementById("playername").disabled = false;
   document.getElementById("start").disabled = false;
 
+  firstturn = true;
 
   var p1score = parseInt(p1cards[0]) + parseInt(p1cards[1]) + parseInt(p1cards[2]) + parseInt(p1cards[3]);
   var p2score = parseInt(p2cards[0]) + parseInt(p2cards[1]) + parseInt(p2cards[2]) + parseInt(p2cards[3]);
