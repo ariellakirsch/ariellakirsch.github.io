@@ -39,7 +39,8 @@
       var currentType = "";
       var tmp = [];
       var residentArray = new Array();
-      var nonresidentArray = new Array();
+      var officerArray = new Array();
+      var otherArray = new Array();
 
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
@@ -55,8 +56,11 @@
             if (currentType=="Resident Cases" || currentType==""){
               residentArray.push(tmp);
             }
-            if (currentType=="Officer Cases" || currentType=="Other Cases" || currentType==""){
-              nonresidentArray.push(tmp);
+            if (currentType=="Officer Cases" || currentType==""){
+              officerArray.push(tmp);
+            }
+            if (currentType=="Other Cases" || currentType==""){
+              otherArray.push(tmp);
             }
             tmp = [];
             currentType = val;
@@ -99,6 +103,14 @@
 //        residentArray.push([key, value]);
 //      }
 
+
+      var nonresidentArray = new Array();
+      nonresidentArray.push(otherArray[0]);
+      for (var i=1; i<officerArray.length; i++){
+        var tmp = officerArray[i]+otherArray[i];
+        nonresidentArray.push(tmp);
+      }
+
       drawChart("Resident Cases", "resident_div", residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", nonresidentArray);
   }
@@ -134,12 +146,6 @@
 </style>
 </head>
 <body style="width: 90%;margin: auto;">
-
-  <br>
-<a href="../">
-  <span class="glyphicon glyphicon-home"></span>
-</a>
-
 
 <center><h3>COVID Incarcerated Maryland</h3></center>
 <br>
