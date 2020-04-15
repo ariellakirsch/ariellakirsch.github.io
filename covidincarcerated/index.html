@@ -14,6 +14,7 @@
   }
 
   function drawChart(titleText,divID,ticks,input) {
+    console.log(input);
     var data = google.visualization.arrayToDataTable(input);
 
     var options = {
@@ -132,7 +133,6 @@
 <br>
 <div id="nonresident_div" style="width: 100%;"></div>
 
-<form class="form-inline">
   <div class="checkbox"> <label><input type="checkbox">Dorsey Run Correctional Institution</label> </div>
   <div class="checkbox"> <label><input type="checkbox">Jessup Correctional Institution</label> </div>
   <div class="checkbox"> <label><input type="checkbox">Maryland Correctional Institution - Jessup</label> </div>
@@ -141,7 +141,6 @@
   <div class="checkbox"> <label><input type="checkbox">Maryland Reception, Diagnostics and Classification Center</label> </div>
   <div class="checkbox"> <label><input type="checkbox">Metropolitan Transition Center  Patuxent Institution</label> </div>
   <div class="checkbox"> <label><input type="checkbox">Western Correctional Institution / North Branch Correctional Institution</label> </div>
-</form>
 
 </center>
 
