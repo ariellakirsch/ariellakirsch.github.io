@@ -114,7 +114,8 @@
         ticks.push({v:t1[0],f:dateFormatter.formatValue(t1[0])});
       }
 
-      console.log(ticks);
+      console.log(residentArray);
+      console.log(nonresidentArray);
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
