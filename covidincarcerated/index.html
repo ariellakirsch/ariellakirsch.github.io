@@ -55,7 +55,8 @@
       var otherArray = new Array();
 
       var currentTotalResident = 0;
-      var numInPrison = 21143.0;
+      var currentTotalOfficers = 0;
+      var ttl = 0;
 
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
@@ -72,7 +73,7 @@
                 tmp.push({type: 'number', role: 'annotation'});
               }
               else{
-                var ttl=0;
+                ttl=0;
                 for (var i=1; i<tmp.length; i++){
                   ttl += tmp[i];
                 }
@@ -82,6 +83,11 @@
               residentArray.push(tmp);
             }
             if (currentType=="Officer Cases" || currentType==""){
+              ttl=0;
+              for (var i=1; i<tmp.length; i++){
+                ttl += tmp[i];
+              }
+              currentTotalResident = ttl;
               officerArray.push(tmp);
             }
             if (currentType=="Other Cases" || currentType==""){
@@ -111,6 +117,11 @@
           residentArray.push(tmp);
         }
         if (currentType=="Officer Cases"){
+          ttl=0;
+          for (var i=1; i<tmp.length; i++){
+            ttl += tmp[i];
+          }
+          currentTotalResident = ttl;
           officerArray.push(tmp);
         }
         if (currentType=="Other Cases"){
@@ -143,7 +154,7 @@
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
-      document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/numInPrison).toFixed(1)+" in Prison, 156.7 Statewide";
+      document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/21143.0).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/4476).toFixed(1)+" 156.7 Statewide";
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
