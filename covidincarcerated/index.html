@@ -34,31 +34,12 @@
           }
       }
       console.log(columns);
+      console.log(incarceratedArray);
   }
   $(document).ready(function(){
       readData($("#data"));
   });
 </script>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(incarceratedArray);
-
-        var options = {
-          title: 'Cases',
-          legend: 'none'
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-</script>
-
 
 <script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/1/public/full?alt=json-in-script&callback=doData"></script>
 
@@ -99,6 +80,26 @@
 <center>
 <div id="curve_chart" style="width: 100%; height: 300px;"></div>
 </center>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(incarceratedArray);
+
+        var options = {
+          title: 'Cases',
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+</script>
+
 
 </body>
 </html>
