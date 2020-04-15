@@ -43,10 +43,14 @@
             currentType = val;
           }
           console.log(currentType+" "+cell.row+" "+cell.col+" "+val);
-          if (cell.col==1 && tmp.length>0){
-            incarceratedArray.push(tmp);
+          if (cell.row==1){
+            tmp.push(val);
           }
-          if (cell.col>1 && currentType=="Resident Cases"){
+          if (cell.row>1 && cell.col==1 && tmp.length>0){
+            incarceratedArray.push(tmp);
+            tmp = [];
+          }
+          if (cell.row>1 && cell.col>1 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
           }
 //          if (cell.row==1){
