@@ -36,7 +36,14 @@
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
-          console.log(cell.row+" "+cell.col+" "+val);
+          var tmp = [];
+          var incarceratedArray = new Array();
+          if (cell.col==1 && val=="Resident Cases"){
+            console.log("1 "+cell.row+" "+cell.col+" "+val);
+          }
+          else if (cell.col==2){
+            console.log("2 "+cell.row+" "+cell.col+" "+val);
+          }
 //          if (cell.row==1){
 //            columns[cell.col] = {date: val, type: ""};
 //          }
