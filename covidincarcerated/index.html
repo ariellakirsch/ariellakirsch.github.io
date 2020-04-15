@@ -52,7 +52,7 @@
           }
           if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
             console.log(val);
-            tmp.push(Date(val));
+            tmp.push(Date(parseInt(val)));
           }
           else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
