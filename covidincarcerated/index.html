@@ -13,8 +13,8 @@
       spData = json.feed.entry;
   }
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(incarceratedArray);
+  function drawChart(input) {
+    var data = google.visualization.arrayToDataTable(input);
 
     var options = {
       title: 'Cases',
@@ -26,7 +26,7 @@
     chart.draw(data, options);
   }
 
-  function readData(parent) {
+  function readData() {
       var data = spData;
       var columns = new Array();
       for(var r=0; r<data.length; r++) {
@@ -57,11 +57,11 @@
 //        incarceratedArray.push([key, value]);
 //      }
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      drawChart(incarceratedArray);
   }
   $(document).ready(function(){
-      readData($("#data"));
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(readData);
   });
 </script>
 
