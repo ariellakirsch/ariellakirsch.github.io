@@ -13,6 +13,18 @@
       spData = json.feed.entry;
   }
 
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(incarceratedArray);
+
+    var options = {
+      title: 'Cases',
+      legend: 'none'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
 
   function readData(parent) {
       var data = spData;
@@ -33,7 +45,7 @@
       console.log(columns);
       console.log(incarceratedArray);
 
-      incarceratedArray = new Array();
+      var incarceratedArray = new Array();
 
       incarceratedArray.push(['Year', 'Books']);
       incarceratedArray.push(["2010", 7]);
@@ -45,6 +57,8 @@
 //        incarceratedArray.push([key, value]);
 //      }
 
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
   }
   $(document).ready(function(){
       readData($("#data"));
@@ -92,23 +106,6 @@
 </center>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(incarceratedArray);
-
-        var options = {
-          title: 'Cases',
-          legend: 'none'
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-</script>
 
 
 </body>
