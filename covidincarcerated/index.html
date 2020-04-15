@@ -54,6 +54,7 @@
             var tt = val.split('-');
             console.log(tt);
             tmp.push(Date(parseInt(tt[0]),parseInt(tt[1]),parseInt(tt[2])));
+            console.log(Date(parseInt(tt[0]),parseInt(tt[1]),parseInt(tt[2])));
           }
           else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
