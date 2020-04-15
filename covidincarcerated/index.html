@@ -63,7 +63,11 @@
                 tmp.push({type: 'number', role: 'annotation'});
               }
               else{
-                tmp.push(0);
+                var ttl=0;
+                for (var i=1; i<tmp.length; i++){
+                  ttl += tmp[i];
+                }
+                tmp.push(ttl);
               }
               residentArray.push(tmp);
             }
