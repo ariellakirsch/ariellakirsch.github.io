@@ -77,6 +77,7 @@
           }
       }
 
+
       if (tmp.length>0){
         if (currentType=="Resident Cases" || currentType==""){
           residentArray.push(tmp);
@@ -90,6 +91,7 @@
         tmp = [];
       }
 
+      var ticks = [];
       var nonresidentArray = new Array();
       nonresidentArray.push(otherArray[0]);
       for (var i=1; i<officerArray.length; i++){
@@ -100,10 +102,10 @@
           tt.push(t1[j]+t2[j]);
         }
         nonresidentArray.push(tt);
+        ticks.push({v:t1[0],f:t1[0]});
       }
 
-      console.log(residentArray);
-      console.log(nonresidentArray);
+      console.log(ticks);
 
       drawChart("Resident Cases", "resident_div", residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", nonresidentArray);
