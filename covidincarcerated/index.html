@@ -20,7 +20,14 @@
       title: titleText,
       legend: 'none',
       focusTarget: 'category',
-      isStacked: true
+      isStacked: true,
+      vAxis: {
+          title: "Number"
+      }
+      hAxis: {
+          title: "Date",
+          ticks: ticks
+      }
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById(divID));
