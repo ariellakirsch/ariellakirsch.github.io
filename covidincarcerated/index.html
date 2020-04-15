@@ -78,6 +78,8 @@ function drawScatterChart() {
     var chart = new google.visualization.AreaChart(document.getElementById(divID));
 
     chart.draw(data, options);
+
+    drawScatterChart();
   }
 
   function readData() {
@@ -200,7 +202,6 @@ function drawScatterChart() {
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(readData);
-      drawScatterChart();
   });
 </script>
 
