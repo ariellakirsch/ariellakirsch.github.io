@@ -18,16 +18,19 @@
       var data = spData;
       var IncarceratedArray = new Array();
       IncarceratedArray.push(['Date', 'Cases']);
+      IncarceratedArray.push(['4/2/2020', '7']);
       var columns = new Array();
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
-          console.log(cell.row+" "+cell.col+" "+val);
           if (cell.row==1){
             columns[cell.col] = {date: val, type: ""};
           }
-          if (cell.row==2){
+          else if (cell.row==2){
             columns[cell.col].type = val;
+          }
+          else{
+            console.log(cell.row+" "+cell.col+" "+val);
           }
       }
       console.log(columns);
