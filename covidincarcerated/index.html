@@ -194,7 +194,52 @@ Residents are individuals incarcerated in Maryland State Prisons. Non-Residents 
   <div class="checkbox"> <label><input type="checkbox">Western Correctional Institution / North Branch Correctional Institution</label> </div>
   -->
 
+<script type="text/javascript">
+function drawScatterChart() {
+    var data1 = google.visualization.arrayToDataTable([
+        ['X', 'Y'],
+        [0, 120],
+        [80, 0]
+    ]);
+    var data2 = google.visualization.arrayToDataTable([
+        ['X', 'Y'],
+        [0, 140],
+        [70, 0]
+    ]);
+
+    var options1 = {
+        title: 'X and Y',
+        hAxis: {title: 'Age' },
+        vAxis: {title: 'Weight'},
+        legend: 'none',
+        trendlines: {0: {}, 1: {}}
+    };
+
+    var options2 = {
+        title: 'X and Y',
+        hAxis: {title: 'Age' },
+        vAxis: {title: 'Weight'},
+        legend: 'none',
+        trendlines: {0: {}, 1: {}}
+    };
+
+    var chart1 = new google.visualization.ScatterChart(document.getElementById('chart_div1'));
+    chart1.draw(data1, options1);
+    var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
+    chart2.draw(data2, options2);
+}
+google.load('visualization', '1', {packages:['corechart'], callback: drawScatterChart});
+</script>
+
+
+<div id="chart_div1"></div>
+<div id="chart_div2"></div>
+
+
 </center>
+
+
+
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 

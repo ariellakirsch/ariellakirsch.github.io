@@ -7,7 +7,7 @@
 <link href="../bootstrap.min.css" rel="stylesheet">
 <link href="../bootstrap-theme.min.css" rel="stylesheet">
 <script type="text/javascript">
-function drawChart() {
+function drawScatterChart() {
     var data1 = google.visualization.arrayToDataTable([
         ['X', 'Y'],
         [0, 120],
@@ -40,7 +40,7 @@ function drawChart() {
     var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
     chart2.draw(data2, options2);
 }
-google.load('visualization', '1', {packages:['corechart'], callback: drawChart});
+google.load('visualization', '1', {packages:['corechart'], callback: drawScatterChart});
 </script>
 
 
