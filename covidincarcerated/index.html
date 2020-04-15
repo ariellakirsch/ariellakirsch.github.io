@@ -137,7 +137,7 @@
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
-      document.getElementByID('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/numInPrison).toString()+" in Prison, 156.7 Statewide";
+      document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/numInPrison).toString()+" in Prison, 156.7 Statewide";
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
