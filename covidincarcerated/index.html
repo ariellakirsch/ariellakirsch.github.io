@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Books</title>
+<title>COVID Incarcerated</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="../bootstrap.min.js"></script>
 <link href="../bootstrap.min.css" rel="stylesheet">
@@ -16,9 +16,9 @@
 
   function readData(parent) {
       var data = spData;
-      var IncarceratedArray = new Array();
-      IncarceratedArray.push(['Date', 'Cases']);
-      IncarceratedArray.push(['4/2/2020', '7']);
+      var incarceratedArray = new Array();
+      incarceratedArray.push(['Date', 'Cases']);
+      incarceratedArray.push(['4/2/2020', '7']);
       var columns = new Array();
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
@@ -46,7 +46,7 @@
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(IncarceratedArray);
+        var data = google.visualization.arrayToDataTable(incarceratedArray);
 
         var options = {
           title: 'Cases',
