@@ -33,6 +33,8 @@
 
       var parsedData = new Array();
 
+      dateFormatter = new google.visualization.DateFormat({formatType: 'short'});
+
       var currentType = "";
       var tmp = [];
       var incarceratedArray = new Array();
@@ -50,11 +52,7 @@
             tmp = [];
           }
           if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
-            console.log(val);
-            var tt = val.split('-');
-            console.log(tt);
-            tmp.push(Date.parse(val));
-            console.log(Date(parseInt(tt[0]),parseInt(tt[1]),parseInt(tt[2])));
+            tmp.push(dateFormatter.formatValue(new Date.parse(val)));
           }
           else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
