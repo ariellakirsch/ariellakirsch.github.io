@@ -52,7 +52,6 @@
             }
           }
           if (cell.row>1 && cell.col==1 && tmp.length>0){
-            console.log(tmp);
             if (currentType=="Resident Cases" || currentType==""){
               residentArray.push(tmp);
             }
@@ -88,7 +87,6 @@
 //          }
       }
 //      console.log(columns);
-//      console.log(residentArray);
 //      console.log(parsedData);
 
 //      var residentArray = new Array();
@@ -103,6 +101,18 @@
 //        residentArray.push([key, value]);
 //      }
 
+      if (tmp.length>0){
+        if (currentType=="Resident Cases" || currentType==""){
+          residentArray.push(tmp);
+        }
+        if (currentType=="Officer Cases" || currentType==""){
+          officerArray.push(tmp);
+        }
+        if (currentType=="Other Cases" || currentType==""){
+          otherArray.push(tmp);
+        }
+        tmp = [];
+      }
 
       var nonresidentArray = new Array();
       nonresidentArray.push(otherArray[0]);
@@ -110,6 +120,9 @@
         var tmp = officerArray[i]+otherArray[i];
         nonresidentArray.push(tmp);
       }
+
+      console.log(residentArray);
+      console.log(nonresidentArray);
 
       drawChart("Resident Cases", "resident_div", residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", nonresidentArray);
