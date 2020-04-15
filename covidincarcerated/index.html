@@ -34,20 +34,20 @@
       var parsedData = new Array();
 
       var currentType = "";
+      var tmp = [];
+      var incarceratedArray = new Array();
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
-          var tmp = [];
-          var incarceratedArray = new Array();
           if (cell.col==1){
             currentType = val;
           }
           console.log(currentType+" "+cell.row+" "+cell.col+" "+val);
-          if (cell.col==1 && currentType=="Resident Cases"){
-            console.log("1 "+cell.row+" "+cell.col+" "+val);
+          if (cell.col==1 && tmp.length>0){
+            incarceratedArray.push(tmp);
           }
-          else if (cell.col==2 && currentType=="Resident Cases"){
-            console.log("2 "+cell.row+" "+cell.col+" "+val);
+          if (cell.col>1 && currentType=="Resident Cases"){
+            tmp.push(val);
           }
 //          if (cell.row==1){
 //            columns[cell.col] = {date: val, type: ""};
@@ -69,12 +69,12 @@
 //      console.log(incarceratedArray);
 //      console.log(parsedData);
 
-      var incarceratedArray = new Array();
-
-      incarceratedArray.push(['Year', 'Type 1', 'Type 2']);
-      incarceratedArray.push(["2010", 7, 3]);
-      incarceratedArray.push(["2011", 8, 6]);
-      incarceratedArray.push(["2012", 12, 12]);
+//      var incarceratedArray = new Array();
+//
+//      incarceratedArray.push(['Year', 'Type 1', 'Type 2']);
+//      incarceratedArray.push(["2010", 7, 3]);
+//      incarceratedArray.push(["2011", 8, 6]);
+//      incarceratedArray.push(["2012", 12, 12]);
 
 //      for(var key in yearData) {
 //        var value = yearData[key];
