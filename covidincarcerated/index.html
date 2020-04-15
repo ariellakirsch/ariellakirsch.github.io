@@ -117,8 +117,13 @@
       var nonresidentArray = new Array();
       nonresidentArray.push(otherArray[0]);
       for (var i=1; i<officerArray.length; i++){
-        var tmp = officerArray[i]+otherArray[i];
-        nonresidentArray.push(tmp);
+        var t1 = officerArray[i];
+        var t2 = otherArray[i];
+        var tt = t1[0];
+        for (var j=1; j<t1.length; j++){
+          tt.push(t1[j]+t2[j]);
+        }
+        nonresidentArray.push(tt);
       }
 
       console.log(residentArray);
