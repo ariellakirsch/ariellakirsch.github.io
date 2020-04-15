@@ -52,7 +52,7 @@
             tmp = [];
           }
           if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
-            tmp.push(dateFormatter.formatValue(new Date.parse(val)));
+            tmp.push(dateFormatter.formatValue(new Date(Date.parse(val))));
           }
           else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
