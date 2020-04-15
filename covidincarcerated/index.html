@@ -60,7 +60,6 @@
 
   function readData(parent) {
       var data = spData;
-      console.log(data);
 //      var table = drawTable(parent);
 //      table.id = "myTable";
 //
@@ -68,9 +67,10 @@
 //
 //      var rowCount = 0;
 //
-//      for(var r=0; r<data.length; r++) {
-//          var cell = data[r]["gs$cell"];
-//          var val = cell["$t"];
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          console.log(val);
 //          if (val=="0"){
 //            val = " ";
 //          }
@@ -88,7 +88,7 @@
 //              rowData = [];
 //          }
 //          rowData.push(val);
-//      }
+      }
 //      drawRow(table, rowData);
 //      if (rowData[4] != " " && parseInt(rowData[4])>=2009){
 //        yearData[parseInt(rowData[4])] += 1;
