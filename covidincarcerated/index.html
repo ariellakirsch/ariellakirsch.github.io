@@ -18,10 +18,12 @@
 
     var options = {
       title: 'Cases',
-      legend: 'none'
+      legend: 'none',
+      isStacked: true
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+
 
     chart.draw(data, options);
   }
@@ -47,10 +49,10 @@
 
       var incarceratedArray = new Array();
 
-      incarceratedArray.push(['Year', 'Books']);
-      incarceratedArray.push(["2010", 7]);
-      incarceratedArray.push(["2011", 8]);
-      incarceratedArray.push(["2012", 12]);
+      incarceratedArray.push(['Year', 'Type 1', 'Type 2]);
+      incarceratedArray.push(["2010", 7, 3]);
+      incarceratedArray.push(["2011", 8, 6]);
+      incarceratedArray.push(["2012", 12, 12]);
 
 //      for(var key in yearData) {
 //        var value = yearData[key];
@@ -102,7 +104,7 @@
 <br>
 
 <center>
-<div id="curve_chart" style="width: 100%; height: 300px;"></div>
+<div id="chart_div" style="width: 100%; height: 300px;"></div>
 </center>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
