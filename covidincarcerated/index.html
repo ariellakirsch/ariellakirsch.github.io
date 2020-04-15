@@ -13,11 +13,11 @@
       spData = json.feed.entry;
   }
 
-  function drawChart(input) {
+  function drawChart(titleText,input) {
     var data = google.visualization.arrayToDataTable(input);
 
     var options = {
-      title: 'Cases',
+      title: titleText,
       legend: 'none',
       focusTarget: 'category',
       isStacked: true
@@ -38,25 +38,26 @@
 
       var currentType = "";
       var tmp = [];
-      var incarceratedArray = new Array();
+      var residentArray = new Array();
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
-          if (cell.col==1){
-            currentType = val;
-          }
           if (cell.row==1){
             tmp.push(val);
+            if (cell.col==1){
+              currentType = val;
+            }
           }
-          if (cell.row>1 && cell.col==1 && tmp.length>0){
+          if (cell.row>1 && cell.col==1 && tmp.length>0 && currentType=="Resident Cases"){
             console.log(tmp);
-            incarceratedArray.push(tmp);
+            residentArray.push(tmp);
             tmp = [];
+            currentType = val;
           }
-          if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
+          if (cell.row>1 && cell.col==2){
             tmp.push(dateFormatter.formatValue(new Date(Date.parse(val))));
           }
-          else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
+          else if (cell.row>1 && cell.col>2){
             tmp.push(parseInt(val));
           }
 //          if (cell.row==1){
@@ -76,22 +77,22 @@
 //          }
       }
 //      console.log(columns);
-      console.log(incarceratedArray);
+      console.log(residentArray);
 //      console.log(parsedData);
 
-//      var incarceratedArray = new Array();
+//      var residentArray = new Array();
 //
-//      incarceratedArray.push(['Year', 'Type 1', 'Type 2']);
-//      incarceratedArray.push(["2010", 7, 3]);
-//      incarceratedArray.push(["2011", 8, 6]);
-//      incarceratedArray.push(["2012", 12, 12]);
+//      residentArray.push(['Year', 'Type 1', 'Type 2']);
+//      residentArray.push(["2010", 7, 3]);
+//      residentArray.push(["2011", 8, 6]);
+//      residentArray.push(["2012", 12, 12]);
 
 //      for(var key in yearData) {
 //        var value = yearData[key];
-//        incarceratedArray.push([key, value]);
+//        residentArray.push([key, value]);
 //      }
 
-      drawChart(incarceratedArray);
+      drawChart("Resident Cases", residentArray);
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
