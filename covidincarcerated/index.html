@@ -8,124 +8,42 @@
 <link href="../bootstrap-theme.min.css" rel="stylesheet">
 <script type="text/javascript">
 
-  var yearData = {2009:0,2010:0,2011:0,2012:0,2013:0,2014:0,2015:0,2016:0,2017:0,2018:0,2019:0,2020:0};
-
   var spData = null;
   function doData(json) {
       spData = json.feed.entry;
   }
 
-  function drawCell(tr, val) {
-      var td = $("<td/>");
-      tr.append(td);
-      td.append(val);
-      return td;
-  }
-
-  function drawHeaderCell(tr, val) {
-      var th = $("<th/>");
-      tr.append(th);
-      th.append(val);
-      return th;
-  }
-
-  function drawHeaderRow(table, rowData) {
-    if (rowData == null) return null;
-    if (rowData.length == 0) return null;
-    var tr = $("<tr/>");
-    table.append(tr);
-    for(var c=1; c<6; c++) {
-      drawHeaderCell(tr, rowData[c]);
-    }
-    return tr;
-  }
-
-  function drawRow(table, rowData) {
-    if (rowData == null) return null;
-    if (rowData.length == 0) return null;
-    var tr = $("<tr/>");
-    table.append(tr);
-    for(var c=1; c<6; c++) {
-      drawCell(tr, rowData[c]);
-    }
-    return tr;
-  }
-
-  function drawTable(parent) {
-    var table = $("<table class=\"table\" id=\"myTable\" />");
-    parent.append(table);
-    return table;
-  }
-
 
   function readData(parent) {
       var data = spData;
-//      var table = drawTable(parent);
-//      table.id = "myTable";
-//
-//      var rowData = [];
-//
-//      var rowCount = 0;
-//
+      var IncarceratedArray = new Array();
+      IncarceratedArray.push(['Date', 'Cases']);
+      var columns = new Object();
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
           console.log(cell.row+" "+cell.col+" "+val);
-//          if (val=="0"){
-//            val = " ";
-//          }
-//          if (cell.col == 1) {
-//              if (r==6){
-//                drawHeaderRow(table, rowData);
-//              }
-//              else{
-//                drawRow(table, rowData);
-//                if (rowData[4] != " " && parseInt(rowData[4])>=2009){
-//                  yearData[parseInt(rowData[4])] += 1;
-//                }
-//                rowCount += 1;
-//              }
-//              rowData = [];
-//          }
-//          rowData.push(val);
+          if (cell.row==1){
+            columns[cell.col].date = val;
+          }
+          if (cell.row==2){
+            columns[cell.col].type = val;
+          }
       }
-//      drawRow(table, rowData);
-//      if (rowData[4] != " " && parseInt(rowData[4])>=2009){
-//        yearData[parseInt(rowData[4])] += 1;
-//      }
-//      rowCount += 1;
-//
-//      yearDataArray = new Array();
-//
-//      yearDataArray.push(['Year', 'Books']);
-//
-//      for(var key in yearData) {
-//        var value = yearData[key];
-//        yearDataArray.push([key, value]);
-//      }
-//
-//      rowCount -= 1;
-//
-//      if (rowCount == 1){
-//        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-//      }
-//      else{
-//        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-//      }
+      console.log(columns);
   }
   $(document).ready(function(){
       readData($("#data"));
   });
 </script>
 
-<!--
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(yearDataArray);
+        var data = google.visualization.arrayToDataTable(IncarceratedArray);
 
         var options = {
           title: 'Books By Year',
@@ -136,7 +54,7 @@
 
         chart.draw(data, options);
       }
-    </script>-->
+</script>
 
 
 <script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/1/public/full?alt=json-in-script&callback=doData"></script>
@@ -172,28 +90,7 @@
 </a>
 
 
-<center><h3>Books</h3></center>
-<br>
-<div class="form-group row">
-<div class="col-sm-6"> <input type="text" class="form-control"  id="myInputTitles" onkeyup="myFunctionTitles()" placeholder="Search Titles"> </div>
-<div class="col-sm-6"> <input type="text" class="form-control" id="myInputAuthors" onkeyup="myFunctionAuthors()" placeholder="Search Authors"> </div>
-</div>
-
-<div class="form-group row">
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputGenres" onkeyup="myFunctionGenres()" placeholder="Search Genres"></div>
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputYears" onkeyup="myFunctionYears()" placeholder="Search Years"></div>
-<div class ="col-sm-4"><input type="text" class="form-control" id="myInputRatings" onkeyup="myFunctionRatings()" placeholder="Search Ratings"></div>
-</div>
-
-<br>
-<div class="row">
-<div class="col-sm-6" style="text-align:left;"><a href="http://www.gocomics.com/pearlsbeforeswine/2014/08/18" target="_blank">Relevant</a></div>
-<div class="col-sm-6" id="numberBooks" style="text-align:right;font-weight:bold;"></div>
-</div>
-<br>
-
-<div id="data" ></div>
-
+<center><h3>COVID Incarcerated Maryland</h3></center>
 <br>
 
 <center>
