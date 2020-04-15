@@ -21,12 +21,7 @@
       legend: 'none',
       focusTarget: 'category',
       isStacked: true,
-      vAxis: {
-          title: "Number"
-      },
-      hAxis: {
-          title: "Date"
-      }
+      hAxis.gridlines: {color: '#333', minSpacing: 20}
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById(divID));
