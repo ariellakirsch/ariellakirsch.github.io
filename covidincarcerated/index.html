@@ -10,14 +10,9 @@
 <script type="text/javascript">
 function drawScatterChart() {
     var data1 = google.visualization.arrayToDataTable([
-        ['X', 'Y'],
-        [0, 120],
-        [80, 0]
-    ]);
-    var data2 = google.visualization.arrayToDataTable([
-        ['X', 'Y'],
-        [0, 140],
-        [70, 0]
+        ['X', 'Y1','Y2'],
+        [0, 120,100],
+        [80, 0,80]
     ]);
 
     var options1 = {
@@ -25,21 +20,16 @@ function drawScatterChart() {
         hAxis: {title: 'Age' },
         vAxis: {title: 'Weight'},
         legend: 'none',
-        trendlines: {0: {}, 1: {}}
-    };
-
-    var options2 = {
-        title: 'X and Y',
-        hAxis: {title: 'Age' },
-        vAxis: {title: 'Weight'},
-        legend: 'none',
-        trendlines: {0: {}, 1: {}}
+        trendlines: {0: {
+          type: exponential
+        },
+        1: {
+          type: exponential
+        }}
     };
 
     var chart1 = new google.visualization.ScatterChart(document.getElementById('chart_div1'));
     chart1.draw(data1, options1);
-    var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
-    chart2.draw(data2, options2);
 }
 </script>
 
