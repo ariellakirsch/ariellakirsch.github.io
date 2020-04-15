@@ -50,10 +50,10 @@
             incarceratedArray.push(tmp);
             tmp = [];
           }
-          if (cell.row==2 && cell.col>1 && currentType=="Resident Cases"){
+          if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
             tmp.push(Date(val));
           }
-          else if (cell.row>2 && cell.col>1 && currentType=="Resident Cases"){
+          else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
           }
 //          if (cell.row==1){
