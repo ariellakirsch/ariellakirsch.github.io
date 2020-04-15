@@ -6,6 +6,46 @@
 <script src="../bootstrap.min.js"></script>
 <link href="../bootstrap.min.css" rel="stylesheet">
 <link href="../bootstrap-theme.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+function drawScatterChart() {
+    var data1 = google.visualization.arrayToDataTable([
+        ['X', 'Y'],
+        [0, 120],
+        [80, 0]
+    ]);
+    var data2 = google.visualization.arrayToDataTable([
+        ['X', 'Y'],
+        [0, 140],
+        [70, 0]
+    ]);
+
+    var options1 = {
+        title: 'X and Y',
+        hAxis: {title: 'Age' },
+        vAxis: {title: 'Weight'},
+        legend: 'none',
+        trendlines: {0: {}, 1: {}}
+    };
+
+    var options2 = {
+        title: 'X and Y',
+        hAxis: {title: 'Age' },
+        vAxis: {title: 'Weight'},
+        legend: 'none',
+        trendlines: {0: {}, 1: {}}
+    };
+
+    var chart1 = new google.visualization.ScatterChart(document.getElementById('chart_div1'));
+    chart1.draw(data1, options1);
+    var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
+    chart2.draw(data2, options2);
+}
+</script>
+
+
+
+
 <script type="text/javascript">
 
   var spData = null;
@@ -160,8 +200,10 @@
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(readData);
+      drawScatterChart();
   });
 </script>
+
 
 <script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/1/public/full?alt=json-in-script&callback=doData"></script>
 
@@ -193,44 +235,6 @@ Residents are individuals incarcerated in Maryland State Prisons. Non-Residents 
   <div class="checkbox"> <label><input type="checkbox">Metropolitan Transition Center  Patuxent Institution</label> </div>
   <div class="checkbox"> <label><input type="checkbox">Western Correctional Institution / North Branch Correctional Institution</label> </div>
   -->
-
-<script type="text/javascript">
-function drawScatterChart() {
-    var data1 = google.visualization.arrayToDataTable([
-        ['X', 'Y'],
-        [0, 120],
-        [80, 0]
-    ]);
-    var data2 = google.visualization.arrayToDataTable([
-        ['X', 'Y'],
-        [0, 140],
-        [70, 0]
-    ]);
-
-    var options1 = {
-        title: 'X and Y',
-        hAxis: {title: 'Age' },
-        vAxis: {title: 'Weight'},
-        legend: 'none',
-        trendlines: {0: {}, 1: {}}
-    };
-
-    var options2 = {
-        title: 'X and Y',
-        hAxis: {title: 'Age' },
-        vAxis: {title: 'Weight'},
-        legend: 'none',
-        trendlines: {0: {}, 1: {}}
-    };
-
-    var chart1 = new google.visualization.ScatterChart(document.getElementById('chart_div1'));
-    chart1.draw(data1, options1);
-    var chart2 = new google.visualization.ScatterChart(document.getElementById('chart_div2'));
-    chart2.draw(data2, options2);
-}
-drawScatterChart();
-</script>
-
 
 <div id="chart_div1"></div>
 <div id="chart_div2"></div>
