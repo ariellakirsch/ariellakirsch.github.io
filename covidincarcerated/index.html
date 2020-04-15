@@ -38,10 +38,14 @@
           var val = cell["$t"];
           var tmp = [];
           var incarceratedArray = new Array();
-          if (cell.col==1 && val=="Resident Cases"){
+          var currentType = "";
+          if (cell.col==1){
+            currentType = val;
+          }
+          if (cell.col==1 && currentType=="Resident Cases"){
             console.log("1 "+cell.row+" "+cell.col+" "+val);
           }
-          else if (cell.col==2){
+          else if (cell.col==2 && currentType=="Resident Cases"){
             console.log("2 "+cell.row+" "+cell.col+" "+val);
           }
 //          if (cell.row==1){
