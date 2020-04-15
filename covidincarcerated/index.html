@@ -22,6 +22,7 @@
       focusTarget: 'category',
       isStacked: true,
       hAxis: {
+        format: 'Y-MM-dd',
         gridlines: {color: '#333', minSpacing: 1}
       }
     };
@@ -73,36 +74,7 @@
           else if (cell.row>1 && cell.col>2){
             tmp.push(parseInt(val));
           }
-//          if (cell.row==1){
-//            columns[cell.col] = {date: val, type: ""};
-//          }
-//          else if (cell.row==2){
-//            columns[cell.col].type = val;
-//          }
-//          else{
-//            if (cell.col==1){
-//              parsedData[val] = new Array();
-//            }
-//            else{
-//              parsedData[val][columns[cell.col]] = val;
-//            }
-//            //console.log(cell.row+" "+cell.col+" "+val);
-//          }
       }
-//      console.log(columns);
-//      console.log(parsedData);
-
-//      var residentArray = new Array();
-//
-//      residentArray.push(['Year', 'Type 1', 'Type 2']);
-//      residentArray.push(["2010", 7, 3]);
-//      residentArray.push(["2011", 8, 6]);
-//      residentArray.push(["2012", 12, 12]);
-
-//      for(var key in yearData) {
-//        var value = yearData[key];
-//        residentArray.push([key, value]);
-//      }
 
       if (tmp.length>0){
         if (currentType=="Resident Cases" || currentType==""){
@@ -144,28 +116,8 @@
 <script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/1/public/full?alt=json-in-script&callback=doData"></script>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
-<style type="text/css">
-
-
-.myInput {
-    background-position: 10px 12px; /* Position the search icon */
-    background-repeat: no-repeat; /* Do not repeat the icon image */
-    width: 50%; /* Full-width */
-    font-size: 16px; /* Increase font-size */
-    padding: 12px 20px 12px 40px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a grey border */
-    margin-bottom: 12px; /* Add some space below the input */
-}
-
-
-
-<!--
-</style>
-<style type="text/css" media="print">
-  form {display: none;}
-</style>
 </head>
+
 <body style="width: 90%;margin: auto;">
 
 <center><h3>COVID Incarcerated Maryland</h3></center>
