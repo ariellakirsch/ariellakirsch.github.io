@@ -59,6 +59,12 @@
           }
           if (cell.row>1 && cell.col==1 && tmp.length>0){
             if (currentType=="Resident Cases" || currentType==""){
+              if (currentType==""){
+                tmp.push({type: 'number', role: 'annotation'});
+              }
+              else{
+                tmp.push(0);
+              }
               residentArray.push(tmp);
             }
             if (currentType=="Officer Cases" || currentType==""){
@@ -81,13 +87,14 @@
 
 
       if (tmp.length>0){
-        if (currentType=="Resident Cases" || currentType==""){
+        if (currentType=="Resident Cases"){
+          tmp.push(0);
           residentArray.push(tmp);
         }
-        if (currentType=="Officer Cases" || currentType==""){
+        if (currentType=="Officer Cases"){
           officerArray.push(tmp);
         }
-        if (currentType=="Other Cases" || currentType==""){
+        if (currentType=="Other Cases"){
           otherArray.push(tmp);
         }
         tmp = [];
