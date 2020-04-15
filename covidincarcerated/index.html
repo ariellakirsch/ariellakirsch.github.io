@@ -92,7 +92,11 @@
 
       if (tmp.length>0){
         if (currentType=="Resident Cases"){
-          tmp.push(0);
+          ttl=0;
+          for (var i=1; i<tmp.length; i++){
+            ttl += tmp[i];
+          }
+          tmp.push(ttl);
           residentArray.push(tmp);
         }
         if (currentType=="Officer Cases"){
@@ -114,7 +118,11 @@
         for (var j=1; j<t1.length; j++){
           tt.push(t1[j]+t2[j]);
         }
-        tt.push(0);
+        ttl=0;
+        for (var j=1; j<tmp.length; j++){
+          ttl += tt[j];
+        }
+        tt.push(ttl);
         nonresidentArray.push(tt);
         ticks.push({v:t1[0],f:dateFormatter.formatValue(t1[0])});
       }
