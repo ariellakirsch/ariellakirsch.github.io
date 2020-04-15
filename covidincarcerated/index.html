@@ -13,7 +13,7 @@
       spData = json.feed.entry;
   }
 
-  function drawChart(titleText,divID,input) {
+  function drawChart(titleText,divID,ticks,input) {
     var data = google.visualization.arrayToDataTable(input);
 
     var options = {
@@ -22,7 +22,8 @@
       focusTarget: 'category',
       isStacked: true,
       hAxis: {
-        format: 'Y-MM-dd'
+        format: 'Y-MM-dd',
+        ticks: ticks
         //gridlines: {color: '#333', minSpacing: 1}
       }
     };
@@ -107,8 +108,8 @@
 
       console.log(ticks);
 
-      drawChart("Resident Cases", "resident_div", residentArray);
-      drawChart("Non-Resident Cases", "nonresident_div", nonresidentArray);
+      drawChart("Resident Cases", "resident_div", ticks, residentArray);
+      drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
