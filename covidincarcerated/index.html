@@ -48,6 +48,9 @@
       var officerArray = new Array();
       var otherArray = new Array();
 
+      var currentTotalResident = 0;
+      var numInPrison = 21143.0;
+
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
@@ -67,6 +70,7 @@
                 for (var i=1; i<tmp.length; i++){
                   ttl += tmp[i];
                 }
+                currentTotalResident = ttl;
                 tmp.push(ttl);
               }
               residentArray.push(tmp);
@@ -97,6 +101,7 @@
             ttl += tmp[i];
           }
           tmp.push(ttl);
+          currentTotalResident = ttl;
           residentArray.push(tmp);
         }
         if (currentType=="Officer Cases"){
@@ -132,6 +137,7 @@
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
+      document.getElementByID('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/numInPrison).toString()+" in Prison, 156.7 Statewide";
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
@@ -153,6 +159,8 @@
 <div id="resident_div" style="width: 100%;"></div>
 <br>
 <div id="nonresident_div" style="width: 100%;"></div>
+
+<div id="currenttotal_div" style="width: 100%;"></div>
 
 <!--
   <div class="checkbox"> <label><input type="checkbox">Dorsey Run Correctional Institution</label> </div>
