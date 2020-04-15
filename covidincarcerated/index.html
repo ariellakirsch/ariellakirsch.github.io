@@ -22,8 +22,8 @@
       focusTarget: 'category',
       isStacked: true,
       hAxis: {
-        format: 'Y MM dd',
-        gridlines: {color: '#333', minSpacing: 1}
+        format: 'Y-MM-dd'
+        //gridlines: {color: '#333', minSpacing: 1}
       }
     };
 
@@ -38,7 +38,7 @@
 
       var parsedData = new Array();
 
-      dateFormatter = new google.visualization.DateFormat({pattern: "Y-MM-dd", timeZone: +5});
+      dateFormatter = new google.visualization.DateFormat({pattern: "Y-MM-dd", timeZone: +6});
 
       var currentType = "";
       var tmp = [];
