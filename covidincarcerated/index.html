@@ -69,7 +69,8 @@
             currentType = val;
           }
           if (cell.row>1 && cell.col==2){
-            tmp.push(dateFormatter.formatValue(new Date(Date.parse(val))));
+            tmp.push(new Date(Date.parse(val)));
+            //tmp.push(dateFormatter.formatValue(new Date(Date.parse(val))));
           }
           else if (cell.row>1 && cell.col>2){
             tmp.push(parseInt(val));
