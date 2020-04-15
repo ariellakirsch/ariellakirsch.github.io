@@ -30,6 +30,9 @@
   function readData() {
       var data = spData;
       var columns = new Array();
+
+      var parsedData = new Array();
+
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
@@ -40,11 +43,18 @@
             columns[cell.col].type = val;
           }
           else{
-            console.log(cell.row+" "+cell.col+" "+val);
+            if (cell.col==1){
+              parsedData[val] = new Array();
+            }
+            else{
+              parsedData[val][columns[cell.col]] = val;
+            }
+            //console.log(cell.row+" "+cell.col+" "+val);
           }
       }
       console.log(columns);
       console.log(incarceratedArray);
+      console.log(parsedData);
 
       var incarceratedArray = new Array();
 
