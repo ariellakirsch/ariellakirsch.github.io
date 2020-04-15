@@ -13,7 +13,7 @@
       spData = json.feed.entry;
   }
 
-  function drawChart(titleText,input) {
+  function drawChart(titleText,divID,input) {
     var data = google.visualization.arrayToDataTable(input);
 
     var options = {
@@ -23,7 +23,7 @@
       isStacked: true
     };
 
-    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.AreaChart(document.getElementById(divID));
 
     chart.draw(data, options);
   }
@@ -39,6 +39,8 @@
       var currentType = "";
       var tmp = [];
       var residentArray = new Array();
+      var nonresidentArray = new Array();
+
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
@@ -52,6 +54,9 @@
             console.log(tmp);
             if (currentType=="Resident Cases" || currentType==""){
               residentArray.push(tmp);
+            }
+            if (currentType=="Officer Cases" || currentType=="Other Cases" || currentType==""){
+              nonresidentArray.push(tmp);
             }
             tmp = [];
             currentType = val;
@@ -79,7 +84,7 @@
 //          }
       }
 //      console.log(columns);
-      console.log(residentArray);
+//      console.log(residentArray);
 //      console.log(parsedData);
 
 //      var residentArray = new Array();
@@ -94,7 +99,8 @@
 //        residentArray.push([key, value]);
 //      }
 
-      drawChart("Resident Cases", residentArray);
+      drawChart("Resident Cases", "resident_div", residentArray);
+      drawChart("Resident Cases", "nonresident_div", residentArray);
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
@@ -139,7 +145,9 @@
 <br>
 
 <center>
-<div id="chart_div" style="width: 100%; height: 300px;"></div>
+<div id="resident_div" style="width: 100%; height: 300px;"></div>
+<br>
+<div id="nonresident_div" style="width: 100%; height: 300px;"></div>
 </center>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
