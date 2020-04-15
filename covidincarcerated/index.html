@@ -48,9 +48,11 @@
               currentType = val;
             }
           }
-          if (cell.row>1 && cell.col==1 && tmp.length>0 && currentType=="Resident Cases"){
+          if (cell.row>1 && cell.col==1 && tmp.length>0){
             console.log(tmp);
-            residentArray.push(tmp);
+            if (currentType=="Resident Cases"){
+              residentArray.push(tmp);
+            }
             tmp = [];
             currentType = val;
           }
