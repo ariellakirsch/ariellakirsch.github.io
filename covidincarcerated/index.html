@@ -42,7 +42,6 @@
           if (cell.col==1){
             currentType = val;
           }
-          console.log(currentType+" "+cell.row+" "+cell.col+" "+val);
           if (cell.row==1){
             tmp.push(val);
           }
@@ -52,7 +51,9 @@
           }
           if (cell.row>1 && cell.col==2 && currentType=="Resident Cases"){
             console.log(val);
-            tmp.push(Date(parseInt(val)));
+            var tt = val.split('-');
+            console.log(tt);
+            tmp.push(Date(tt[0],tt[1],tt[2]));
           }
           else if (cell.row>1 && cell.col>2 && currentType=="Resident Cases"){
             tmp.push(parseInt(val));
