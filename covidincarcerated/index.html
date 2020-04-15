@@ -13,6 +13,12 @@
       spData = json.feed.entry;
   }
 
+  function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+    return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+  }
+
   function drawChart(titleText,divID,ticks,input) {
     console.log(input);
     var data = google.visualization.arrayToDataTable(input);
@@ -85,7 +91,7 @@
             currentType = val;
           }
           if (cell.row>1 && cell.col==2){
-            tmp.push(new Date(Date.parse(val)));
+            tmp.push(new parseDate(val));
             //tmp.push(dateFormatter.formatValue(new Date(Date.parse(val))));
           }
           else if (cell.row>1 && cell.col>2){
