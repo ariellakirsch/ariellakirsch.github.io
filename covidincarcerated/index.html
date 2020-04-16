@@ -65,6 +65,7 @@ function drawScatterChart() {
         ticks: ticks
         //gridlines: {color: '#333', minSpacing: 1}
       }
+      trendlines: { 0: {} }    // Draw a trendline for data series 0.
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById(divID));
