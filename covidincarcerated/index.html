@@ -92,6 +92,7 @@ function drawScatterChart() {
       var currentTotalOfficers = 0;
       var currentTotalStatewide = 10032;
       var ttl = 0;
+      var lastUpdated;
 
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
@@ -99,6 +100,11 @@ function drawScatterChart() {
           if (cell.row==1){
             if (cell.col==1){
               currentTotalStatewide = parseInt(val);
+            }
+            else if(cell.col==2){
+              tmp.push('Date');
+              lastUpdated = parseDate(val);
+              console.log(lastUpdated);
             }
             else{
               tmp.push(val);
