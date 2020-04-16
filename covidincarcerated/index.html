@@ -97,9 +97,11 @@ function drawScatterChart() {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
           if (cell.row==1){
-            tmp.push(val);
             if (cell.col==1){
               currentTotalStatewide = parseInt(val);
+            }
+            else{
+              tmp.push(val);
             }
           }
           if (cell.row>1 && cell.col==1 && tmp.length>0){
