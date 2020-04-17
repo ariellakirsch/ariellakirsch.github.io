@@ -42,12 +42,6 @@ var officerpop = 4476;
       title: 'Cases per 100,000',
       seriesType: 'line',
       focusTarget: 'category',
-      explorer: {
-        actions: ['dragToZoom', 'rightClickToReset'],
-        //axis: 'horizontal',
-        keepInBounds: true,
-        maxZoomIn: 4.0
-      },
       hAxis: {
         format: 'Y-MM-dd',
       },
@@ -248,10 +242,10 @@ var officerpop = 4476;
           compareArray2.push(tmp);
         }
       }
-      var denom = 1.0*((compareArray2[compareArray2.length-1][0].getTime()-compareArray2[compareArray2.length-2][0].getTime())/(24*60*60*1000));
-      var staterate = (compareArray1[compareArray1.length-1][1]-compareArray1[compareArray1.length-2][1])/denom;
-      var residentrate = (compareArray2[compareArray2.length-1][1]-compareArray2[compareArray2.length-2][1])/denom;
-      var officerrate = (compareArray2[compareArray2.length-1][2]-compareArray2[compareArray2.length-2][2])/denom;
+      var denom = ((compareArray2[compareArray2.length-1][0].getTime()-compareArray2[compareArray2.length-2][0].getTime())/(24*60*60*1000));
+      var staterate = 2.0*compareArray1[compareArray1.length-2][1]*denom/(compareArray1[compareArray1.length-1][1]-compareArray1[compareArray1.length-2][1]);
+      var residentrate = 2.0*compareArray1[compareArray2.length-2][1]*denom/(compareArray2[compareArray2.length-1][1]-compareArray2[compareArray2.length-2][1]);
+      var officerrate = 2.0*compareArray1[compareArray2.length-2][2]*denom/(compareArray2[compareArray2.length-1][2]-compareArray2[compareArray2.length-2][2]);
 
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
