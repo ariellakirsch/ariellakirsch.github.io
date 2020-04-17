@@ -99,6 +99,23 @@ function drawScatterChart() {
       var ttl = 0;
       var lastUpdated;
 
+      var compareArray = new Array();
+      compareArray.push(["Date","Statewide","Residents","Officers"]);
+      for(var r=0; r<statedata.length; r++) {
+          var cell = statedata[r]["gs$cell"];
+          var val = cell["$t"];
+          if (cell.col==1){
+            if (tmp.length>0){
+              tmp.push(0);
+              tmp.push(0);
+              compareArray.push(tmp);
+              tmp = [];
+            }
+          }
+          tmp.push(val);
+      }
+      console.log(compareArray);
+
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
