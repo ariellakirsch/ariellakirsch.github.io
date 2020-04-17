@@ -114,6 +114,13 @@ function drawScatterChart() {
           }
           tmp.push(val);
       }
+      if (tmp.length>0){
+        tmp.push(0);
+        tmp.push(0);
+        compareArray.push(tmp);
+        tmp = [];
+      }
+
       console.log(compareArray);
 
       for(var r=0; r<data.length; r++) {
