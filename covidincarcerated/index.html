@@ -244,6 +244,7 @@ var officerpop = 4476;
           var t2 = officerArray[i];
           if (t2[0].getTime()==t1[0].getTime()){
             ttl=0;
+            tmp.push(t2[0]);
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
