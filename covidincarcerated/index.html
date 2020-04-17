@@ -38,7 +38,9 @@ var officerpop = 4476;
     var data3 = google.visualization.arrayToDataTable(input3);
 
     var joineddata = google.visualization.data.join(data1, data2, 'full', [[0, 0]], [1], [1]);
+    console.log(joineddata);
     var data = google.visualization.data.join(joineddata, data3, 'full', [[0, 0]], [1], [1]);
+    console.log(data);
 
     var options = {
     };
