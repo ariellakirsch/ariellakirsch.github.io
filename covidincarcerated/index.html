@@ -55,6 +55,17 @@ function drawScatterChart() {
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
   }
 
+  function drawCompareChart(input) {
+    var data = google.visualization.arrayToDataTable(input);
+
+    var options = {
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('comparechart_div'));
+
+    chart.draw(data, options);
+  }
+
   function drawChart(titleText,divID,ticks,input) {
     var data = google.visualization.arrayToDataTable(input);
 
@@ -113,7 +124,7 @@ function drawScatterChart() {
             tmp.push(new parseDate(val));
           }
           else{
-            tmp.push(val);
+            tmp.push(parseInt(val));
           }
       }
       if (tmp.length>0){
@@ -230,34 +241,30 @@ function drawScatterChart() {
 
       for (var j=1; j<compareArray.length; j++){
         var t1 = compareArray[j];
-        console.log(t1);
-        console.log(t1[0].getTime());
         for (var i=1; i<residentArray.length; i++){
           var t2 = residentArray[i];
-          console.log(t2);
-          console.log(t2[0].getTime());
           if (t2[0].getTime()==t1[0].getTime()){
             ttl=0;
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            console.log(ttl);
             compareArray[j][2] = ttl;
           }
         }
-//        for (var i=1; i<officerArray.length; i++){
-//          var t2 = officerArray[i];
-//          if (t2[0]==t1[0]){
-//            ttl=0;
-//            for (var k=1; k<t2.length; k++){
-//              ttl += t2[k];
-//            }
-//            compareArray[j][2] = ttl;
-//          }
-//        }
+        for (var i=1; i<officerArray.length; i++){
+          var t2 = officerArray[i];
+          if (t2[0].getTime()==t1[0].getTime()){
+            ttl=0;
+            for (var k=1; k<t2.length; k++){
+              ttl += t2[k];
+            }
+            compareArray[j][3] = ttl;
+          }
+        }
       }
       console.log(compareArray);
 
+      drawCompareChart(compareArray);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/21143.0).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/4476).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/6046000.0).toFixed(1)+" Statewide";
@@ -285,6 +292,7 @@ function drawScatterChart() {
 <div id="currenttotal_div" style="width: 100%;"></div>
 </strong>
 <i><div id="lastupdate_div" style="width: 100%;"></div></i>
+<div id="comparechart_div" style="width: 100%;height:400px;"></div>
 <div id="resident_div" style="width: 100%;height:400px;"></div>
 <div id="nonresident_div" style="width: 100%;height:400px;"></div>
 Residents are individuals incarcerated in Maryland State Prisons. Non-Residents are officers and contractors.
