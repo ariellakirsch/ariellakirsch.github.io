@@ -41,8 +41,12 @@ function drawScatterChart() {
 <script type="text/javascript">
 
   var spData = null;
+  var spData2 = null;
   function doData(json) {
       spData = json.feed.entry;
+  }
+  function doStateData(json) {
+      spData2 = json.feed.entry;
   }
 
   function parseDate(input) {
@@ -76,6 +80,7 @@ function drawScatterChart() {
 
   function readData() {
       var data = spData;
+      var statedata = spData2;
       var columns = new Array();
 
       var parsedData = new Array();
@@ -90,7 +95,7 @@ function drawScatterChart() {
 
       var currentTotalResident = 0;
       var currentTotalOfficers = 0;
-      var currentTotalStatewide = 10032;
+      var currentTotalStatewide = 0;
       var ttl = 0;
       var lastUpdated;
 
@@ -208,6 +213,8 @@ function drawScatterChart() {
 
 
 <script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/1/public/full?alt=json-in-script&callback=doData"></script>
+
+<script src="https://spreadsheets.google.com/feeds/cells/1NAxNw4f8CFbhKmjLm7SrHtLQVgJt5XXrukAslxzTyU0/2/public/full?alt=json-in-script&callback=doStateData"></script>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 </head>
