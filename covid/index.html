@@ -240,7 +240,8 @@ var officerpop = 4476;
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            tmp.push(100000.0*ttl/residentpop);
+            tmp.push(50000.0*ttl/residentpop);
+            ttl = 0;
             console.log(residentpop, ttl, 100000.0*ttl/residentpop);
           }
         }
@@ -251,7 +252,8 @@ var officerpop = 4476;
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            tmp.push(100000.0*ttl/officerpop);
+            tmp.push(50000.0*ttl/officerpop);
+            ttl = 0;
             console.log(officerpop, ttl, 100000.0*ttl/officerpop);
           }
         }
