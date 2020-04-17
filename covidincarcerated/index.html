@@ -107,7 +107,7 @@ function drawScatterChart() {
             if (tmp.length>0){
               tmp.push(0);
               tmp.push(0);
-              compareArray.push(tmp);
+              compareArray.push(new parseDate(tmp));
               tmp = [];
             }
           }
@@ -229,6 +229,16 @@ function drawScatterChart() {
         var t1 = compareArray[j];
         for (var i=1; i<residentArray.length; i++){
           var t2 = residentArray[i];
+          if (t2[0]==t1[0]){
+            ttl=0;
+            for (var k=1; k<t2.length; k++){
+              ttl += t2[k];
+            }
+            compareArray[j][2] = ttl;
+          }
+        }
+        for (var i=1; i<officerArray.length; i++){
+          var t2 = officerArray[i];
           if (t2[0]==t1[0]){
             ttl=0;
             for (var k=1; k<t2.length; k++){
