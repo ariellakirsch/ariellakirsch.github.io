@@ -110,8 +110,11 @@ function drawScatterChart() {
               compareArray.push(tmp);
               tmp = [];
             }
+            tmp.push(new parseDate(val));
           }
-          tmp.push(new parseDate(val));
+          else{
+            tmp.push(val);
+          }
       }
       if (tmp.length>0){
         tmp.push(0);
@@ -227,26 +230,29 @@ function drawScatterChart() {
 
       for (var j=1; j<compareArray.length; j++){
         var t1 = compareArray[j];
+        console.log(t1);
         for (var i=1; i<residentArray.length; i++){
           var t2 = residentArray[i];
+          console.log(t2);
           if (t2[0]==t1[0]){
             ttl=0;
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
+            console.log(ttl);
             compareArray[j][2] = ttl;
           }
         }
-        for (var i=1; i<officerArray.length; i++){
-          var t2 = officerArray[i];
-          if (t2[0]==t1[0]){
-            ttl=0;
-            for (var k=1; k<t2.length; k++){
-              ttl += t2[k];
-            }
-            compareArray[j][2] = ttl;
-          }
-        }
+//        for (var i=1; i<officerArray.length; i++){
+//          var t2 = officerArray[i];
+//          if (t2[0]==t1[0]){
+//            ttl=0;
+//            for (var k=1; k<t2.length; k++){
+//              ttl += t2[k];
+//            }
+//            compareArray[j][2] = ttl;
+//          }
+//        }
       }
       console.log(compareArray);
 
