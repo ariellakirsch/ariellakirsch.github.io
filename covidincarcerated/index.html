@@ -32,11 +32,13 @@ var officerpop = 4476;
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
   }
 
-  function drawCompareChart(input1,input2) {
+  function drawCompareChart(input1,input2,input3) {
     var data1 = google.visualization.arrayToDataTable(input1);
     var data2 = google.visualization.arrayToDataTable(input2);
+    var data3 = google.visualization.arrayToDataTable(input3);
 
-    var data = google.visualization.data.join(data1, data2, 'full', [[0, 0]], [1], [1]);
+    var joineddata = google.visualization.data.join(data1, data2, 'full', [[0, 0]], [1], [1]);
+    var data = google.visualization.data.join(joineddata, data3, 'full', [[0, 0]], [1], [1]);
 
     var options = {
     };
@@ -214,7 +216,7 @@ var officerpop = 4476;
       //console.log(nonresidentArray);
 
       var compareArray2 = new Array();
-      compareArray2.push(["Date","Residents","Officers"]);
+      compareArray2.push(["Date","Residents"]);
       for (var j=1; j<compareArray1.length; j++){
         var t1 = compareArray1[j];
         tmp = [];
@@ -229,6 +231,15 @@ var officerpop = 4476;
             tmp.push(100000.0*ttl/residentpop);
           }
         }
+        if (tmp.length>0){
+          compareArray2.push(tmp);
+        }
+      }
+      var compareArray3 = new Array();
+      compareArray3.push(["Date","Officers"]);
+      for (var j=1; j<compareArray1.length; j++){
+        var t1 = compareArray1[j];
+        tmp = [];
         for (var i=1; i<officerArray.length; i++){
           var t2 = officerArray[i];
           if (t2[0].getTime()==t1[0].getTime()){
@@ -240,12 +251,12 @@ var officerpop = 4476;
           }
         }
         if (tmp.length>0){
-          compareArray2.push(tmp);
+          compareArray3.push(tmp);
         }
       }
-      console.log(compareArray2);
+      console.log(compareArray3);
 
-      drawCompareChart(compareArray1,compareArray2);
+      drawCompareChart(compareArray1,compareArray2,compareArray3);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
