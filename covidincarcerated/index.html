@@ -88,7 +88,7 @@ var officerpop = 4476;
       var lastUpdated;
 
       var compareArray1 = new Array();
-      compareArray1.push(["Date","Statewide","Residents","Officers"]);
+      compareArray1.push(["Date","Statewide"]);
       for(var r=0; r<statedata.length; r++) {
           var cell = statedata[r]["gs$cell"];
           var val = cell["$t"];
@@ -214,6 +214,7 @@ var officerpop = 4476;
       //console.log(nonresidentArray);
 
       var compareArray2 = new Array();
+      compareArray2.push(["Date","Residents","Officers"]);
       for (var j=1; j<compareArray1.length; j++){
         var t1 = compareArray1[j];
         tmp = [];
@@ -238,7 +239,9 @@ var officerpop = 4476;
             tmp.push(100000.0*ttl/officerpop);
           }
         }
-        compareArray2.push(tmp);
+        if (tmp.length>0){
+          compareArray2.push(tmp);
+        }
       }
       console.log(compareArray2);
 
