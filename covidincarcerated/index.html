@@ -56,7 +56,6 @@ function drawScatterChart() {
   }
 
   function drawChart(titleText,divID,ticks,input) {
-    console.log(input);
     var data = google.visualization.arrayToDataTable(input);
 
     var options = {
@@ -239,6 +238,7 @@ function drawScatterChart() {
           }
         }
       }
+      console.log(compareArray);
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
