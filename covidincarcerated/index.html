@@ -8,36 +8,9 @@
 <link href="../bootstrap-theme.min.css" rel="stylesheet">
 
 <script type="text/javascript">
-
 var statepop = 6046000.0;
 var residentpop = 21143.0;
 var officerpop = 4476;
-
-function drawScatterChart() {
-    var data1 = google.visualization.arrayToDataTable([
-        ['X', 'Y1','Y2'],
-        [0, 120,100],
-        [80, 0,80]
-    ]);
-
-    var options1 = {
-        title: 'X and Y',
-        hAxis: {title: 'Age' },
-        vAxis: {title: 'Weight'},
-        legend: 'none',
-        trendlines: {0: {
-          type: 'exponential',
-          visibleInLegend: true,
-        },
-        1: {
-          type: 'exponential',
-          visibleInLegend: true,
-        }}
-    };
-
-    var chart1 = new google.visualization.ScatterChart(document.getElementById('chart_div1'));
-    chart1.draw(data1, options1);
-}
 </script>
 
 
@@ -56,12 +29,14 @@ function drawScatterChart() {
 
   function parseDate(input) {
     var parts = input.match(/(\d+)/g);
-    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
   }
 
-  function drawCompareChart(input) {
-    var data = google.visualization.arrayToDataTable(input);
+  function drawCompareChart(input1,input2) {
+    var data1 = google.visualization.arrayToDataTable(input1);
+    var data2 = google.visualization.arrayToDataTable(input2);
+
+    var data = google.visualization.data.join(data1, data2, 'full', [[0, 0]], [1], [1]);
 
     var options = {
     };
@@ -89,8 +64,6 @@ function drawScatterChart() {
     var chart = new google.visualization.AreaChart(document.getElementById(divID));
 
     chart.draw(data, options);
-
-    //drawScatterChart();
   }
 
   function readData() {
@@ -114,16 +87,14 @@ function drawScatterChart() {
       var ttl = 0;
       var lastUpdated;
 
-      var compareArray = new Array();
-      compareArray.push(["Date","Statewide","Residents","Officers"]);
+      var compareArray1 = new Array();
+      compareArray1.push(["Date","Statewide","Residents","Officers"]);
       for(var r=0; r<statedata.length; r++) {
           var cell = statedata[r]["gs$cell"];
           var val = cell["$t"];
           if (cell.col==1){
             if (tmp.length>0){
-              tmp.push(0);
-              tmp.push(0);
-              compareArray.push(tmp);
+              compareArray1.push(tmp);
               tmp = [];
             }
             tmp.push(new parseDate(val));
@@ -133,13 +104,11 @@ function drawScatterChart() {
           }
       }
       if (tmp.length>0){
-        tmp.push(0);
-        tmp.push(0);
-        compareArray.push(tmp);
+        compareArray1.push(tmp);
         tmp = [];
       }
 
-      console.log(compareArray);
+      console.log(compareArray1);
 
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
@@ -244,16 +213,19 @@ function drawScatterChart() {
       //console.log(residentArray);
       //console.log(nonresidentArray);
 
-      for (var j=1; j<compareArray.length; j++){
-        var t1 = compareArray[j];
+      var compareArray2 = new Array();
+      for (var j=1; j<compareArray2.length; j++){
+        var t1 = compareArray2[j];
+        tmp = [];
         for (var i=1; i<residentArray.length; i++){
           var t2 = residentArray[i];
           if (t2[0].getTime()==t1[0].getTime()){
             ttl=0;
+            tmp.push(t2[0]);
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            compareArray[j][2] = 100000.0*ttl/residentpop;
+            tmp.push(100000.0*ttl/residentpop);
           }
         }
         for (var i=1; i<officerArray.length; i++){
@@ -263,13 +235,14 @@ function drawScatterChart() {
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            compareArray[j][3] = 100000.0*ttl/officerpop;
+            tmp.push(100000.0*ttl/officerpop);
           }
         }
+        compareArray2.push(tmp);
       }
-      console.log(compareArray);
+      console.log(compareArray2);
 
-      drawCompareChart(compareArray);
+      drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
