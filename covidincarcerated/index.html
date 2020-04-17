@@ -248,7 +248,8 @@ var officerpop = 4476;
           compareArray2.push(tmp);
         }
       }
-      console.log((officerArray[officerArray.length-1][1].getTime()-officerArray[officerArray.length-2][1].getTime())/(24*60*60*1000));
+      console.log((officerArray[officerArray.length-1][0].getTime()-officerArray[officerArray.length-2][0].getTime())/(24*60*60*1000));
+      console.log(officerArray[officerArray.length-1][1]-officerArray[officerArray.length-2][1]);
 
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
