@@ -133,7 +133,7 @@ function drawScatterChart() {
             else if(cell.col==2){
               tmp.push('Date');
               lastUpdated = parseDate(val);
-              console.log(lastUpdated);
+              //console.log(lastUpdated);
               document.getElementById('lastupdate_div').innerHTML = "Last Updated: "+dateFormatter.formatValue(lastUpdated);
             }
             else{
@@ -222,8 +222,9 @@ function drawScatterChart() {
         ticks.push({v:t1[0],f:dateFormatter.formatValue(t1[0])});
       }
 
-      console.log(residentArray);
-      console.log(nonresidentArray);
+      console.log(officerArray);
+      //console.log(residentArray);
+      //console.log(nonresidentArray);
 
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
