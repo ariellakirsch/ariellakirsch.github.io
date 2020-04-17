@@ -39,9 +39,10 @@ var officerpop = 4476;
     var data = google.visualization.data.join(data2, data1, 'full', [[0, 0]], [1,2], [1]);
 
     var options = {
+      seriesType: 'line',
     };
 
-    var chart = new google.visualization.AreaChart(document.getElementById('comparechart_div'));
+    var chart = new google.visualization.ComboChart(document.getElementById('comparechart_div'));
 
     chart.draw(data, options);
   }
