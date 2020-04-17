@@ -226,6 +226,20 @@ function drawScatterChart() {
       //console.log(residentArray);
       //console.log(nonresidentArray);
 
+      for (var j=1; j<compareArray.length; j++){
+        var t1 = compareArray[j];
+        for (var i=1; i<residentArray.length; i++){
+          var t2 = residentArray[i];
+          if (t2[0]==t1[0]){
+            ttl=0;
+            for (var k=1; k<t2.length; k++){
+              ttl += t2[k];
+            }
+            compareArray[j][2] = ttl;
+          }
+        }
+      }
+
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/21143.0).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/4476).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/6046000.0).toFixed(1)+" Statewide";
