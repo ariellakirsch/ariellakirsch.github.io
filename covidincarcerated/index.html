@@ -248,14 +248,16 @@ var officerpop = 4476;
           compareArray2.push(tmp);
         }
       }
-      console.log((compareArray2[compareArray2.length-1][0].getTime()-compareArray2[compareArray2.length-2][0].getTime())/(24*60*60*1000));
-      console.log(compareArray2[compareArray2.length-1][1]-compareArray2[compareArray2.length-2][1]);
-      console.log(compareArray2[compareArray2.length-1][2]-compareArray2[compareArray2.length-2][2]);
+      var denom = ((compareArray2[compareArray2.length-1][0].getTime()-compareArray2[compareArray2.length-2][0].getTime())/(24*60*60*1000));
+      var staterate = 2*denom/(compareArray[compareArray.length-1][1]-compareArray[compareArray.length-2][1]);
+      var residentrate = 2*denom/(compareArray2[compareArray2.length-1][1]-compareArray2[compareArray2.length-2][1]);
+      var officerrate = 2*denom/(compareArray2[compareArray2.length-1][2]-compareArray2[compareArray2.length-2][2]);
 
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       //document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
+      document.getElementById('currenttotal_div').innerHTML="Doubling Time: "+residentrate.toFixed(1)+" Prison Residents, "+officerrate.toFixed(1)+" Officers, "+staterate.toFixed(1)+" Statewide";
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
@@ -275,9 +277,9 @@ var officerpop = 4476;
 
 <center>
 <h3>COVID in Maryland State Prisons</h3>
-<!--<strong>
+<strong>
 <div id="currenttotal_div" style="width: 100%;"></div>
-</strong>-->
+</strong>
 <i><div id="lastupdate_div" style="width: 100%;"></div></i>
 <div id="comparechart_div" style="width: 100%;height:400px;"></div>
 <div id="resident_div" style="width: 100%;height:400px;"></div>
