@@ -42,6 +42,12 @@ var officerpop = 4476;
       title: 'Cases per 100,000',
       seriesType: 'line',
       focusTarget: 'category',
+      explorer: {
+        actions: ['dragToZoom', 'rightClickToReset'],
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomIn: 4.0
+      }
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('comparechart_div'));
