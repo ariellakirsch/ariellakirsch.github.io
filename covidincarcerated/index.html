@@ -231,10 +231,12 @@ function drawScatterChart() {
       for (var j=1; j<compareArray.length; j++){
         var t1 = compareArray[j];
         console.log(t1);
+        console.log(t1[0].getTime());
         for (var i=1; i<residentArray.length; i++){
           var t2 = residentArray[i];
           console.log(t2);
-          if (t2[0]==t1[0]){
+          console.log(t2[0].getTime());
+          if (t2[0].getTime()==t1[0].getTime()){
             ttl=0;
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
