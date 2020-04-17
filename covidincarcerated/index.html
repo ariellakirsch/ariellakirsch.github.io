@@ -107,11 +107,11 @@ function drawScatterChart() {
             if (tmp.length>0){
               tmp.push(0);
               tmp.push(0);
-              compareArray.push(new parseDate(val));
+              compareArray.push(tmp);
               tmp = [];
             }
           }
-          tmp.push(val);
+          tmp.push(new parseDate(val));
       }
       if (tmp.length>0){
         tmp.push(0);
