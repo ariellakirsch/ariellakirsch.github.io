@@ -249,12 +249,13 @@ var officerpop = 4476;
       var officerrate = compareArray2[compareArray2.length-2][2]*denom/(compareArray2[compareArray2.length-1][2]-compareArray2[compareArray2.length-2][2]);
 
       for (var i=0; i<compareArray2.length-1; i++){
-        //var x = dateFormatter2.formatValue(compareArray2[i+1][0])+"-"+dateFormatter2.formatValue(compareArray2[i][0]);
-        var denom = ((compareArray2[i+1][0].getTime()-compareArray2[i][0].getTime())/(24*60*60*1000));
-        var staterate = compareArray1[i][1]*denom/(compareArray1[i+1][1]-compareArray1[i][1]);
-        var residentrate = compareArray2[i][1]*denom/(compareArray2[i+1][1]-compareArray2[i][1]);
-        var officerrate = compareArray2[i][2]*denom/(compareArray2[i+1][2]-compareArray2[i][2]);
-        console.log(compareArray2[i][0], compareArray2[i+1][0], denom, staterate, residentrate, officerrate);
+        // var x = dateFormatter2.formatValue(compareArray2[i+1][0])+"-"+dateFormatter2.formatValue(compareArray2[i][0]);
+        // var denom = ((compareArray2[i+1][0].getTime()-compareArray2[i][0].getTime())/(24*60*60*1000));
+        // var staterate = compareArray1[i][1]*denom/(compareArray1[i+1][1]-compareArray1[i][1]);
+        // var residentrate = compareArray2[i][1]*denom/(compareArray2[i+1][1]-compareArray2[i][1]);
+        // var officerrate = compareArray2[i][2]*denom/(compareArray2[i+1][2]-compareArray2[i][2]);
+        // console.log(compareArray2[i][0], compareArray2[i+1][0], denom, staterate, residentrate, officerrate);
+        console.log(compareArray2[i][0], compareArray2[i+1][0]);
       }
 
       drawCompareChart(compareArray1,compareArray2);
