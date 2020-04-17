@@ -8,6 +8,11 @@
 <link href="../bootstrap-theme.min.css" rel="stylesheet">
 
 <script type="text/javascript">
+
+var statepop = 6046000.0;
+var residentpop = 21143.0;
+var officerpop = 4476;
+
 function drawScatterChart() {
     var data1 = google.visualization.arrayToDataTable([
         ['X', 'Y1','Y2'],
@@ -124,7 +129,7 @@ function drawScatterChart() {
             tmp.push(new parseDate(val));
           }
           else{
-            tmp.push(parseInt(val));
+            tmp.push(100000.0*parseInt(val)/statepop);
           }
       }
       if (tmp.length>0){
@@ -248,7 +253,7 @@ function drawScatterChart() {
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            compareArray[j][2] = ttl;
+            compareArray[j][2] = 100000.0*ttl/residentpop;
           }
         }
         for (var i=1; i<officerArray.length; i++){
@@ -258,7 +263,7 @@ function drawScatterChart() {
             for (var k=1; k<t2.length; k++){
               ttl += t2[k];
             }
-            compareArray[j][3] = ttl;
+            compareArray[j][3] = 100000.0*ttl/officerpop;
           }
         }
       }
@@ -267,7 +272,7 @@ function drawScatterChart() {
       drawCompareChart(compareArray);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
-      document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/21143.0).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/4476).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/6046000.0).toFixed(1)+" Statewide";
+      document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
   }
   $(document).ready(function(){
       google.charts.load('current', {'packages':['corechart']});
