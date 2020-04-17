@@ -36,14 +36,14 @@ var officerpop = 4476;
     var data1 = google.visualization.arrayToDataTable(input1);
     var data2 = google.visualization.arrayToDataTable(input2);
 
-    var data = google.visualization.data.join(data1, data2, 'full', [[0, 0]], [1], [1,2]);
+    var data = google.visualization.data.join(data2, data1, 'full', [[0, 0]], [1,2], [1]);
 
     var options = {
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('comparechart_div'));
 
-    chart.draw(data2, options);
+    chart.draw(data, options);
   }
 
   function drawChart(titleText,divID,ticks,input) {
