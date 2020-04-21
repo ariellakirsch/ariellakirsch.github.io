@@ -281,6 +281,8 @@ var officerpop = 4476;
       drawDoublingChart(doublingArray);
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
+      console.log(residentArray);
+      console.log(officerArray);
       drawChart("Officer Cases", "officer_div", ticks, officerArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       //document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
