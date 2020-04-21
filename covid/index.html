@@ -227,6 +227,22 @@ var officerpop = 4476;
         ticks.push({v:t1[0],f:dateFormatter.formatValue(t1[0])});
       }
 
+      var officerArray2 = new Array();
+      officerArray2.push(officerArray[0]);
+      for (var i=1; i<officerArray.length; i++){
+        var t1 = officerArray[i];
+        var tt = [t1[0]];
+        for (var j=1; j<t1.length; j++){
+          tt.push(t1[j]);
+        }
+        ttl=0;
+        for (var j=1; j<tt.length; j++){
+          ttl += tt[j];
+        }
+        tt.push(ttl);
+        officerArray2.push(tt);
+      }
+
       var compareArray2 = new Array();
       compareArray2.push(["Date","Residents","Officers"]);
       for (var j=1; j<compareArray1.length; j++){
@@ -242,7 +258,6 @@ var officerpop = 4476;
             }
             tmp.push(50000.0*ttl/residentpop);
             ttl = 0;
-            console.log(residentpop, ttl, 100000.0*ttl/residentpop);
           }
         }
         for (var i=1; i<officerArray.length; i++){
@@ -254,7 +269,6 @@ var officerpop = 4476;
             }
             tmp.push(100000.0*ttl/officerpop);
             ttl = 0;
-            console.log(officerpop, ttl, 100000.0*ttl/officerpop);
           }
         }
         if (tmp.length>0){
@@ -282,8 +296,8 @@ var officerpop = 4476;
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       console.log(residentArray);
-      console.log(officerArray);
-      drawChart("Officer Cases", "officer_div", ticks, officerArray);
+      console.log(officerArray2);
+      drawChart("Officer Cases", "officer_div", ticks, officerArray2);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       //document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
       document.getElementById('currenttotal_div').innerHTML="Number of Days for Cases to Double: "+residentrate.toFixed(1)+" Prison Residents, "+officerrate.toFixed(1)+" Officers, "+staterate.toFixed(1)+" Statewide<br>Cases per 100,000: "+(compareArray2[compareArray2.length-1][1]).toFixed(1)+" Prison Residents, "+(compareArray2[compareArray2.length-1][2]).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
