@@ -295,10 +295,8 @@ var officerpop = 4476;
       drawDoublingChart(doublingArray);
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
-      console.log(residentArray);
-      console.log(officerArray2);
       drawChart("Officer Cases", "officer_div", ticks, officerArray2);
-      drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
+      drawChart("All Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       //document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
       document.getElementById('currenttotal_div').innerHTML="Number of Days for Cases to Double: "+residentrate.toFixed(1)+" Prison Residents, "+officerrate.toFixed(1)+" Officers, "+staterate.toFixed(1)+" Statewide<br>Cases per 100,000: "+(compareArray2[compareArray2.length-1][1]).toFixed(1)+" Prison Residents, "+(compareArray2[compareArray2.length-1][2]).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
   }
@@ -329,7 +327,8 @@ var officerpop = 4476;
 <div id="resident_div" style="width: 100%;height:400px;"></div>
 <div id="officer_div" style="width: 100%;height:400px;"></div>
 <div id="nonresident_div" style="width: 100%;height:400px;"></div>
-Residents are individuals incarcerated in Maryland State Prisons. Non-Residents are officers and contractors.
+Residents are individuals incarcerated in Maryland State Prisons. Non-Residents are officers and contractors,
+although some press releases only include numbers for officers.
 <br>
 Assuming <a href="https://en.wikipedia.org/wiki/Maryland">6046000</a> Maryland residents, <a href="https://www.baltimoresun.com/coronavirus/bs-md-coronavirus-in-maryland-prisons-20200417-n5swcsbiqffxfml2dbufrdgf7a-story.html">18400</a> prison residents and <a href="https://www.nbcwashington.com/investigations/maryland-state-prison-short-1000-correctional-officers/2198408/">4476</a> officers.
 <br>
