@@ -281,6 +281,7 @@ var officerpop = 4476;
       drawDoublingChart(doublingArray);
       drawCompareChart(compareArray1,compareArray2);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
+      drawChart("Officer Cases", "officer_div", ticks, officerArray);
       drawChart("Non-Resident Cases", "nonresident_div", ticks, nonresidentArray);
       //document.getElementById('currenttotal_div').innerHTML="Cases per 100,000: "+(100000.0*currentTotalResident/residentpop).toFixed(1)+" Prison Residents, "+(100000.0*currentTotalOfficers/officerpop).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
       document.getElementById('currenttotal_div').innerHTML="Number of Days for Cases to Double: "+residentrate.toFixed(1)+" Prison Residents, "+officerrate.toFixed(1)+" Officers, "+staterate.toFixed(1)+" Statewide<br>Cases per 100,000: "+(compareArray2[compareArray2.length-1][1]).toFixed(1)+" Prison Residents, "+(compareArray2[compareArray2.length-1][2]).toFixed(1)+" Officers, "+(100000.0*currentTotalStatewide/statepop).toFixed(1)+" Statewide";
@@ -310,6 +311,7 @@ var officerpop = 4476;
 <div id="doublingchart_div" style="width: 100%;height:400px;"></div>
 <div id="comparechart_div" style="width: 100%;height:400px;"></div>
 <div id="resident_div" style="width: 100%;height:400px;"></div>
+<div id="officer_div" style="width: 100%;height:400px;"></div>
 <div id="nonresident_div" style="width: 100%;height:400px;"></div>
 Residents are individuals incarcerated in Maryland State Prisons. Non-Residents are officers and contractors.
 <br>
