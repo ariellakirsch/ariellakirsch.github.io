@@ -55,7 +55,7 @@ var officerpop = 4476;
     chart.draw(data, options);
   }
 
-  function drawCompareChart(input1,input2) {
+  function drawCompareChart(input1,input2,ticks) {
     var data1 = google.visualization.arrayToDataTable(input1);
     var data2 = google.visualization.arrayToDataTable(input2);
 
@@ -66,7 +66,8 @@ var officerpop = 4476;
       seriesType: 'line',
       focusTarget: 'category',
       hAxis: {
-        format: 'Y-MM-dd',
+        //format: 'Y-MM-dd',
+        ticks: ticks,
       },
     };
 
@@ -302,7 +303,7 @@ var officerpop = 4476;
       }
 
       drawDoublingChart(doublingArray);
-      drawCompareChart(compareArray1,compareArray2);
+      drawCompareChart(compareArray1,compareArray2,ticks);
       drawChart("Resident Cases", "resident_div", ticks, residentArray);
       drawChart("Officer Cases", "officer_div", ticks, officerArray2);
 
