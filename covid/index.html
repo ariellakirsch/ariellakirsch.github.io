@@ -158,6 +158,7 @@ var officerpop = 4476;
             }
           }
           if (cell.row>1 && cell.col==1 && tmp.length>0){
+            console.log(currentType);
             if (currentType=="Resident Cases" || currentType==""){
               if (currentType==""){
                 tmp.push({type: 'number', role: 'annotation'});
