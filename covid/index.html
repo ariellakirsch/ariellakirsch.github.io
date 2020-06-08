@@ -112,8 +112,6 @@ var officerpop = 4476;
       var officerArray = new Array();
       var otherArray = new Array();
 
-      var residentPosArray = new Array();
-
       var currentTotalResident = 0;
       var currentTotalOfficers = 0;
       var currentTotalStatewide = 0;
@@ -144,7 +142,6 @@ var officerpop = 4476;
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
-          console.log("val",val);
           if (cell.row==1){
             if (cell.col==1){
               currentTotalStatewide = parseInt(val);
@@ -159,7 +156,6 @@ var officerpop = 4476;
             }
           }
           if (cell.row>1 && cell.col==1 && tmp.length>0){
-            console.log(currentType);
             if (currentType=="Resident Cases" || currentType==""){
               if (currentType==""){
                 tmp.push({type: 'number', role: 'annotation'});
@@ -184,9 +180,6 @@ var officerpop = 4476;
             }
             if (currentType=="Other Cases" || currentType==""){
               otherArray.push(tmp);
-            }
-            if (currentType=="Resident Pos Rate" || currentType==""){
-              residentPosArray.push(tmp);
             }
             tmp = [];
             currentType = val;
@@ -222,14 +215,7 @@ var officerpop = 4476;
         if (currentType=="Other Cases"){
           otherArray.push(tmp);
         }
-        if (currentType=="Resident Pos Rate" || currentType==""){
-          residentPosArray.push(tmp);
-        }
         tmp = [];
-      }
-
-      for (var i=0; i<residentPosArray.length; i++){
-        console.log(i,residentPosArray[i]);
       }
 
       var ticks = [];
