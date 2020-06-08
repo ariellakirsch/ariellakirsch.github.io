@@ -185,6 +185,7 @@ var officerpop = 4476;
             }
             if (currentType=="Resident Pos Rate" || currentType==""){
               residentPosArray.push(tmp);
+              console.log(tmp);
             }
             tmp = [];
             currentType = val;
@@ -222,12 +223,13 @@ var officerpop = 4476;
         }
         if (currentType=="Resident Pos Rate" || currentType==""){
           residentPosArray.push(tmp);
+          console.log(tmp);
         }
         tmp = [];
       }
 
       for (var i=0; i<residentPosArray.length; i++){
-        console.log(residentPosArray[i]);
+        console.log(i,residentPosArray[i]);
       }
 
       var ticks = [];
