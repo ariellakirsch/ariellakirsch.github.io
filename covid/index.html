@@ -144,6 +144,7 @@ var officerpop = 4476;
       for(var r=0; r<data.length; r++) {
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
+          console.log("val",val);
           if (cell.row==1){
             if (cell.col==1){
               currentTotalStatewide = parseInt(val);
@@ -186,7 +187,6 @@ var officerpop = 4476;
             }
             if (currentType=="Resident Pos Rate" || currentType==""){
               residentPosArray.push(tmp);
-              console.log(tmp);
             }
             tmp = [];
             currentType = val;
@@ -224,7 +224,6 @@ var officerpop = 4476;
         }
         if (currentType=="Resident Pos Rate" || currentType==""){
           residentPosArray.push(tmp);
-          console.log(tmp);
         }
         tmp = [];
       }
