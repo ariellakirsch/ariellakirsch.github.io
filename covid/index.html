@@ -112,6 +112,8 @@ var officerpop = 4476;
       var officerArray = new Array();
       var otherArray = new Array();
 
+      var residentPosArray = new Array();
+
       var currentTotalResident = 0;
       var currentTotalOfficers = 0;
       var currentTotalStatewide = 0;
@@ -181,6 +183,9 @@ var officerpop = 4476;
             if (currentType=="Other Cases" || currentType==""){
               otherArray.push(tmp);
             }
+            if (currentType=="Resident Pos Rate" || currentType==""){
+              residentPosArray.push(tmp);
+            }
             tmp = [];
             currentType = val;
           }
@@ -215,7 +220,14 @@ var officerpop = 4476;
         if (currentType=="Other Cases"){
           otherArray.push(tmp);
         }
+        if (currentType=="Resident Pos Rate" || currentType==""){
+          residentPosArray.push(tmp);
+        }
         tmp = [];
+      }
+
+      for (var i=0; i<residentPosArray.length; i++){
+        console.log(residentPosArray[i]);
       }
 
       var ticks = [];
