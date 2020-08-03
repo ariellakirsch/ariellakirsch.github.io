@@ -10,8 +10,25 @@
 </head>
 <body>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+$.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
+  console.log(data);
+});
+</script>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-inline">
+      <label for="gameid">ID:</label>
+      <input class="form-control" type="text" id="gameid" name="gameid">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </body>
 </html>
