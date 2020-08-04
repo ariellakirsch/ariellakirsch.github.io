@@ -12,68 +12,77 @@
 <body>
 
 <script>
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-let gamepk = urlParams.get('gamepk');
-console.log(gamepk);
+function letsgo(){
+  document.getElementById("gamepk").disabled = true;
+  //const queryString = window.location.search;
+  //const urlParams = new URLSearchParams(queryString);
+  //let gamepk = urlParams.get('gamepk');
+  var gamepk = document.getElementById("gamepk").innerHTML;
+  console.log(gamepk);
 
-var previous = null;
-var current = null;
+  var previous = null;
+  var current = null;
 
-function getData(url){
-  $.getJSON(livefeedurl, function(data2) {
-      console.log(data2);
-      document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+data2.gameData.teams.home.name;
-      document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+data2.gameData.teams.away.name;
-      document.getElementById("awayteamscore").innerHTML = data2.liveData.linescore.teams.away.runs;
-      document.getElementById("hometeamscore").innerHTML = data2.liveData.linescore.teams.home.runs;
-      var year = data2.metaData.timeStamp.substring(0,4);
-      var month = data2.metaData.timeStamp.substring(4,6);
-      var day = data2.metaData.timeStamp.substring(6,8);
-      var hour = data2.metaData.timeStamp.substring(9,11);
-      var minute = data2.metaData.timeStamp.substring(11,13);
-      var second = data2.metaData.timeStamp.substring(13,15);
-      document.getElementById("timestamp").innerHTML = month+"/"+day+"/"+year+" "+hour+":"+minute+":"+second;
-      var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
-      console.log(atBatIndex);
-      var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
-      if (data2.liveData.plays.allPlays[atBatIndex].playEvents.length==0){
-      document.getElementById("status").innerHTML = "Waiting for pitch";
-      } else{
-      var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
-      console.log(currentPlay);
-      console.log(currentPitch);
-      if (currentPitch.hasOwnProperty("pitchData")){
-        document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
-        document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
-        document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
-        document.getElementById("call").innerHTML = currentPitch.details.call.description;
-      } else{
-        document.getElementById("status").innerHTML = currentPitch.details.description;
-      }
-      }
-      document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
-      document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
-  });
-}
+  function getData(url){
+    $.getJSON(livefeedurl, function(data2) {
+        console.log(data2);
+        document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+data2.gameData.teams.home.name;
+        document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+data2.gameData.teams.away.name;
+        document.getElementById("awayteamscore").innerHTML = data2.liveData.linescore.teams.away.runs;
+        document.getElementById("hometeamscore").innerHTML = data2.liveData.linescore.teams.home.runs;
+        var year = data2.metaData.timeStamp.substring(0,4);
+        var month = data2.metaData.timeStamp.substring(4,6);
+        var day = data2.metaData.timeStamp.substring(6,8);
+        var hour = data2.metaData.timeStamp.substring(9,11);
+        var minute = data2.metaData.timeStamp.substring(11,13);
+        var second = data2.metaData.timeStamp.substring(13,15);
+        document.getElementById("timestamp").innerHTML = month+"/"+day+"/"+year+" "+hour+":"+minute+":"+second;
+        var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
+        console.log(atBatIndex);
+        var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
+        if (data2.liveData.plays.allPlays[atBatIndex].playEvents.length==0){
+        document.getElementById("status").innerHTML = "Waiting for pitch";
+        } else{
+        var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
+        console.log(currentPlay);
+        console.log(currentPitch);
+        if (currentPitch.hasOwnProperty("pitchData")){
+          document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
+          document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
+          document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
+          document.getElementById("call").innerHTML = currentPitch.details.call.description;
+        } else{
+          document.getElementById("status").innerHTML = currentPitch.details.description;
+        }
+        }
+        document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
+        document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
+    });
+  }
 
-var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamepk+"/feed/live"
+  var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamepk+"/feed/live"
 
-getData(livefeedurl);
+    getData(livefeedurl);
 
 
 
-setInterval(function() {
-  getData(livefeedurl);
-}, 200000);
+  setInterval(function() {
+      getData(livefeedurl);
+      }, 200000);
+};
 </script>
 
 <br>
 <form class="form">
-  <label for="gamepk">gamepk</label>
-  <input type="text" class="form-control" id="gamepk" style="width:100px;" placeholder="000000">
   <button class="btn btn-primary mb-2">Lock</button>
 </form>
+<div class="form-group row">
+<div class="col-sm-2">
+
+<input type="text" class="form-control" id="gamepk" placeholder="gamepk"></div>
+<div class="col-sm-2"> <button type="button" class="btn btn-light" onclick="letsgo()">Lock</button> </div>
+</div>
+
 
 <br>
 
