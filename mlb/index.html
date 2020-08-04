@@ -26,8 +26,8 @@ function letsgo(){
   function getData(url){
     $.getJSON(livefeedurl, function(data2) {
         console.log(data2);
-        document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+data2.gameData.teams.home.name;
-        document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+data2.gameData.teams.away.name;
+        document.getElementById("hometeamval").innerHTML = data2.gameData.teams.home.name;
+        document.getElementById("awayteamval").innerHTML = data2.gameData.teams.away.name;
         document.getElementById("awayteamscore").innerHTML = data2.liveData.linescore.teams.away.runs;
         document.getElementById("hometeamscore").innerHTML = data2.liveData.linescore.teams.home.runs;
         var year = data2.metaData.timeStamp.substring(0,4);
@@ -88,10 +88,12 @@ function letsgo(){
   <table class="table w-auto">
     <tbody>
       <tr>
+        <td>Home</td>
         <td id="hometeamval"></td>
         <td id="hometeamscore"></td>
       </tr>
       <tr>
+        <td>Away</td>
         <td id="awayteamval"></td>
         <td id="awayteamscore"></td>
       </tr>
