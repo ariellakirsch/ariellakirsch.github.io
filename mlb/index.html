@@ -64,7 +64,15 @@ function getHomers(data2){
   }
   console.log(homers);
 
-  $("#homerunetable tbody tr").remove();
+  var Table = document.getElementById("mytable");
+  Table.innerHTML = "";
+  var myrow = mytable.insertRow(0);
+  var mycell0 = myrow.insertCell(0);
+  var mycell1 = myrow.insertCell(1);
+  var mycell2 = myrow.insertCell(2);
+  mycell0.innerHTML = "<b>Inning</b>";
+  mycell1.innerHTML = "<b>Hitter</b>";
+  mycell2.innerHTML = "<b>Distance</b>";
   for (var i=(homers.length-1); i>=0; i--){
     var mytable = document.getElementById("homeruntable");
     var myrow = mytable.insertRow(1);
@@ -238,13 +246,6 @@ function letsgo(){
 <div class="container">
   <h3>Home Runs</h3><br>
   <table class="table w-auto" id="homeruntable">
-    <thead>
-      <tr>
-        <th>Inning</th>
-        <th>Hitter</th>
-        <th>Distance</th>
-      </tr>
-    </thead>
     <tbody>
     </tbody>
   </table>
