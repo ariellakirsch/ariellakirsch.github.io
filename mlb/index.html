@@ -19,9 +19,9 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
   document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+gamedata.teams.away.team.name;
   document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
-  document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" "+gamedata.linescore.currentInningOrdinal;
-  document.getElementById("outs").innerHTML = gamedata.linescore.outs+" outs";
+  document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+gamedata.linescore.outs+" outs";
   document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes+" count";
+  document.getElementById("batter").innerHTML = gamedata.linescore.defense.batter.fullName;
 });
 </script>
 
@@ -41,7 +41,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
       </tr>
       <tr></tr>
       <tr>
-        <td id="outs"></td>
+        <td id="batter"></td>
         <td id="count"></td>
       </tr>
     </tbody>
