@@ -13,6 +13,20 @@
 
 <script>
 
+function getFastestPitches(data2){
+  console.log("getFastestPitches");
+  let allPlays = data2.liveData.plays.allPlays;
+  for (var i=0; i<allPlays.length; i++){
+    console.log(i,allPlays[i]);
+    for (var j=0; j<allPlays[i].playEvents.length; j++){
+      if (allPlays[i].playEvents[j].isPitch == "true" || allPlays[i].playEvents[j].isPitch == "True"){
+        let pitch = allPlays[i].playEvents[j];
+        console.log(str(i)+" "+str(j)+" "+pitch.pitchData.endSpeed+" "+pitch.details.code);
+      }
+    }
+  }
+};
+
 
 
 function letsgo(){
@@ -23,18 +37,6 @@ function letsgo(){
   var gamepk = document.getElementById("gamepk").value;
   console.log(gamepk);
 
-  function getFastestPitches(data2){
-    console.log("getFastestPitches");
-    let allPlays = data2.liveData.plays.allPlays;
-    for (var i=0; i<allPlays.length; i++){
-      for (var j=0; j<allPlays[i].playEvents.length; j++){
-        if (allPlays[i].playEvents[j].isPitch == "true" || allPlays[i].playEvents[j].isPitch == "True"){
-          let pitch = allPlays[i].playEvents[j];
-          console.log(str(i)+" "+str(j)+" "+pitch.pitchData.endSpeed+" "+pitch.details.code);
-        }
-      }
-    }
-  };
 
   var previous = null;
   var current = null;
