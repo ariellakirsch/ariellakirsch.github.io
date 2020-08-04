@@ -13,8 +13,10 @@
 
 <script>
 
+// X = in play, out
+
 function getFastestPitches(data2){
-  var codes = [];
+  //var codes = [];
   var pitches = [];
   let allPlays = data2.liveData.plays.allPlays;
   for (var i=0; i<allPlays.length; i++){
@@ -24,9 +26,9 @@ function getFastestPitches(data2){
       //console.log(i,j,play);
       if (play.hasOwnProperty("pitchData")){
         pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
-        if (!codes.includes(play.details.call.code)){
-          codes.push(play.details.call.code);
-        }
+        //if (!codes.includes(play.details.call.code)){
+        //  codes.push(play.details.call.code);
+        //}
       }
     }
   }
@@ -35,8 +37,8 @@ function getFastestPitches(data2){
     else if (a[0] == b[0]) { return 0; }
     else { return -1; }
   });
-  console.log(pitches);
-  console.log(codes);
+  //console.log(pitches);
+  //console.log(codes);
 
   document.getElementById("speed1").innerHTML = pitches[0][0];
   document.getElementById("outcome1").innerHTML = pitches[0][1];
@@ -53,6 +55,14 @@ function getFastestPitches(data2){
 };
 
 function getHomers(data2){
+  var homers = [];
+  let allPlays = data2.liveData.plays.allPlays;
+  for (var i=0; i<allPlays.length; i++){
+    if (allPlays[i].result.eventType=="home_run"){
+      homers.push([allPlays[i].about.inning,allPlays[i].matchup.batter.fullName,allPlays[i].playEvents[allPlays[i].playEvents.length-1].hitData.totalDistance]);
+    }
+  }
+  console.log(homers);
 };
 
 
@@ -108,6 +118,7 @@ function letsgo(){
         document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
         document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
         getFastestPitches(data2);
+        getHomers(data2);
     });
   }
 
@@ -207,6 +218,18 @@ function letsgo(){
         <td id="outcome3"></td>
         <td id="type3"></td>
         <td id="speed3"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div class="container">
+  <h2>Home Runs</h2><br>
+  <table class="table w-auto" id="homeruntable">
+    <tbody>
+      <tr>
+        <th>Hitter</th>
+        <th>Distance</th>
       </tr>
     </tbody>
   </table>
