@@ -14,15 +14,20 @@
 <script>
 
 function getFastestPitches(data2){
+  var pitches = [];
   console.log("getFastestPitches");
   let allPlays = data2.liveData.plays.allPlays;
   for (var i=0; i<allPlays.length; i++){
-    console.log(i,allPlays[i]);
+    //console.log(i,allPlays[i]);
     for (var j=0; j<allPlays[i].playEvents.length; j++){
       let play = allPlays[i].playEvents[j];
-      console.log(i,j,play);
+      //console.log(i,j,play);
+      if (play.hasOwnProperty("pitchData")){
+        pitches.push([play.pitchData.endSpeed,play.details.code, allPlays[i].result.description]);
+      }
     }
   }
+  console.log(pitches);
 };
 
 
