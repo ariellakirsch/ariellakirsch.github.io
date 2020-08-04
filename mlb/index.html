@@ -14,6 +14,7 @@
 <script>
 
 function getFastestPitches(data2){
+  var codes = [];
   var pitches = [];
   let allPlays = data2.liveData.plays.allPlays;
   for (var i=0; i<allPlays.length; i++){
@@ -24,6 +25,9 @@ function getFastestPitches(data2){
       if (play.hasOwnProperty("pitchData")){
         pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
       }
+      if (!codes.includes(play.details.call.code)){
+        codes.push(play.details.call.code);
+      }
     }
   }
   pitches.sort(function(a,b) {
@@ -32,6 +36,7 @@ function getFastestPitches(data2){
     else { return -1; }
   });
   console.log(pitches);
+  console.log(codes);
 
   document.getElementById("speed1").innerHTML = pitches[0][0];
   document.getElementById("outcome1").innerHTML = pitches[0][1];
@@ -47,6 +52,8 @@ function getFastestPitches(data2){
   document.getElementById("type3").innerHTML = pitches[2][3];
 };
 
+function getHomers(data2){
+};
 
 
 function letsgo(){
