@@ -29,24 +29,22 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
 <br><br>
 <center>
 <div class="container">
+  <h2 id="inning"></h2>
   <table class="table w-auto">
     <tbody>
       <tr>
-        <td>Home</td>
+        <td><b>Home</b></td>
         <td id="hometeamval"></td>
         <td id="hometeamscore"></td>
       </tr>
       <tr>
-        <td>Away</td>
+        <td><b>Away</b></td>
         <td id="awayteamval"></td>
         <td id="awayteamscore"></td>
       </tr>
       <tr></tr>
       <tr>
-        <td id="inning"></td>
         <td id="outs"></td>
-      </tr>
-      <tr>
         <td id="balls"></td>
         <td id="strikes"></td>
       </tr>
