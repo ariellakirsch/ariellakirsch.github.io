@@ -12,20 +12,24 @@
 
 <script>
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
+  // TODO if there's more than one game in a day, need to change this
   var gamedata = (data.dates[0].games[0]);
   console.log(gamedata)
   document.getElementById("hometeamval").innerHTML = gamedata.teams.home.team.name;
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
   document.getElementById("awayteamval").innerHTML = gamedata.teams.away.team.name;
   document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
-  // TODO if there's more than one game in a day, need to change this
+  document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" "+gamedata.linescore.currentInningOrdinal;
+  document.getElementById("outs").innerHTML = gamedata.linescore.outs+" Outs";
+  document.getElementById("balls").innerHTML = gamedata.linescore.balls+" Balls";
+  document.getElementById("strikes").innerHTML = gamedata.linescore.strikes+" Strikes";
 });
 </script>
 
 <br><br>
 <center>
 <div class="container">
-  <table class="table">
+  <table class="table w-auto">
     <tbody>
       <tr>
         <td>Home</td>
@@ -36,6 +40,15 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
         <td>Away</td>
         <td id="awayteamval"></td>
         <td id="awayteamscore"></td>
+      </tr>
+      <tr></tr>
+      <tr>
+        <td id="inning"></td>
+        <td id="outs"></td>
+      </tr>
+      <tr>
+        <td id="balls"></td>
+        <td id="strikes"></td>
       </tr>
     </tbody>
   </table>
