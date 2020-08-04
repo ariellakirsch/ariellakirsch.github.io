@@ -34,6 +34,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamePk+"/feed/live"
   $.getJSON(livefeedurl, function(data2) {
     console.log(data2);
+    document.getElementById("timestamp").innerHTML = data2.metaData.timeStamp;
     var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
     var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
     var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
@@ -57,6 +58,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
 </script>
 
 <br><br>
+<div id="timestamp"></div>
 <center>
 <div class="container">
   <h2 id="inning"></h2><br>
