@@ -18,7 +18,12 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
   document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+gamedata.teams.away.team.name;
   document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
-  document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+gamedata.linescore.outs+" outs";
+  var numouts = parseInt(gamedata.linescore.outs);
+  if (numouts==1){
+    document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+gamedata.linescore.outs+" out";
+  } else{
+    document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+gamedata.linescore.outs+" outs";
+  }
   document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes+" count";
   document.getElementById("batter").innerHTML = gamedata.linescore.defense.batter.fullName;
 });
