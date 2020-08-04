@@ -44,7 +44,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
       document.getElementById("status").innerHTML = currentPitch.details.description;
     }
     document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
-    document.getElementById("batter").innerHTML = currentPlay].matchup.batter.fullName;
+    document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
   });
 });
 
