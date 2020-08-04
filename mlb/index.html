@@ -13,6 +13,7 @@
 <script>
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
   var gamedata = (data.dates[0].games[0].linescore);
+  console.log(gamedata)
   document.getElementById("hometeamval").innerHTML = gamedata.teams.home.team.name;
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
   document.getElementById("awayteamval").innerHTML = gamedata.teams.away.team.name;
@@ -22,24 +23,20 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
 </script>
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-     Home
-    </div>
-    <div class="col-sm" id="hometeamval">
-    </div>
-    <div class="col-sm" id="hometeamscore">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
-     Away
-    </div>
-    <div class="col-sm" id="awayteamval">
-    </div>
-    <div class="col-sm" id="awayteamscore">
-    </div>
-  </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Home</td>
+        <td id="hometeamval"></td>
+        <td id="hometeamscore"></td>
+      </tr>
+      <tr>
+        <td>Away</td>
+        <td id="awayteamval"></td>
+        <td id="awayteamscore"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!--<div class="container">
