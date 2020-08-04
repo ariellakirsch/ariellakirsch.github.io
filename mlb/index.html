@@ -35,12 +35,6 @@ setInterval(function() {
     var gamePk = gamedata.gamePk;
     var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamePk+"/feed/live"
     $.getJSON(livefeedurl, function(data2) {
-      current = JSON.stringify(data2);
-      if (previous && current && previous !== current) {
-      console.log('refresh');
-      location.reload();
-      }
-      previous = current;
       console.log(data2);
       var year = data2.metaData.timeStamp.substring(0,4);
       var month = data2.metaData.timeStamp.substring(4,6);
@@ -69,6 +63,12 @@ setInterval(function() {
       }
       document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
       document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
+      current = JSON.stringify(data2);
+      if (previous && current && previous !== current) {
+      console.log('refresh');
+      location.reload();
+      }
+      previous = current;
     });
   });
 }, 2000);
