@@ -64,8 +64,8 @@ function getHomers(data2){
   }
   console.log(homers);
 
-  var Table = document.getElementById("mytable");
-  Table.innerHTML = "";
+  var mytable = document.getElementById("homeruntable");
+  mytable.innerHTML = "";
   var myrow = mytable.insertRow(0);
   var mycell0 = myrow.insertCell(0);
   var mycell1 = myrow.insertCell(1);
@@ -74,11 +74,11 @@ function getHomers(data2){
   mycell1.innerHTML = "<b>Hitter</b>";
   mycell2.innerHTML = "<b>Distance</b>";
   for (var i=(homers.length-1); i>=0; i--){
-    var mytable = document.getElementById("homeruntable");
-    var myrow = mytable.insertRow(1);
-    var mycell0 = myrow.insertCell(0);
-    var mycell1 = myrow.insertCell(1);
-    var mycell2 = myrow.insertCell(2);
+    mytable = document.getElementById("homeruntable");
+    myrow = mytable.insertRow(1);
+    mycell0 = myrow.insertCell(0);
+    mycell1 = myrow.insertCell(1);
+    mycell2 = myrow.insertCell(2);
     mycell0.innerHTML = homers[i][0];
     mycell1.innerHTML = homers[i][1];
     mycell2.innerHTML = homers[i][2];
