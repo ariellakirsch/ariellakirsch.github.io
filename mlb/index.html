@@ -68,12 +68,12 @@ setInterval(function() {
       }
       document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
       document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
-      current = JSON.stringify(data2);
-      if (previous && current && previous !== current) {
-      console.log('refresh');
-      location.reload();
-      }
-      previous = current;
+//      current = JSON.stringify(data2);
+//      if (previous && current && previous !== current) {
+//      console.log('refresh');
+//      location.reload();
+//      }
+//      previous = current;
     });
   });
 }, 2000);
