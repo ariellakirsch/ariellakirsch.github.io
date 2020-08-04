@@ -19,6 +19,7 @@ function getFastestPitches(data2){
   for (var i=0; i<allPlays.length; i++){
     console.log(i,allPlays[i]);
     for (var j=0; j<allPlays[i].playEvents.length; j++){
+      console.log(j,allPlays[i].playEvents[j]);
       if (allPlays[i].playEvents[j].isPitch == "true" || allPlays[i].playEvents[j].isPitch == "True"){
         let pitch = allPlays[i].playEvents[j];
         console.log(str(i)+" "+str(j)+" "+pitch.pitchData.endSpeed+" "+pitch.details.code);
