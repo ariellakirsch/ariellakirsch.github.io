@@ -40,6 +40,8 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
     if (currentPitch.hasOwnProperty("pitchData")){
       document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
       document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
+      document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
+      document.getElementById("call").innerHTML = currentPitch.details.call.description;
     } else{
       document.getElementById("status").innerHTML = currentPitch.details.description;
     }
@@ -84,6 +86,14 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
       <tr>
         <td>Pitch Speed</td>
         <td id="pitchspeed"></td>
+      </tr>
+      <tr>
+        <td>Call</td>
+        <td id="call"></td>
+      </tr>
+      <tr>
+        <td>Count</td>
+        <td id="count"></td>
       </tr>
     </tbody>
   </table>
