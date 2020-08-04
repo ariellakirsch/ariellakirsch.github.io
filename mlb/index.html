@@ -24,9 +24,9 @@ function getFastestPitches(data2){
       //console.log(i,j,play);
       if (play.hasOwnProperty("pitchData")){
         pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
-      }
-      if (!codes.includes(play.details.call.code)){
-        codes.push(play.details.call.code);
+        if (!codes.includes(play.details.call.code)){
+          codes.push(play.details.call.code);
+        }
       }
     }
   }
