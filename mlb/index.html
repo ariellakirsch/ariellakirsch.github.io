@@ -21,14 +21,14 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
   document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" "+gamedata.linescore.currentInningOrdinal;
   document.getElementById("outs").innerHTML = gamedata.linescore.outs+" outs";
-  document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes;
+  document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes+" count";
 });
 </script>
 
 <br><br>
 <center>
 <div class="container">
-  <h2 id="inning"></h2>
+  <h2 id="inning"></h2><br>
   <table class="table w-auto">
     <tbody>
       <tr>
