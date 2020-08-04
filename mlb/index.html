@@ -12,7 +12,7 @@
 
 <script>
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
-  console.log(data);
+  console.log(data.dates.0);
 });
 </script>
 
