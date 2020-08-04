@@ -62,7 +62,7 @@ function getHomers(data2){
       homers.push([allPlays[i].about.inning,allPlays[i].matchup.batter.fullName,allPlays[i].playEvents[allPlays[i].playEvents.length-1].hitData.totalDistance]);
     }
   }
-  console.log(homers);
+  //console.log(homers);
 
   var mytable = document.getElementById("homeruntable");
   mytable.innerHTML = "";
@@ -92,7 +92,7 @@ function letsgo(){
   //const urlParams = new URLSearchParams(queryString);
   //let gamepk = urlParams.get('gamepk');
   var gamepk = document.getElementById("gamepk").value;
-  console.log(gamepk);
+  //console.log(gamepk);
 
 
   var previous = null;
@@ -100,7 +100,7 @@ function letsgo(){
 
   function getData(url){
     $.getJSON(livefeedurl, function(data2) {
-        console.log(data2);
+        //console.log(data2);
 
         var numouts = parseInt(data2.liveData.linescore.outs);
         if (numouts==1){
