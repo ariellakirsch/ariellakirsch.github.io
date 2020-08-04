@@ -11,6 +11,7 @@
 <body>
 
 <script>
+var gamePk = "";
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
   // TODO if there's more than one game in a day, need to change this
   var gamedata = (data.dates[0].games[0]);
@@ -26,7 +27,12 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   }
   document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes+" count";
   document.getElementById("batter").innerHTML = gamedata.linescore.defense.batter.fullName;
+  gamePk = gamedata.gamePk;
+  console.log(gamePk);
 });
+
+
+
 </script>
 
 <br><br>
