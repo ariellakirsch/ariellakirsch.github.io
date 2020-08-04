@@ -25,8 +25,8 @@ function getData(url){
       console.log(data2);
       document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+data2.gameData.teams.home.name;
       document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+data2.gameData.teams.away.name;
-      document.getElementById("awayteamscore").innerHTML = data2.gameData.liveData.linescore.teams.away.runs;
-      document.getElementById("hometeamscore").innerHTML = data2.gameData.liveData.linescore.teams.home.runs;
+      document.getElementById("awayteamscore").innerHTML = data2.liveData.linescore.teams.away.runs;
+      document.getElementById("hometeamscore").innerHTML = data2.liveData.linescore.teams.home.runs;
       var year = data2.metaData.timeStamp.substring(0,4);
       var month = data2.metaData.timeStamp.substring(4,6);
       var day = data2.metaData.timeStamp.substring(6,8);
