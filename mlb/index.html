@@ -23,6 +23,7 @@ function getFastestPitches(data2){
       let play = allPlays[i].playEvents[j];
       //console.log(i,j,play);
       if (play.hasOwnProperty("pitchData")){
+        console.log(i,j,[play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
         pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
       }
     }
