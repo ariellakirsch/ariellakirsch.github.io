@@ -15,7 +15,6 @@
 
 function getFastestPitches(data2){
   var pitches = [];
-  console.log("getFastestPitches");
   let allPlays = data2.liveData.plays.allPlays;
   for (var i=0; i<allPlays.length; i++){
     //console.log(i,allPlays[i]);
@@ -23,7 +22,6 @@ function getFastestPitches(data2){
       let play = allPlays[i].playEvents[j];
       //console.log(i,j,play);
       if (play.hasOwnProperty("pitchData")){
-        console.log(i,j,[play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
         pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
       }
     }
@@ -34,6 +32,19 @@ function getFastestPitches(data2){
     else { return -1; }
   });
   console.log(pitches);
+
+  document.getElementById("speed1").innerHTML = pitches[0][0];
+  document.getElementById("outcome1").innerHTML = pitches[0][1];
+  document.getElementById("pitcher1").innerHTML = pitches[0][2];
+  document.getElementById("type1").innerHTML = pitches[0][3];
+  document.getElementById("speed2").innerHTML = pitches[1][0];
+  document.getElementById("outcome2").innerHTML = pitches[1][1];
+  document.getElementById("pitcher2").innerHTML = pitches[1][2];
+  document.getElementById("type2").innerHTML = pitches[1][3];
+  document.getElementById("speed3").innerHTML = pitches[2][0];
+  document.getElementById("outcome3").innerHTML = pitches[2][1];
+  document.getElementById("pitcher3").innerHTML = pitches[2][2];
+  document.getElementById("type3").innerHTML = pitches[2][3];
 };
 
 
@@ -157,6 +168,38 @@ function letsgo(){
       <tr>
         <td>Count</td>
         <td id="count"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div class="container">
+  <h2>Fastest Pitches</h2><br>
+  <table class="table w-auto">
+    <tbody>
+      <tr>
+        <th>Pitcher</th>
+        <th>Outcome</th>
+        <th>Type</th>
+        <th>Speed</th>
+      </tr>
+      <tr>
+        <td id="pitcher1"></td>
+        <td id="outcome1"></td>
+        <td id="type1"></td>
+        <td id="speed1"></td>
+      </tr>
+      <tr>
+        <td id="pitcher2"></td>
+        <td id="outcome2"></td>
+        <td id="type2"></td>
+        <td id="speed2"></td>
+      </tr>
+      <tr>
+        <td id="pitcher3"></td>
+        <td id="outcome3"></td>
+        <td id="type3"></td>
+        <td id="speed3"></td>
       </tr>
     </tbody>
   </table>
