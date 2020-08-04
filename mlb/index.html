@@ -32,6 +32,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=114&hydrat
   var gamePk = gamedata.gamePk;
   var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamePk+"/feed/live"
   $.getJSON(livefeedurl, function(data2) {
+    console.log(data2);
     var year = data2.metaData.timeStamp.substring(0,4);
     var month = data2.metaData.timeStamp.substring(4,6);
     var day = data2.metaData.timeStamp.substring(6,8);
@@ -40,8 +41,11 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=114&hydrat
     var second = data2.metaData.timeStamp.substring(13,15);
     document.getElementById("timestamp").innerHTML = month+"/"+day+"/"+year+" "+hour+":"+minute+":"+second;
     var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
+    console.log(atBatIndex);
     var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
     var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
+    console.log(currentPlay);
+    console.log(currentPitch);
     if (currentPitch.hasOwnProperty("pitchData")){
       document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
       document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
