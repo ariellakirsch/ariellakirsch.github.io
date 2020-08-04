@@ -25,7 +25,7 @@ function getFastestPitches(data2){
       let play = allPlays[i].playEvents[j];
       //console.log(i,j,play);
       if (play.hasOwnProperty("pitchData")){
-        pitches.push([play.pitchData.endSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
+        pitches.push([play.pitchData.startSpeed,play.details.call.description,allPlays[i].matchup.pitcher.fullName,play.details.type.description]);
         //if (!codes.includes(play.details.call.code)){
         //  codes.push(play.details.call.code);
         //}
@@ -128,7 +128,7 @@ function letsgo(){
         var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
         if (currentPitch.hasOwnProperty("pitchData")){
           document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
-          document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
+          document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.startSpeed+" mph";
           document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
           document.getElementById("call").innerHTML = currentPitch.details.call.description;
         } else{
