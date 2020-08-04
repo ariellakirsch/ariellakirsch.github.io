@@ -14,7 +14,6 @@
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
   // TODO if there's more than one game in a day, need to change this
   var gamedata = (data.dates[0].games[0]);
-  console.log(gamedata)
   document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+gamedata.teams.home.team.name;
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
   document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+gamedata.teams.away.team.name;
