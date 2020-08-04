@@ -12,7 +12,11 @@
 
 <script>
 $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrate=linescore', function(data) {
-  console.log(data.dates[0].games[0]);
+  var gamedata = (data.dates[0].games[0].linescore);
+  document.getElementById("hometeamval").innerHTML = gamedata.teams.home.team.name;
+  document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
+  document.getElementById("awayteamval").innerHTML = gamedata.teams.away.team.name;
+  document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
   // TODO if there's more than one game in a day, need to change this
 });
 </script>
@@ -24,12 +28,16 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
     </div>
     <div class="col-sm" id="hometeamval">
     </div>
+    <div class="col-sm" id="hometeamscore">
+    </div>
   </div>
   <div class="row">
     <div class="col-sm">
      Away
     </div>
     <div class="col-sm" id="awayteamval">
+    </div>
+    <div class="col-sm" id="awayteamscore">
     </div>
   </div>
 </div>
