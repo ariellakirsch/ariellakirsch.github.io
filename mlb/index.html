@@ -14,6 +14,7 @@
 <script>
 
 function getFastestPitches(data2){
+  console.log("getFastestPitches");
   let allPlays = data2.liveData.plays.allPlays;
   for (var i=0; i<allPlays.length; i++){
     for (var j=0; j<allPlays[i].playEvents.length; j++){
