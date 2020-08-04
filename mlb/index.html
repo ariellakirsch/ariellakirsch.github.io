@@ -32,7 +32,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   $.getJSON(livefeedurl, function(data2) {
     console.log(data2);
     var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
-    var currentPlay = data2.liveData.plays.allPlays[atBatIndex].playEvents;
+    var currentPlay = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
     console.log(atBatIndex);
     console.log(currentPlay);
     //document.getElementById("pitcher").innerHTML = currentPlay[0].matchup.pitcher.fullName;
