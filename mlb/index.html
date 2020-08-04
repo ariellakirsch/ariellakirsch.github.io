@@ -19,7 +19,7 @@ function getFastestPitches(data2){
     for (var j=0; j<allPlays[i].playEvents.length; j++){
       if (allPlay[i].playEvents[j].isPitch == "true" || allPlay[i].playEvents[j].isPitch == "True"){
         let pitch = allPlays[i].playEvents[j];
-        console.log(str(i)+" "+str(j)+" "+pitch.pitchData.endSpeed+" "pitch.details.code);
+        console.log(str(i)+" "+str(j)+" "+pitch.pitchData.endSpeed+" "+pitch.details.code);
       }
     }
   }
