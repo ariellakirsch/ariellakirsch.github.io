@@ -14,6 +14,11 @@
 <body>
 
 <script>
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let gamepk = urlParams.get('gamepk');
+console.log(gamepk);
+
 var previous = null;
 var current = null;
 setInterval(function() {
