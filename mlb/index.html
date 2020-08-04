@@ -15,14 +15,13 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   // TODO if there's more than one game in a day, need to change this
   var gamedata = (data.dates[0].games[0]);
   console.log(gamedata)
-  document.getElementById("hometeamval").innerHTML = gamedata.teams.home.team.name;
+  document.getElementById("hometeamval").innerHTML = "<b>Home:</b> "+gamedata.teams.home.team.name;
   document.getElementById("hometeamscore").innerHTML = gamedata.teams.home.score;
-  document.getElementById("awayteamval").innerHTML = gamedata.teams.away.team.name;
+  document.getElementById("awayteamval").innerHTML = "<b>Away:</b> "+gamedata.teams.away.team.name;
   document.getElementById("awayteamscore").innerHTML = gamedata.teams.away.score;
   document.getElementById("inning").innerHTML = gamedata.linescore.inningHalf+" "+gamedata.linescore.currentInningOrdinal;
-  document.getElementById("outs").innerHTML = gamedata.linescore.outs+" Outs";
-  document.getElementById("balls").innerHTML = gamedata.linescore.balls+" Balls";
-  document.getElementById("strikes").innerHTML = gamedata.linescore.strikes+" Strikes";
+  document.getElementById("outs").innerHTML = gamedata.linescore.outs+" outs";
+  document.getElementById("count").innerHTML = gamedata.linescore.balls+"-"+gamedata.linescore.strikes;
 });
 </script>
 
@@ -33,20 +32,17 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   <table class="table w-auto">
     <tbody>
       <tr>
-        <td><b>Home</b></td>
         <td id="hometeamval"></td>
         <td id="hometeamscore"></td>
       </tr>
       <tr>
-        <td><b>Away</b></td>
         <td id="awayteamval"></td>
         <td id="awayteamscore"></td>
       </tr>
       <tr></tr>
       <tr>
         <td id="outs"></td>
-        <td id="balls"></td>
-        <td id="strikes"></td>
+        <td id="count"></td>
       </tr>
     </tbody>
   </table>
