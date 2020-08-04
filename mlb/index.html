@@ -37,7 +37,7 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
     console.log(atBatIndex);
     console.log(currentPlay);
     console.log(currentPitch);
-    if (currentPitch.isPitch == "True"){
+    if (currentPitch.isPitch == "True" || currentPitch.isPitch == "true"){
       document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.currentPlay.atBatIndex;
       //document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed;
     } else{
