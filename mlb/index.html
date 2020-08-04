@@ -34,7 +34,10 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
     var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
     var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
     console.log(atBatIndex);
-    console.log(currentPlay);
+    console.log(currentPlay.playEvents);
+    document.getElementById("pitcher").innerHTML = currentPlay[0].matchup.pitcher.fullName;
+    document.getElementById("batter").innerHTML = currentPlay[0].matchup.batter.fullName;
+    document.getElementById("pitchspeed").innerHTML = currentPlay[0].pitchData.endSpeed;
   });
 });
 
@@ -55,10 +58,25 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
         <td id="awayteamval"></td>
         <td id="awayteamscore"></td>
       </tr>
-      <tr></tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div class="container">
+  <h2 id="inning"></h2><br>
+  <table class="table w-auto">
+    <tbody>
       <tr>
+        <td>Pitcher</td>
+        <td id="pitcher"></td>
+      </tr>
+      <tr>
+        <td>Batter</td>
         <td id="batter"></td>
-        <td id="count"></td>
+      </tr>
+      <tr>
+        <td>Pitch Speed</td>
+        <td id="pitchspeed"></td>
       </tr>
     </tbody>
   </table>
