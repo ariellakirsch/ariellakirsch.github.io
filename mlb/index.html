@@ -46,14 +46,11 @@ function letsgo(){
         var second = data2.metaData.timeStamp.substring(13,15);
         document.getElementById("timestamp").innerHTML = month+"/"+day+"/"+year+" "+hour+":"+minute+":"+second;
         var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
-        console.log(atBatIndex);
         var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
         if (data2.liveData.plays.allPlays[atBatIndex].playEvents.length==0){
         document.getElementById("status").innerHTML = "Waiting for pitch";
         } else{
         var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
-        console.log(currentPlay);
-        console.log(currentPitch);
         if (currentPitch.hasOwnProperty("pitchData")){
           document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
           document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
