@@ -43,16 +43,20 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=114&hydrat
     var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
     console.log(atBatIndex);
     var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
-    var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
-    console.log(currentPlay);
-    console.log(currentPitch);
-    if (currentPitch.hasOwnProperty("pitchData")){
-      document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
-      document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
-      document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
-      document.getElementById("call").innerHTML = currentPitch.details.call.description;
+    if (data2.liveData.plays.allPlays[atBatIndex].playEvents.length==0){
+      document.getElementById("status").innerHTML = "Waiting for pitch";
     } else{
-      document.getElementById("status").innerHTML = currentPitch.details.description;
+      var currentPitch = data2.liveData.plays.allPlays[atBatIndex].playEvents[data2.liveData.plays.allPlays[atBatIndex].playEvents.length-1];
+      console.log(currentPlay);
+      console.log(currentPitch);
+      if (currentPitch.hasOwnProperty("pitchData")){
+        document.getElementById("status").innerHTML = "Pitch "+data2.liveData.plays.allPlays[atBatIndex].playEvents.length;
+        document.getElementById("pitchspeed").innerHTML = currentPitch.pitchData.endSpeed+" mph";
+        document.getElementById("count").innerHTML = currentPitch.count.balls+"-"+currentPitch.count.strikes;
+        document.getElementById("call").innerHTML = currentPitch.details.call.description;
+      } else{
+        document.getElementById("status").innerHTML = currentPitch.details.description;
+      }
     }
     document.getElementById("pitcher").innerHTML = currentPlay.matchup.pitcher.fullName;
     document.getElementById("batter").innerHTML = currentPlay.matchup.batter.fullName;
