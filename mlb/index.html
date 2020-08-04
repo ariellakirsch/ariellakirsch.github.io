@@ -26,6 +26,14 @@ function letsgo(){
   function getData(url){
     $.getJSON(livefeedurl, function(data2) {
         console.log(data2);
+
+        var numouts = parseInt(data2.liveData.linescore.outs);
+        if (numouts==1){
+          document.getElementById("inning").innerHTML = data2.liveData.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+data2.liveData.linescore.outs+" out";
+        } else{
+          document.getElementById("inning").innerHTML = data2.liveData.linescore.inningHalf+" of the "+gamedata.linescore.currentInningOrdinal+", "+data2.liveData.linescore.outs+" outs";
+        }
+
         document.getElementById("hometeamval").innerHTML = data2.gameData.teams.home.name;
         document.getElementById("awayteamval").innerHTML = data2.gameData.teams.away.name;
         document.getElementById("awayteamscore").innerHTML = data2.liveData.linescore.teams.away.runs;
@@ -73,7 +81,7 @@ function letsgo(){
 </script>
 
 <br>
-<div class="form-group row" style="padding-left:20px;">
+<div class="form-group row" style="padding-left:40px;">
 <div class="col-sm-2"><input type="text" class="form-control" id="gamepk" placeholder="gamepk"></div>
 <div class="col-sm-2"> <button type="button" class="btn btn-light" onclick="letsgo()">Lock</button> </div>
 </div>
