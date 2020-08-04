@@ -31,7 +31,10 @@ $.getJSON('https://statsapi.mlb.com/api/v1/schedule/?sportId=1&teamId=147&hydrat
   var livefeedurl = "https://statsapi.mlb.com/api/v1.1/game/"+gamePk+"/feed/live"
   $.getJSON(livefeedurl, function(data2) {
     console.log(data2);
-    var atBatIndex = data2.liveData.plays.currentPlay.atBatIndex;
+    var atBatIndex = parseInt(data2.liveData.plays.currentPlay.atBatIndex);
+    var currentPlay = data2.liveData.plays.allPlays[atBatIndex];
+    console.log(atBatIndex);
+    console.log(currentPlay);
   });
 });
 
