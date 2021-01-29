@@ -212,13 +212,12 @@
 function myFunction() {
   // Declare variables
 
-  var input, filter, table, tr, td, i;
-  var title = document.getElementById("myInputTitles");
-  var author = document.getElementById("myInputAuthors");
-  var rating = document.getElementById("myInputRatings");
-  var genre = document.getElementById("myInputGenres");
-  var year = document.getElementById("myInputYears");
-  filter = input.value.toUpperCase();
+  var table, tr, td, i;
+  var title = document.getElementById("myInputTitles").value.toUpperCase();
+  var author = document.getElementById("myInputAuthors").value.toUpperCase();
+  var rating = document.getElementById("myInputRatings").value.toUpperCase();
+  var genre = document.getElementById("myInputGenres").value.toUpperCase();
+  var year = document.getElementById("myInputYears").value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
 
