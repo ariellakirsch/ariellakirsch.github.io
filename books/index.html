@@ -230,7 +230,21 @@ function myFunction() {
     td_genre = tr[i].getElementsByTagName("td")[2];
     td_year = tr[i].getElementsByTagName("td")[3];
     td_rating = tr[i].getElementsByTagName("td")[4];
-    console.log(td_title.innerHTML.toUpperCase(), td_author.innerHTML.toUpperCase(), td_genre.innerHTML.toUpperCase(), td_year.innerHTML.toUpperCase(), td_rating.innerHTML.toUpperCase(), title, author, genre, year, rating);
+    if (td_title){
+      console.log(td_title.innerHTML.toUpperCase(), title);
+    }
+    if (td_author){
+      console.log(td_author.innerHTML.toUpperCase(), author);
+    }
+    if (td_genre){
+      console.log(td_genre.innerHTML.toUpperCase(), genre);
+    }
+    if (td_year){
+      console.log(td_year.innerHTML.toUpperCase(), year);
+    }
+    if (td_rating){
+      console.log(td_rating.innerHTML.toUpperCase(), rating);
+    }
     if (td_title && title!="" && td_title.innerHTML.toUpperCase().indexOf(title) > -1) {
       if (td_author && author!="" && td_author.innerHTML.toUpperCase().indexOf(author) > -1) {
         if (td_genre && genre!="" && td_genre.innerHTML.toUpperCase().indexOf(genre) > -1) {
