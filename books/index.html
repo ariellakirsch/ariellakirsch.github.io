@@ -230,38 +230,21 @@ function myFunction() {
     td_genre = tr[i].getElementsByTagName("td")[2];
     td_year = tr[i].getElementsByTagName("td")[3];
     td_rating = tr[i].getElementsByTagName("td")[4];
-    if (td_title){
-      console.log(td_title.innerHTML.toUpperCase(), title);
+    var print_row = true;
+    if (td_title && title.length>0 && td_title.innerHTML.toUpperCase().indexOf(title) == -1) {
+      print_row = false;
+    } else if (td_author && author.length>0 && td_author.innerHTML.toUpperCase().indexOf(author) == -1) {
+      print_row = false;
+    } else if (td_genre && genre.length>0 && td_genre.innerHTML.toUpperCase().indexOf(genre) == -1) {
+      print_row = false;
+    } else if (td_year && year.length>0 && td_year.innerHTML.toUpperCase().indexOf(year) == -1) {
+      print_row = false;
+    } else if (td_rating && rating.length>0 && td_rating.innerHTML.toUpperCase().indexOf(rating) == -1) {
+      print_row = false;
     }
-    if (td_author){
-      console.log(td_author.innerHTML.toUpperCase(), author);
-    }
-    if (td_genre){
-      console.log(td_genre.innerHTML.toUpperCase(), genre);
-    }
-    if (td_year){
-      console.log(td_year.innerHTML.toUpperCase(), year);
-    }
-    if (td_rating){
-      console.log(td_rating.innerHTML.toUpperCase(), rating);
-    }
-    if (td_title && title!="" && td_title.innerHTML.toUpperCase().indexOf(title) > -1) {
-      if (td_author && author!="" && td_author.innerHTML.toUpperCase().indexOf(author) > -1) {
-        if (td_genre && genre!="" && td_genre.innerHTML.toUpperCase().indexOf(genre) > -1) {
-          if (td_year && year!="" && td_year.innerHTML.toUpperCase().indexOf(year) > -1) {
-            if (td_rating && rating!="" && td_rating.innerHTML.toUpperCase().indexOf(rating) > -1) {
-              tr[i].style.display = "";
-              rowCount += 1;
-            } else {
-              tr[i].style.display = "none";
-            }
-          }
-        } else {
-          tr[i].style.display = "none";
-        }
-      } else {
-        tr[i].style.display = "none";
-      }
+    if (print_row) {
+      tr[i].style.display = "";
+      rowCount += 1;
     } else {
       tr[i].style.display = "none";
     }
