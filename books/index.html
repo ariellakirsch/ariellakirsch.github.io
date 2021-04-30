@@ -120,15 +120,7 @@
       else{
         document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
       }
-  }
-  $(document).ready(function(){
-      readData($("#data"));
-  });
-</script>
 
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -143,8 +135,31 @@
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
         chart.draw(data, options);
-      }
-    </script>
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+</script>
+
+
+<!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+    <!--<script type="text/javascript">-->
+      <!--google.charts.load('current', {'packages':['corechart']});-->
+      <!--google.charts.setOnLoadCallback(drawChart);-->
+
+      <!--function drawChart() {-->
+        <!--var data = google.visualization.arrayToDataTable(yearDataArray);-->
+
+        <!--var options = {-->
+          <!--title: 'Books By Year',-->
+          <!--legend: 'none'-->
+        <!--};-->
+
+        <!--var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));-->
+
+        <!--chart.draw(data, options);-->
+      <!--}-->
+    <!--</script>-->
 
 
 <script src="https://spreadsheets.google.com/feeds/cells/1VNBTeXNiPQBpn8-HBQI-K4cliIVcyVV5f-oJNiEKfig/1/public/values?alt=json-in-script&callback=doData"></script>
