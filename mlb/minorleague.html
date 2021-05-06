@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+
+<title>MLB</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../bootstrap.min.js"></script>
+<link href="../bootstrap.min.css" rel="stylesheet">
+<link href="../bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+function myFunction(name, url_str, div_str) {
+  var myURL = "https://statsapi.mlb.com/api/v1/schedule/?"+url_str+"&hydrate=linescore,team(league)";
+  $.getJSON(myURL, function(result){
+    var myJSON = JSON.stringify(result.totalItems);
+    //console.log(JSON.stringify(result));
+    var mydiv = div_str+"GameState";
+    var numGames = parseInt(myJSON);
+    if (numGames != 0){
+      var besti = 0;
+      for (i=0; i<numGames; i++){
+        if (result.dates[0].games[i].status.abstractGameState == "Live"){
+          var mytext = result.dates[0].games[i].linescore.inningState + " " + result.dates[0].games[i].linescore.currentInningOrdinal;
+          document.getElementById(mydiv).innerHTML = "\"gamestate\": \""+mytext+"\",";
+          besti = i;
+        }
+        else if (result.dates[0].games[i].status.abstractGameState == "Preview"){
+          if (document.getElementById(mydiv).innerHTML == ""){
+            console.log(document.getElementById(mydiv).innerHTML);
+            document.getElementById(mydiv).innerHTML = "\"gamestate\": \""+result.dates[0].games[i].gameDate+"\",";
+            besti = i;
+          }
+        }
+        else if (document.getElementById(mydiv).innerHTML == ""){
+          console.log(document.getElementById(mydiv).innerHTML);
+          document.getElementById(mydiv).innerHTML = "\"gamestate\": \""+result.dates[0].games[i].status.abstractGameState+"\",";
+          besti = i;
+        }
+      }
+      var mydiv = div_str+"VisitingTeamName";
+      document.getElementById(mydiv).innerHTML = "\"visitingteamname\": \""+result.dates[0].games[besti].teams.away.team.name+"\",";
+      var mydiv = div_str+"VisitingScore";
+      document.getElementById(mydiv).innerHTML = "\"visitingteamscore\": \""+result.dates[0].games[besti].teams.away.score+"\",";
+      var mydiv = div_str+"VisitingRecord";
+      document.getElementById(mydiv).innerHTML = "\"visitingrecord\": \""+result.dates[0].games[besti].teams.away.leagueRecord.wins+" - "+result.dates[0].games[besti].teams.away.leagueRecord.losses+"\",";
+      var mydiv = div_str+"HomeTeamName";
+      document.getElementById(mydiv).innerHTML = "\"hometeamname\": \""+result.dates[0].games[besti].teams.home.team.name+"\",";
+      var mydiv = div_str+"HomeScore";
+      document.getElementById(mydiv).innerHTML = "\"hometeamscore\": \""+result.dates[0].games[besti].teams.away.score+"\",";
+      var mydiv = div_str+"HomeRecord";
+      document.getElementById(mydiv).innerHTML = "\"homerecord\": \""+result.dates[0].games[besti].teams.home.leagueRecord.wins+" - "+result.dates[0].games[besti].teams.home.leagueRecord.losses+"\",";
+      var mydiv = div_str+"LeagueName";
+      document.getElementById(mydiv).innerHTML = "\"leaguename\": \""+result.dates[0].games[besti].teams.home.team.league.name+"\"";
+    } else {
+      var mydiv = div_str+"GameState";
+      document.getElementById(mydiv).innerHTML = "\"gamestate\": \"No Game\",";
+      var mydiv = div_str+"VisitingTeamName";
+      document.getElementById(mydiv).innerHTML = "\"visitingteamname\": \"\","
+      var mydiv = div_str+"VisitingScore";
+      document.getElementById(mydiv).innerHTML = "\"visitingteamscore\": \"\","
+      var mydiv = div_str+"VisitingRecord";
+      document.getElementById(mydiv).innerHTML = "\"visitingrecord\": \"\","
+      var mydiv = div_str+"HomeTeamName";
+      document.getElementById(mydiv).innerHTML = "\"hometeamname\": \"\","
+      var mydiv = div_str+"HomeScore";
+      document.getElementById(mydiv).innerHTML = "\"hometeamscore\": \"\","
+      var mydiv = div_str+"HomeRecord";
+      document.getElementById(mydiv).innerHTML = "\"homerecord\": \"\","
+      var mydiv = div_str+"LeagueName";
+      document.getElementById(mydiv).innerHTML = "\"leaguename\": \"\""
+    }
+
+  });
+}
+//$(document).ready(function(){
+//  var teams = [["sportId=11&teamId=568", "tides"],["sportId=12&teamId=418","baysox"]];
+//  var myArray = new Array();
+//  myFunction("Norfolk Tides", "sportId=15&teamId=488", "tides").then(
+//    function(value) {console.log(value);myArray.push(value);},
+//    function(error) {myDisplayer(error);}
+//  );
+//  myFunction("Bowie Baysox", "sportId=12&teamId=418", "baysox").then(
+//    function(value) {console.log(value);myArray.push(value); document.getElementById("output").innerHTML = JSON.stringify(myArray);},
+//    function(error) {myDisplayer(error);}
+//  );
+//  //var myJsonString = JSON.stringify(myArray);
+//  //document.getElementById("output").innerHTML = myJsonString;
+//});
+
+$(document).ready(function(){
+  myFunction("Bowie Baysox", "sportId=12&teamId=418", "baysox");
+  myFunction("Norfolk Tides", "sportId=11&teamId=568", "tides");
+  myFunction("Delmarva Shorebirds", "sportId=14&teamId=548", "shorebirds");
+  myFunction("Norfolk Tides", "sportId=13&teamId=488", "ironbirds");
+});
+</script>
+
+{
+"games":
+[{
+<div id="baysoxGameState"></div>
+<div id="baysoxVisitingTeamName"></div>
+<div id="baysoxVisitingScore"></div>
+<div id="baysoxVisitingRecord"></div>
+<div id="baysoxHomeTeamName"></div>
+<div id="baysoxHomeScore"></div>
+<div id="baysoxHomeRecord"></div>
+<div id="baysoxLeagueName"></div>
+},
+{
+<div id="tidesGameState"></div>
+<div id="tidesVisitingTeamName"></div>
+<div id="tidesVisitingScore"></div>
+<div id="tidesVisitingRecord"></div>
+<div id="tidesHomeTeamName"></div>
+<div id="tidesHomeScore"></div>
+<div id="tidesHomeRecord"></div>
+<div id="tidesLeagueName"></div>
+},
+{
+<div id="shorebirdsGameState"></div>
+<div id="shorebirdsVisitingTeamName"></div>
+<div id="shorebirdsVisitingScore"></div>
+<div id="shorebirdsVisitingRecord"></div>
+<div id="shorebirdsHomeTeamName"></div>
+<div id="shorebirdsHomeScore"></div>
+<div id="shorebirdsHomeRecord"></div>
+<div id="shorebirdsLeagueName"></div>
+},
+{
+<div id="ironbirdsGameState"></div>
+<div id="ironbirdsVisitingTeamName"></div>
+<div id="ironbirdsVisitingScore"></div>
+<div id="ironbirdsVisitingRecord"></div>
+<div id="ironbirdsHomeTeamName"></div>
+<div id="ironbirdsHomeScore"></div>
+<div id="ironbirdsHomeRecord"></div>
+<div id="ironbirdsLeagueName"></div>
+}]}
+
+</body>
+</html>
