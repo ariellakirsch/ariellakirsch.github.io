@@ -52,11 +52,6 @@
       rowCount += 1;
   }
   $(document).ready(function(){
-      readData($("#data"));
-  });
-  </script>
-
-  <script type="text/javascript">
       google.charts.load('current', {
         'packages':['geochart'],
         // Note: you will need to get a mapsApiKey for your project.
@@ -64,8 +59,10 @@
         'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
       });
       google.charts.setOnLoadCallback(drawRegionsMap);
+  });
 
       function drawRegionsMap() {
+        readData($("#data"));
 
         var data = google.visualization.arrayToDataTable(worldBooks);
 
