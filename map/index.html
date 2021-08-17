@@ -1,106 +1,110 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Google Sheets API Quickstart</title>
-    <meta charset="utf-8" />
+<title>Book Map</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164257655-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164257655-1');
+</script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../bootstrap.min.js"></script>
+<link href="../bootstrap.min.css" rel="stylesheet">
+<link href="../bootstrap-theme.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+const reader = require("g-sheets-api");
+const readerOptions = {
+  sheetId: "2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA",
+  returnAllResults: true,
+};
+
+reader(readerOptions, (results) => {
+  console.log(results)l
+  /* Do something amazing with the results */
+});
+</script>
+
+<script type="text/javascript">
+
+  var worldBooks = new Array();
+  worldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
+
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+
+  function readData(parent) {
+      var data = spData;
+
+      var rowData = [];
+      var rowCount = 0;
+
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          var val = cell["$t"];
+          if (val=="0"){
+            val = " ";
+          }
+          if (cell.col == 1 && r>0) {
+              // drawRow(table, rowData);
+              var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i>'];
+              worldBooks.push(tmp_row);
+              rowCount += 1;
+              rowData = [];
+          }
+          rowData.push(val);
+      }
+      var tmp_row = [rowData[2], parseInt(rowData[3]), rowData[3]+'<br><br>'+rowData[0]+'<br><i>'+rowData[1]+'</i>'];
+      worldBooks.push(tmp_row);
+      rowCount += 1;
+  }
+  $(document).ready(function(){
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+  });
+
+      function drawRegionsMap() {
+        readData($("#data"));
+
+        var data = google.visualization.arrayToDataTable(worldBooks);
+
+        var options = {
+          colorAxis: {colors: ['#3366ff','#3366ff']},
+          legend: 'none',
+          tooltip: {
+            isHtml: true
+          }
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script src="https://spreadsheets.google.com/feeds/cells/15UbTYH7VTJaJ_Z0YPkVpP23hIUD4QeC7rpcwLuMwRDQ/1/public/values?alt=json-in-script&callback=doData"></script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
   </head>
-  <body>
-    <p>Google Sheets API Quickstart</p>
+  <body style="width: 90%;margin: auto;">
+  <br>
+<a href="../">
+  <span class="glyphicon glyphicon-home"></span>
+</a>
 
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" style="display: none;">Authorize</button>
-    <button id="signout_button" style="display: none;">Sign Out</button>
-
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-
-    <script>
-  var GoogleAuth;
-  var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
-  function handleClientLoad() {
-    // Load the API's client and auth2 modules.
-    // Call the initClient function after the modules load.
-    gapi.load('client:auth2', initClient);
-  }
-
-  function initClient() {
-    // In practice, your app can retrieve one or more discovery documents.
-    var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-
-    // Initialize the gapi.client object, which app uses to make API requests.
-    // Get API key and client ID from API Console.
-    // 'scope' field specifies space-delimited list of access scopes.
-    gapi.client.init({
-        'apiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
-        'clientId': '920551790030-pv246nf2iog6gglm7h1l89ccjqgs8a8p.apps.googleusercontent.com',
-        'discoveryDocs': [discoveryUrl],
-        'scope': SCOPE
-    }).then(function () {
-      GoogleAuth = gapi.auth2.getAuthInstance();
-
-      // Listen for sign-in state changes.
-      GoogleAuth.isSignedIn.listen(updateSigninStatus);
-
-      // Handle initial sign-in state. (Determine if user is already signed in.)
-      var user = GoogleAuth.currentUser.get();
-      setSigninStatus();
-
-      // Call handleAuthClick function when user clicks on
-      //      "Sign In/Authorize" button.
-      $('#sign-in-or-out-button').click(function() {
-        handleAuthClick();
-      });
-      $('#revoke-access-button').click(function() {
-        revokeAccess();
-      });
-    });
-  }
-
-  function handleAuthClick() {
-    if (GoogleAuth.isSignedIn.get()) {
-      // User is authorized and has clicked "Sign out" button.
-      GoogleAuth.signOut();
-    } else {
-      // User is not signed in. Start Google auth flow.
-      GoogleAuth.signIn();
-    }
-  }
-
-  function revokeAccess() {
-    GoogleAuth.disconnect();
-  }
-
-  function setSigninStatus() {
-    var user = GoogleAuth.currentUser.get();
-    var isAuthorized = user.hasGrantedScopes(SCOPE);
-    if (isAuthorized) {
-      $('#sign-in-or-out-button').html('Sign out');
-      $('#revoke-access-button').css('display', 'inline-block');
-      $('#auth-status').html('You are currently signed in and have granted ' +
-          'access to this app.');
-    } else {
-      $('#sign-in-or-out-button').html('Sign In/Authorize');
-      $('#revoke-access-button').css('display', 'none');
-      $('#auth-status').html('You have not authorized this app or you are ' +
-          'signed out.');
-    }
-  }
-
-  function updateSigninStatus() {
-    setSigninStatus();
-  }
-</script>
-
-<button id="sign-in-or-out-button"
-        style="margin-left: 25px">Sign In/Authorize</button>
-<button id="revoke-access-button"
-        style="display: none; margin-left: 25px">Revoke access</button>
-
-<div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-</script>
+<center><h3>Book Map</h3></center>
+    <div id="regions_div" style="width: 100%;"></div>
   </body>
 </html>
