@@ -22,33 +22,28 @@
       httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA/pub?gid=1722454984&single=true&output=csv', function(result){
           let str = result;
           let lines = str.split('\r\n');
-          var myWorldBooks = new Array();
-          myWorldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
+          var worldBooks = new Array();
+          worldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
           for (var i=0; i<lines.length; i++){
             let line = lines[i].split(',');
             var tmp_row = [line[2], parseInt(line[3]), line[3]+'<br><br>'+line[0]+'<br><i>'+line[1]+'</i>'];
-            myWorldBooks.push(tmp_row);
+            worldBooks.push(tmp_row);
           }
-          return myWorldBooks;
+          var data = google.visualization.arrayToDataTable(worldBooks);
+
+          var options = {
+            colorAxis: {colors: ['#3366ff','#3366ff']},
+            legend: 'none',
+            tooltip: {
+              isHtml: true
+            }
+          };
+
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+          chart.draw(data, options);
       });
   }
-      function drawRegionsMap() {
-        var worldBooks = readData($("#data"));
-
-        var data = google.visualization.arrayToDataTable(worldBooks);
-
-        var options = {
-          colorAxis: {colors: ['#3366ff','#3366ff']},
-          legend: 'none',
-          tooltip: {
-            isHtml: true
-          }
-        };
-
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
 
 function httpGetAsync(theUrl, callback) {
   let xmlHttpReq = new XMLHttpRequest();
@@ -66,7 +61,7 @@ function httpGetAsync(theUrl, callback) {
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
       });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+      google.charts.setOnLoadCallback(readData($("#data")));
   });
 
     </script>
