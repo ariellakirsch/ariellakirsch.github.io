@@ -21,53 +21,16 @@
   var worldBooks = new Array();
   worldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
 
-  var spData = null;
-  function doData(json) {
-      spData = json.feed.entry;
-  }
-
   function readData(parent) {
-      var data = spData;
-
-      var rowData = [
-            ['The Round House','Louise Erdrich','United States',2013],
-            ['Blindness','Jose Saramago','Portugal',2004],
-            ['David Copperfield','Charles Dickens','England',2010],
-            ['Kafka on the Shore','Haruki Murakami','Japan',2012],
-            ['Kartography','Kamila Shamsie','Pakistan',2010],
-            ['The Blue Sky','Galsan Tschinag','Mongolia',2010],
-            ['We','Yevgeny Zamyatin','Russia',2011],
-            ['The Book Thief','Markus Zusak','Australia',2014],
-            ['We Need New Names','NoViolet Bulawayo','Zimbabwe',2014],
-            ['Americanah','Chimamanda Ngozi Adichie','Nigeria',2015],
-            ['A Thousand Splendid Suns','Khaled Hosseini','Afghanistan',2011],
-            ['Oryx and Crake','Margaret Atwood','Canada',2015],
-            ['To Siberia','Per Petterson','Norway',2015],
-            ['The Elephant Keepers Children','Peter Hoeg','Denmark',2015],
-            ['The Alchemist','Paulo Coelho','Brazil',1999],
-            ['In the Shadow of the Banyan','Vaddey Ratner','Cambodia',2015],
-            ['Stones from the River','Ursula Hegi','Germany',2015],
-            ['Before We Were Free','Julia Alvarez','Dominican Republic',2015],
-            ['In the Country of Men','Hisham Matar','Libya',2015],
-            ['The Meursault Investigation','Kamel Daoud','Algeria',2015],
-            ['The Heart\'s Invisible Furies','John Boyne','Ireland',2018],
-            ['The Fat Years','Koonchung Chan','China',2016],
-            ['The Solitude of Prime Numbers','Paolo Giordano','Italy',2017],
-            ['The Sympathizer','Viet Thanh Nguyen','Vietnam',2017],
-            ['Girls of Riyadh','Rajaa Alsanea','Saudi Arabia',2017],
-            ['Black Moses ','Alain Mabanckou','Congo - Brazzaville',2017],
-            ['Homegoing','Yaa Gyasi','Ghana',2017],
-            ['Behold the Dreamers','Imbolo Mbue','Cameroon',2018],
-            ['Fever Dream','Samanta Schweblin','Argentina',2018],
-            ['Quicksand','Malin Persson Giolito','Sweden',2018],
-            ['Out in the Open','Jesús Carrasco','Spain',2018],
-            ['Crazy Rich Asians','Kevin Kwan','Singapore',2019],
-            ['Book of the Little Axe','Lauren Francis-Sharma','Trinidad',2020],
-            ['The Shadow King','Maaza Mengiste','Ethiopia',2020],
-            ['A Burning','Megha Majumdar','India',2021],
-            ['I\'ll Sell You a Dog','Juan Pablo Villalobos','Mexico',2021],
-            ['The Accidental','Ali Smith','Scotland',2021],
-            ['Infinite Country','Patricia Engel','Colombia',2021]];
+      httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA/pub?gid=1722454984&single=true&output=csv', function(result){
+          let str = result;
+          let lines = str.split('\r\n');
+          var rowData = [];
+          for (var i=0; i<lines.length; i++){
+            let line = lines[i].split(',');
+            rowData.push(line);
+          }
+      });
 
       for(var r=0; r<rowData.length; r++) {
         var tmp_row = [rowData[r][2], parseInt(rowData[r][3]), rowData[r][3]+'<br><br>'+rowData[r][0]+'<br><i>'+rowData[r][1]+'</i>'];
@@ -110,19 +73,7 @@ function httpGetAsync(theUrl, callback) {
   xmlHttpReq.open("GET", theUrl, true); // true for asynchronous
   xmlHttpReq.send(null);
 }
-httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA/pub?gid=1722454984&single=true&output=csv', function(result){
-    console.log(typeof result);
-    let str = result;
-    let lines = str.split('\r\n');
-    console.log(lines);
-    for (var i=0; i<lines.length; i++){
-      let line = lines[i].split(',');
-      for (var j=0; j<line.length; j++){
-        console.log(line[j]);
-      }
-      console.log("\n");
-    }
-});
+
     </script>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
