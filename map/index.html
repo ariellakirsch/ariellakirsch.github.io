@@ -101,13 +101,17 @@
         chart.draw(data, options);
       }
 
-      function httpGet(theUrl) {
+function httpGetAsync(theUrl, callback) {
   let xmlHttpReq = new XMLHttpRequest();
-  xmlHttpReq.open("GET", theUrl, false);
+  xmlHttpReq.onreadystatechange = function () {
+    if (xmlHttpReq.readyState == 4 && xmlHttpReq.status == 200)
+      callback(xmlHttpReq.responseText);
+  }
+  xmlHttpReq.open("GET", theUrl, true); // true for asynchronous
   xmlHttpReq.send(null);
-  return xmlHttpReq.responseText;
 }
- console.log(httpGet('hhttps://docs.google.com/spreadsheets/d/e/2PACX-1vQ8q5BAnLC4HZ0Yh0jbf0CvRNZ3KeqH7Ah_TUYbWXYEBBYXiBrPOjhhs1eDKN7eKoUyLyX3lpFL6WOj/pubhtml?gid=698117380&single=true'));
+httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8q5BAnLC4HZ0Yh0jbf0CvRNZ3KeqH7Ah_TUYbWXYEBBYXiBrPOjhhs1eDKN7eKoUyLyX3lpFL6WOj/pubhtml?gid=698117380&single=true', function(result){
+    console.log(result);
 
     </script>
 
