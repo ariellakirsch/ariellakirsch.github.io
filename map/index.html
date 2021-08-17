@@ -112,7 +112,9 @@ function httpGetAsync(theUrl, callback) {
 }
 httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA/pub?gid=1722454984&single=true&output=csv', function(result){
     console.log(typeof result);
-//    var lines = result.split('\n');
+    let str = result;
+    let lines = str.split('\n');
+    console.log(lines);
  //   for (var i=0; i<lines.length; i++){
   //    var line = lines.split(',');
   //    for (var j=0; j<line.length; j++){
