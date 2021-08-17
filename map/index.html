@@ -100,6 +100,15 @@
 
         chart.draw(data, options);
       }
+
+      function httpGet(theUrl) {
+  let xmlHttpReq = new XMLHttpRequest();
+  xmlHttpReq.open("GET", theUrl, false);
+  xmlHttpReq.send(null);
+  return xmlHttpReq.responseText;
+}
+ console.log(httpGet('hhttps://docs.google.com/spreadsheets/d/e/2PACX-1vQ8q5BAnLC4HZ0Yh0jbf0CvRNZ3KeqH7Ah_TUYbWXYEBBYXiBrPOjhhs1eDKN7eKoUyLyX3lpFL6WOj/pubhtml?gid=698117380&single=true'));
+
     </script>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
