@@ -39,16 +39,9 @@
         var tmp_row = [rowData[r][2], parseInt(rowData[r][3]), rowData[r][3]+'<br><br>'+rowData[r][0]+'<br><i>'+rowData[r][1]+'</i>'];
         worldBooks.push(tmp_row);
       }
-  }
-  $(document).ready(function(){
-      google.charts.load('current', {
-        'packages':['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
-  });
 
+      console.log(worldBooks);
+  }
       function drawRegionsMap() {
         readData($("#data"));
 
@@ -76,6 +69,15 @@ function httpGetAsync(theUrl, callback) {
   xmlHttpReq.open("GET", theUrl, true); // true for asynchronous
   xmlHttpReq.send(null);
 }
+
+  $(document).ready(function(){
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+  });
 
     </script>
 
