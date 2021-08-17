@@ -18,33 +18,22 @@
 
 <script type="text/javascript">
 
-  var worldBooks = new Array();
-  worldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
-
-  var rowData = [];
-
   function readData(parent) {
       httpGetAsync('https://docs.google.com/spreadsheets/d/e/2PACX-1vQcfkiJl4CazSTahNAb7A1hI01klAvQUpCfVC_TrDO9aVYe1BErUaYHXMMnoa-ErjnJUjWU88gU6cuA/pub?gid=1722454984&single=true&output=csv', function(result){
           let str = result;
           let lines = str.split('\r\n');
+          var myWorldBooks = new Array();
+          myWorldBooks.push(['Country', 'Year', {role: 'tooltip', p:{html:true}}]);
           for (var i=0; i<lines.length; i++){
             let line = lines[i].split(',');
-            rowData.push(line);
+            var tmp_row = [line[2], parseInt(line[3]), line[3]+'<br><br>'+line[0]+'<br><i>'+line[1]+'</i>'];
+            myWorldBooks.push(tmp_row);
           }
+          return myWorldBooks;
       });
-
-      console.log(rowData);
-
-      for(var r=0; r<rowData.length; r++) {
-        var tmp_row = [rowData[r][2], parseInt(rowData[r][3]), rowData[r][3]+'<br><br>'+rowData[r][0]+'<br><i>'+rowData[r][1]+'</i>'];
-        console.log(tmp_row);
-        worldBooks.push(tmp_row);
-      }
-
-      console.log(worldBooks);
   }
       function drawRegionsMap() {
-        readData($("#data"));
+        var worldBooks = readData($("#data"));
 
         var data = google.visualization.arrayToDataTable(worldBooks);
 
