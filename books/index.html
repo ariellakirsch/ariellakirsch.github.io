@@ -168,7 +168,7 @@ function CSVtoArray(text) {
           var table = drawTable(parent);
           table.id = "myTable";
 
-          var rowCount = -1;
+          var rowCount = 0;
 
           drawHeaderRow(table, ["Title","Author","Genre","Year","Rating"]);
           for(var r=1; r<lines.length; r++) {
