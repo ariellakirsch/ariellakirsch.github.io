@@ -200,7 +200,7 @@ function CSVtoArray(text) {
 
           for(var key in yearData) {
             var value = yearData[key];
-            yearDataArray.push([key, value]);
+            yearDataArray.push([key, value-1]);
           }
 
           rowCount -= 2;
