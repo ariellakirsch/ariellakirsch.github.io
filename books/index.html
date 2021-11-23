@@ -172,7 +172,7 @@ function CSVtoArray(text) {
           drawHeaderRow(table, ["Title","Author","Genre","Year","Rating"]);
           for(var r=1; r<lines.length; r++) {
             console.log(lines[r]);
-            let line = CSVtoArray(lines[r].replace("'","\\'"));
+            let line = CSVtoArray(lines[r].replace("'","&#39;"));
             console.log(line);
             var rowData = [line[1],line[2],line[3],line[4],line[5]];
             if (rowData[3]=="0"){
