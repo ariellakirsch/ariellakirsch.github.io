@@ -226,7 +226,8 @@ function httpGetAsync(theUrl, callback) {
 }
 
 
-      function drawChart() {
+      async function drawChart() {
+        yearDataArray = await readData($("#data"));
         var data = google.visualization.arrayToDataTable(yearDataArray);
 
         var options = {
@@ -246,7 +247,7 @@ function httpGetAsync(theUrl, callback) {
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
       });
-      google.charts.setOnLoadCallback(readData($("#data")));
+      google.charts.setOnLoadCallback(drawChart()));
   });
 </script>
 
