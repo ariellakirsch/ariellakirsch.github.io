@@ -212,18 +212,6 @@ function CSVtoArray(text) {
             document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
           }
 
-//      function drawChart() {
-        var data = google.visualization.arrayToDataTable(yearDataArray);
-
-        var options = {
-          title: 'Books By Year',
-          legend: 'none'
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-//      }
       });
   }
 
@@ -238,6 +226,19 @@ function httpGetAsync(theUrl, callback) {
 }
 
 
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(yearDataArray);
+
+        var options = {
+          title: 'Books By Year',
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+
 
   $(document).ready(function(){
       google.charts.load('current', {
@@ -246,6 +247,7 @@ function httpGetAsync(theUrl, callback) {
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
       });
       google.charts.setOnLoadCallback(readData($("#data")));
+      drawChart();
   });
 </script>
 
