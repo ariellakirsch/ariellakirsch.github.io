@@ -188,8 +188,8 @@ function CSVtoArray(text) {
             }
             console.log(rowData);
             drawRow(table, rowData);
-            if (rowData[4] != " " && parseInt(rowData[4])>=2009){
-              yearData[parseInt(rowData[4])] += 1;
+            if (rowData[3] != " " && parseInt(rowData[3])>=2009){
+              yearData[parseInt(rowData[3])] += 1;
             }
             rowCount += 1;
           }
