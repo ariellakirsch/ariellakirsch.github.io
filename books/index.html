@@ -145,7 +145,6 @@
           let str = result;
           let lines = str.split('\r\n');
           console.log(lines);
-      var data = spData;
       var table = drawTable(parent);
       table.id = "myTable";
 
@@ -153,7 +152,8 @@
 
       var rowCount = 0;
 
-      for(var r=0; r<data.length; r++) {
+      for(var r=0; r<lines.length; r++) {
+          let line = lines[i].split(',');
           var cell = data[r]["gs$cell"];
           var val = cell["$t"];
           if (val=="0"){
@@ -198,21 +198,18 @@
         document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
       }
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(yearDataArray);
-
-        var options = {
-          title: 'Books By Year',
-          legend: 'none'
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
+//      function drawChart() {
+//        var data = google.visualization.arrayToDataTable(yearDataArray);
+//
+//        var options = {
+//          title: 'Books By Year',
+//          legend: 'none'
+//        };
+//
+//        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+//
+//        chart.draw(data, options);
+//      }
       });
   }
 
@@ -229,7 +226,12 @@ function httpGetAsync(theUrl, callback) {
 
 
   $(document).ready(function(){
-      readData($("#data"));
+      google.charts.load('current', {
+        'packages':['corechart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+      });
+      google.charts.setOnLoadCallback(readData($("#data")));
   });
 </script>
 
