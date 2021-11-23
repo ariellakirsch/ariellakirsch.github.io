@@ -212,6 +212,17 @@ function CSVtoArray(text) {
             document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
           }
 
+          var data = google.visualization.arrayToDataTable(yearDataArray);
+
+          var options = {
+            title: 'Books By Year',
+            legend: 'none'
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+
       });
   }
 
@@ -226,8 +237,7 @@ function httpGetAsync(theUrl, callback) {
 }
 
 
-      async function drawChart() {
-        yearDataArray = await readData($("#data"));
+      function drawChart() {
         var data = google.visualization.arrayToDataTable(yearDataArray);
 
         var options = {
@@ -247,7 +257,7 @@ function httpGetAsync(theUrl, callback) {
         // Note: you will need to get a mapsApiKey for your project.
         // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
       });
-      google.charts.setOnLoadCallback(drawChart()));
+      google.charts.setOnLoadCallback(readData($("#data")));
   });
 </script>
 
