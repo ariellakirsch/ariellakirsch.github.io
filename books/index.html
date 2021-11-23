@@ -145,58 +145,40 @@
           let str = result;
           let lines = str.split('\r\n');
           console.log(lines);
-      var table = drawTable(parent);
-      table.id = "myTable";
+          var table = drawTable(parent);
+          table.id = "myTable";
 
-      var rowData = [];
+          var rowCount = 0;
 
-      var rowCount = 0;
-
-      for(var r=0; r<lines.length; r++) {
-          let line = lines[i].split(',');
-          var cell = data[r]["gs$cell"];
-          var val = cell["$t"];
-          if (val=="0"){
-            val = " ";
+          drawHeaderRow(table, ["Title","Author","Genre","Year","Rating"]);
+          for(var r=0; r<lines.length; r++) {
+            let line = lines[i].split(',');
+            console.log(line);
+            //drawRow(table, rowData);
+            drawRow(table, rowData);
+            if (rowData[4] != " " && parseInt(rowData[4])>=2009){
+              yearData[parseInt(rowData[4])] += 1;
+            }
+            rowCount += 1;
           }
-          if (cell.col == 1) {
-              if (r==6){
-                drawHeaderRow(table, rowData);
-              }
-              else{
-                drawRow(table, rowData);
-                if (rowData[4] != " " && parseInt(rowData[4])>=2009){
-                  yearData[parseInt(rowData[4])] += 1;
-                }
-                rowCount += 1;
-              }
-              rowData = [];
+
+          yearDataArray = new Array();
+
+          yearDataArray.push(['Year', 'Books']);
+
+          for(var key in yearData) {
+            var value = yearData[key];
+            yearDataArray.push([key, value]);
           }
-          rowData.push(val);
-      }
-      drawRow(table, rowData);
-      if (rowData[4] != " " && parseInt(rowData[4])>=2009){
-        yearData[parseInt(rowData[4])] += 1;
-      }
-      rowCount += 1;
 
-      yearDataArray = new Array();
+          rowCount -= 1;
 
-      yearDataArray.push(['Year', 'Books']);
-
-      for(var key in yearData) {
-        var value = yearData[key];
-        yearDataArray.push([key, value]);
-      }
-
-      rowCount -= 1;
-
-      if (rowCount == 1){
-        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
-      }
-      else{
-        document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
-      }
+          if (rowCount == 1){
+            document.getElementById("numberBooks").innerHTML = rowCount.toString()+" book";
+          }
+          else{
+            document.getElementById("numberBooks").innerHTML = rowCount.toString()+" books";
+          }
 
 //      function drawChart() {
 //        var data = google.visualization.arrayToDataTable(yearDataArray);
