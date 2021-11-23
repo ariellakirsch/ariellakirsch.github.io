@@ -213,16 +213,16 @@ function CSVtoArray(text) {
           }
 
 //      function drawChart() {
-//        var data = google.visualization.arrayToDataTable(yearDataArray);
-//
-//        var options = {
-//          title: 'Books By Year',
-//          legend: 'none'
-//        };
-//
-//        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-//
-//        chart.draw(data, options);
+        var data = google.visualization.arrayToDataTable(yearDataArray);
+
+        var options = {
+          title: 'Books By Year',
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
 //      }
       });
   }
