@@ -152,7 +152,8 @@
 
           drawHeaderRow(table, ["Title","Author","Genre","Year","Rating"]);
           for(var r=1; r<lines.length; r++) {
-            let line = lines[r].split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+            console.log(lines[r]);
+            let line = lines[r].split(',');
             var rowData = [line[1],line[2],line[3],line[4],line[5]];
             if (rowData[3]=="0"){
               rowData[3] = " ";
@@ -160,7 +161,6 @@
             if (rowData[4]=="0"){
               rowData[4] = " ";
             }
-            console.log(line);
             console.log(rowData);
             drawRow(table, rowData);
             if (rowData[4] != " " && parseInt(rowData[4])>=2009){
