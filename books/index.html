@@ -203,11 +203,11 @@ function CSVtoArray(text) {
             yearDataArray.push([key, value-1]);
           }
 
-          if (rowCount == 2){
-            document.getElementById("numberBooks").innerHTML = (rowCount-1).toString()+" book";
+          if (rowCount == 3){
+            document.getElementById("numberBooks").innerHTML = (rowCount-2).toString()+" book";
           }
           else{
-            document.getElementById("numberBooks").innerHTML = (rowCount-1).toString()+" books";
+            document.getElementById("numberBooks").innerHTML = (rowCount-2).toString()+" books";
           }
 
           var data = google.visualization.arrayToDataTable(yearDataArray);
