@@ -44,7 +44,7 @@
     if (rowData.length == 0) return null;
     var tr = $("<tr/>");
     table.append(tr);
-    for(var c=1; c<6; c++) {
+    for(var c=0; c<5; c++) {
       drawHeaderCell(tr, rowData[c]);
     }
     return tr;
@@ -55,7 +55,7 @@
     if (rowData.length == 0) return null;
     var tr = $("<tr/>");
     table.append(tr);
-    for(var c=1; c<6; c++) {
+    for(var c=0; c<5; c++) {
       drawCell(tr, rowData[c]);
     }
     return tr;
@@ -153,8 +153,6 @@
           drawHeaderRow(table, ["Title","Author","Genre","Year","Rating"]);
           for(var r=1; r<lines.length; r++) {
             let line = lines[r].split(',');
-            console.log(line);
-            //drawRow(table, rowData);
             var rowData = [line[1],line[2],line[3],line[4],line[5]];
             if (rowData[3]=="0"){
               rowData[3] = " ";
@@ -162,6 +160,7 @@
             if (rowData[4]=="0"){
               rowData[4] = " ";
             }
+            console.log(rowData);
             drawRow(table, rowData);
             if (rowData[4] != " " && parseInt(rowData[4])>=2009){
               yearData[parseInt(rowData[4])] += 1;
